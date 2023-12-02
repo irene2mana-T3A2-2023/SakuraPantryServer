@@ -9,7 +9,8 @@
     "dev": "cross-env NODE_ENV=development nodemon server.js",
     "lint": "eslint ./src/**/*.js",
     "lint:fix": "eslint ./src/**/*.js --fix",
-    "format": "prettier --write ./src/**/*.js"
+    "format": "prettier --write ./src/**/*.js",
+    "prepare": "husky install"
   },
   "author": "",
   "license": "ISC",
@@ -17,6 +18,8 @@
     "cross-env": "^7.0.3",
     "eslint": "^8.54.0",
     "eslint-config-prettier": "^9.0.0",
+    "husky": "^8.0.0",
+    "lint-staged": "^15.1.0",
     "nodemon": "^3.0.1",
     "prettier": "^3.1.0"
   },
