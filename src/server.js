@@ -15,7 +15,7 @@ app.use(express.json());
 
 app.get('/', (req, res) => {
   res.json({
-    message: 'API is working'
+    message: 'API is working!'
   });
 });
 
