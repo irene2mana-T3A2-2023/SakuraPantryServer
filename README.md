@@ -15,7 +15,7 @@
 - [Irene Nguyen](https://github.com/irenenguyen1017)
 - [Ellen Pham](https://github.com/ellenpham)
 
-## Available Script
+## Available Scripts
 
 In the project directory, you can run:
 
@@ -42,3 +42,34 @@ Automatically fixes fixable issues and suppresses output for warnings.
 
 Uses [Prettier](https://www.npmjs.com/package/prettier) to format the JavaScript files in the src directory, ensuring a consistent code style across the project.
 
+## Server Development Dependencies
+
+Our project uses a variety of development tools to streamline the development process and ensure code quality. Below is a list of the development dependencies specified in our `package.json` file:
+
+### `cross-env` 
+
+Enables consistent use of environment variables across different operating systems, essential for scripts to work smoothly on both Windows and Unix-like environments.
+
+### `eslint`
+
+A static code analysis tool that helps identify and fix patterns in JavaScript code, enhancing consistency and preventing bugs.
+
+### `eslint-config-prettier`
+
+Disables all ESLint rules that conflict with Prettier, ensuring seamless integration of ESLint with Prettier for code formatting.
+
+### `husky`
+
+Enhances code quality by enabling the use of Git hooks, which can lint and test code automatically before commits and pushes.
+
+### `lint-staged`
+
+Designed for running linters on staged Git files. This is especially useful in conjunction with Husky, allowing you to lint only the files that are staged for a commit.
+
+### `nodemon`
+
+A utility that monitors for any changes in your source code and automatically restarts your server, enhancing the development experience.
+
+### `prettier`
+
+An opinionated code formatter that supports multiple languages and integrates with most editors to ensure consistent code style across the project.
