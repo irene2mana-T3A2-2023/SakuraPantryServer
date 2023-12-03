@@ -19,7 +19,7 @@
 
 In the project directory, you can run:
 
-### `npm start` 
+### `npm start`
 
 Launches the server in production mode.\
 It sets the `NODE_ENV` environment variable to `production` and starts the application using the main index.js file.
@@ -34,7 +34,7 @@ It uses nodemon for automatic restarting upon file changes and sets `NODE_ENV` t
 Runs ESLint to check for code issues in the `src` directory.\
 It helps in maintaining code quality and consistency.
 
-### `npm run lint:fix` 
+### `npm run lint:fix`
 
 Automatically fixes fixable issues and suppresses output for warnings.
 
@@ -46,7 +46,7 @@ Uses [Prettier](https://www.npmjs.com/package/prettier) to format the JavaScript
 
 Our project uses a variety of development tools to streamline the development process and ensure code quality. Below is a list of the development dependencies specified in our `package.json` file:
 
-### `cross-env` 
+### `cross-env`
 
 Enables consistent use of environment variables across different operating systems, essential for scripts to work smoothly on both Windows and Unix-like environments.
 
