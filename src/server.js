@@ -1,14 +1,14 @@
 import express from 'express';
 import cors from 'cors';
-// import logger from 'morgan';
+import { envConfig } from './configs/env.js';
 
 const app = express();
 
 const corsOptions = {
-  origin: ['http://localhost:3000/'],
-  optionsSuccessStatus: 200
+  origin: envConfig.clientHost
 };
 
+// enable CORS - Cross Origin Resource Sharing
 app.use(cors(corsOptions));
 
 app.use(express.json());
