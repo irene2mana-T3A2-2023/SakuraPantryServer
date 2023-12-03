@@ -73,3 +73,18 @@ A utility that monitors for any changes in your source code and automatically re
 ### `prettier`
 
 An opinionated code formatter that supports multiple languages and integrates with most editors to ensure consistent code style across the project.
+
+## Server Dependencies
+
+### `cors`  
+
+Acts as middleware for Express, enabling Cross-Origin Resource Sharing (CORS).\
+CORS is crucial for web application security, as it regulates how a web application can make requests to different domains, ensuring controlled and secure interaction with external resources.
+
+### `dotenv`
+
+Facilitates the management of environment variables. By separating configuration from code, it enhances security and flexibility, especially crucial for handling sensitive data like API keys and database credentials.
+
+### `express`
+
+A fast, unopinionated, minimalist web framework for Node.js, perfectly suited for efficiently building web applications and APIs without unnecessary complexity.
