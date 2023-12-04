@@ -58,13 +58,6 @@ A static code analysis tool that helps identify and fix patterns in JavaScript c
 
 Disables all ESLint rules that conflict with Prettier, ensuring seamless integration of ESLint with Prettier for code formatting.
 
-### `husky`
-
-Enhances code quality by enabling the use of Git hooks, which can lint and test code automatically before commits and pushes.
-
-### `lint-staged`
-
-Designed for running linters on staged Git files. This is especially useful in conjunction with Husky, allowing you to lint only the files that are staged for a commit.
 
 ### `nodemon`
 
