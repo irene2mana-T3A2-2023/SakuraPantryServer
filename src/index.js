@@ -1,8 +1,7 @@
-// This file handles the boot-up of the server 
+// This file handles the boot-up of the server
 import server from './server.js';
 import { envConfig } from './configs/env.js';
-import databaseConnect from './dbConnection.js'
-
+import databaseConnect from './dbConnection.js';
 
 server.listen(envConfig.port, async () => {
   await databaseConnect();
