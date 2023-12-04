@@ -7,9 +7,9 @@
   "scripts": {
     "start": "cross-env NODE_ENV=production node src/index.js",
     "dev": "cross-env NODE_ENV=development nodemon src/index.js",
-    "lint": "eslint ./src/**/*.js",
-    "lint:fix": "eslint ./src/**/*.js --fix",
-    "format": "prettier --write ./src/**/*.js",
+    "lint": "eslint \"**/*.js\"",
+    "lint:fix": "eslint \"**/*.js\" --fix",
+    "format": "prettier --write \"**/*.js\"",
     "prepare": "husky install"
   },
   "author": "",
