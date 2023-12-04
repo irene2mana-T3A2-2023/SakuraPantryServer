@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import { envConfig } from './configs/env.js';
 import ProductsRouter from './routes/ProductsRoutes.js';
+import CategoriesRouter from './routes/CategoriesRoutes.js';
 
 const app = express();
 
@@ -20,8 +21,9 @@ app.get('/', (req, res) => {
   });
 });
 
-//Create mount path to ProductsRoutes
+//Create mount path to each route
 app.use('/products', ProductsRouter);
+app.use('/categories', CategoriesRouter);
 
 
 export default app;
