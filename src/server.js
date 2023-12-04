@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import { envConfig } from './configs/env.js';
+import ProductsRouter from './routes/ProductsRoutes.js';
 
 const app = express();
 
@@ -18,5 +19,9 @@ app.get('/', (req, res) => {
     message: 'API is working'
   });
 });
+
+//Create mount path to ProductsRoutes
+app.use('/products', ProductsRouter);
+
 
 export default app;
