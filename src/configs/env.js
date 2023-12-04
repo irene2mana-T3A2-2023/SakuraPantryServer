@@ -1,9 +1,6 @@
 import path from 'path';
-
 import { Joi } from 'express-validation';
-
 import dotenv from 'dotenv';
-
 import { fileURLToPath } from 'url';
 
 // Convert the URL of the current module to a file path and assign it to '__filename'.
