@@ -27,12 +27,11 @@ const UserSchema = new Schema({
     required: false,
     unique: false
   },
-  // need to resolve duplicate null value
+  // phone should be unique, but it will throw duplicate error if there's no value provided regardless null value
+  // solution: validate the uniqueness of phone in application logic or front-end
   phone: {
     type: String,
-    required: false,
-    unique: true,
-    sparse: true
+    required: false
   },
   isActive: {
     type: Boolean,
