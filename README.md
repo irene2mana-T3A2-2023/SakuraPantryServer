@@ -81,3 +81,7 @@ Facilitates the management of environment variables. By separating configuration
 ### `express`
 
 A fast, unopinionated, minimalist web framework for Node.js, perfectly suited for efficiently building web applications and APIs without unnecessary complexity.
+
+### `mongoose`
+
+An Object Data Modelling (ODM) library for MongoDB and Node.js. It provides a straightforward, schema-based solution to model your application data and interact with MongoDB databases using JavaScript or TypeScript. 

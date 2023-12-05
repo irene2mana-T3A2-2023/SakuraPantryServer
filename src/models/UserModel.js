@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 
+// Define User Schema
 const UserSchema = new Schema(
   {
     email: {
@@ -38,7 +39,7 @@ const UserSchema = new Schema(
     },
     status: {
       type: String,
-      required: false,
+      required: true,
       enum: ['active', 'inactive'],
       default: 'active'
     },
@@ -76,12 +77,14 @@ const UserSchema = new Schema(
   { timestamps: true }
 );
 
+// This middleware is to perform some logic or actions before saving the document.
 UserSchema.pre('save', async function (next) {
   // eslint-disable-next-line no-console
   console.log('About to save a user to the DB!');
   next();
 });
 
+// Define User Model
 const User = mongoose.model('User', UserSchema);
 
 export default User;
