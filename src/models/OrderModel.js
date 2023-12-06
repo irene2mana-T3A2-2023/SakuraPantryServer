@@ -65,7 +65,7 @@ const OrderSchema = new Schema(
 // This middleware is to perform some logic or actions before saving the document.
 OrderSchema.pre('save', async function (next) {
   // eslint-disable-next-line no-console
-  console.log('About to save a user to the DB!');
+  console.log('About to save an order to the DB!');
   next();
 });
 

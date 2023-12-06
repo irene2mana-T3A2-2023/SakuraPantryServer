@@ -1,31 +1,25 @@
 [
     {
-        "id": 0,
         "name": "Noodles",
         "slug": "noodles"
     },
     {
-        "id": 1,
         "name": "Miso",
         "slug": "miso"
     },
     {
-        "id": 2,
         "name": "Dashi",
         "slug": "dashi"
     },
     {
-        "id": 3,
         "name": "Sauces",
         "slug": "sauces"
     },
     {
-        "id": 4,
         "name": "Seasonings",
         "slug": "seasonings"
     },
     {
-        "id": 5,
         "name": "Seaweed",
         "slug": "seaweed"
     }

@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
-// import { envConfig } from '../../configs/env';
 import fs from 'fs';
 import Category from '../../models/CategoryModel.js';
+import User from '../../models/UserModel.js';
 import databaseConnect from '../../dbConnection.js';
 
 import { fileURLToPath } from 'url';
@@ -10,64 +10,15 @@ import { dirname } from 'path';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-// databaseConnect()
-//   .then(async () => {
-//     // Read JSON file
-//     const categories = JSON.parse(fs.readFileSync(`${__dirname}/categories.json`, 'utf-8'));
 
-//     // Import data into database
-//     const importData = async () => {
-//       try {
-//         await Category.create(categories);
-//         // eslint-disable-next-line no-console
-//         console.log('Data successfully loaded!');
-//       } catch (importError) {
-//         // eslint-disable-next-line no-console
-//         console.log(importError);
-//       }
-//       //process.exit();
-//     };
-
-//     // Delete all data from collections
-//     const deleteData = async () => {
-//       try {
-//         await Category.deleteMany();
-//         // eslint-disable-next-line no-console
-//         console.log('Data successfully deleted!');
-//       } catch (deleteError) {
-//         // eslint-disable-next-line no-console
-//         console.log(deleteError);
-//       }
-//       //process.exit();
-//     };
-
-//     // if (process.argv[2] === '--import') {
-//     //   importData();
-//     // } else if (process.argv[2] === '--delete') {
-//     //   deleteData();
-//     // }
-//     importData();
-//   })
-//   .then(async () => {
-//     try {
-//       await mongoose.connection.close();
-//       // eslint-disable-next-line no-console
-//       console.log('Database disconnected!');
-//     } catch (disconnectError) {
-//       // eslint-disable-next-line no-console
-//       console.error('Error disconnecting from the database:', disconnectError);
-//     }
-//   })
-//   .catch((error) => {
-//     // eslint-disable-next-line no-console
-//     console.error('An unexpected error occurred:', error);
-//   });
-
+// Function to import dev data
 const importData = async () => {
 
+  const users = JSON.parse(fs.readFileSync(`${__dirname}/users.json`, 'utf-8'));
   const categories = JSON.parse(fs.readFileSync(`${__dirname}/categories.json`, 'utf-8'));
 
   try {
+    await User.create(users);
     await Category.create(categories);
     // eslint-disable-next-line no-console
     console.log('Data successfully loaded!');
@@ -75,11 +26,12 @@ const importData = async () => {
     // eslint-disable-next-line no-console
     console.error('Error during data import:', importError);
   }
-  process.exit();
 };
 
+// Function to delete dev data
 const deleteData = async () => {
   try {
+    await User.deleteMany();
     await Category.deleteMany();
     // eslint-disable-next-line no-console
     console.log('Data successfully deleted!');
@@ -87,44 +39,26 @@ const deleteData = async () => {
     // eslint-disable-next-line no-console
     console.log(deleteError);
   }
-  process.exit();
 };
 
-// databaseConnect()
-//   .then(async () => {
-//     try {
-//       if (process.argv[2] === '--import') {
-//         importData();
-//       } else if (process.argv[2] === '--delete') {
-//         deleteData();
-//       }
-//     } catch (error) {
-//       // eslint-disable-next-line no-console
-//       console.error('Error occurred:', error);
-//     }
-//   })
-//   .then(async () => {
-//     try {
-//       await mongoose.connection.close();
-//       // eslint-disable-next-line no-console
-//       console.log('Database disconnected!');
-//     } catch (disconnectError) {
-//       // eslint-disable-next-line no-console
-//       console.error('Error disconnecting from the database:', disconnectError);
-//     }
-//   })
-//   .catch((error) => {
-//     // eslint-disable-next-line no-console
-//     console.error('An unexpected error occurred:', error);
-//   });
-
-const importFunction = async () => {
+// Function to connect to db then import or delete data
+async function seedDatabase() {
+  try {
     await databaseConnect();
     if (process.argv[2] === '--import') {
-      importData();
+      await importData();
     } else if (process.argv[2] === '--delete') {
-      deleteData();
+      await deleteData();
     }
-};
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error('An error occurred:', error);
+  } finally {
+    // Closing the database connection
+    await mongoose.connection.close();
+    // eslint-disable-next-line no-console
+    console.log('Database disconnected!');
+  }
+}
 
-importFunction();
+seedDatabase();
