@@ -7,6 +7,7 @@
   "scripts": {
     "start": "cross-env NODE_ENV=production node src/index.js",
     "dev": "cross-env NODE_ENV=development nodemon src/index.js",
+    "seed": "cross-env NODE_ENV=development node src/seed.js",
     "lint": "eslint \"**/*.js\"",
     "lint:fix": "eslint \"**/*.js\" --fix",
     "format": "prettier --write \"**/*.js\""
@@ -24,6 +25,7 @@
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
-    "express-validation": "^4.1.0"
+    "express-validation": "^4.1.0",
+    "mongoose": "^8.0.2"
   }
 }

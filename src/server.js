@@ -1,12 +1,12 @@
 import express from 'express';
 import cors from 'cors';
 import { envConfig } from './configs/env.js';
-import ProductsRouter from './routes/ProductsRoutes.js';
-import CategoriesRouter from './routes/CategoriesRoutes.js';
-import OrdersRouter from './routes/OrdersRoutes.js';
-import UsersRouter from './routes/UsersRoutes.js';
+import orderRouter from './routes/OrderRoutes.js';
+import productRouter from './routes/ProductRoutes.js';
+import categoryRouter from './routes/CategoryRoutes.js';
 
 
+// define a server instance
 const app = express();
 
 const corsOptions = {
@@ -16,7 +16,9 @@ const corsOptions = {
 // enable CORS - Cross Origin Resource Sharing
 app.use(cors(corsOptions));
 
+// middleware to enable request.body
 app.use(express.json());
+
 
 app.get('/', (req, res) => {
   res.json({
@@ -24,11 +26,9 @@ app.get('/', (req, res) => {
   });
 });
 
-//Create mount path to each route
-app.use('/products', ProductsRouter);
-app.use('/categories', CategoriesRouter);
-app.use('/orders', OrdersRouter);
-app.use('/users', UsersRouter);
-
+// Routes
+app.use('/api/categories', categoryRouter);
+app.use('/api/products', productRouter);
+app.use('/api/orders', orderRouter);
 
 export default app;
