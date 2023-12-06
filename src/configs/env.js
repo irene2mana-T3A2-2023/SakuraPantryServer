@@ -1,5 +1,5 @@
 import path from 'path';
-import { Joi } from 'express-validation';
+import Joi from 'joi';
 import dotenv from 'dotenv';
 import { fileURLToPath } from 'url';
 
