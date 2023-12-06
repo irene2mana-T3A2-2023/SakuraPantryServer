@@ -9,10 +9,10 @@ const CategorySchema = new Schema(
       required: true,
       unique: true
     },
-    categorySlug: {
-        type: String,
-        required: true,
-        unique: true
+    slug: {
+      type: String,
+      required: true,
+      unique: true
     }
   },
   { timestamps: true }

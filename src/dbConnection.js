@@ -1,6 +1,13 @@
 import mongoose from 'mongoose';
 import { envConfig } from './configs/env.js';
 
+/**
+ * Connect or create and connect to a database
+ * @date 12/4/2023 - 11:02:23 AM
+ *
+ * @async
+ * @returns {*}
+ */
 async function databaseConnect() {
   try {
     // eslint-disable-next-line no-console
