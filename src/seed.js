@@ -31,11 +31,12 @@ databaseConnect()
 
       // eslint-disable-next-line no-console
       console.log(user1);
-  } catch (dropError) {
+    } catch (dropError) {
       // eslint-disable-next-line no-console
       console.error('Error dropping User collection:', dropError);
       throw dropError;
-  }})
+    }
+  })
   // Close the connection after completing data seeding
   .then(async () => {
     try {
@@ -50,4 +51,4 @@ databaseConnect()
   .catch((error) => {
     // eslint-disable-next-line no-console
     console.error('An unexpected error occurred:', error);
-});
+  });
