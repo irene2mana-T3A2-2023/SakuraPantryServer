@@ -85,3 +85,37 @@ A fast, unopinionated, minimalist web framework for Node.js, perfectly suited fo
 ### `mongoose`
 
 An Object Data Modelling (ODM) library for MongoDB and Node.js. It provides a straightforward, schema-based solution to model your application data and interact with MongoDB databases using JavaScript or TypeScript. 
+
+## API Endopoints
+### Products
+| Method | Routes          | Functionalities                         | Access | 
+| ------ | --------------- | --------------------------------------- | ------------- | 
+| GET    | /api/products/      | Get a list of all products              | Public          | 
+| GET    | /api/products/:slug | Get details of specific product by slug | Public          | 
+| POST   | /api/products      | Create a new product                    | Private         | 
+| PATCH  | /api/products/:slug | Update a specific product by slug       | Private          | 
+| DELETE | /api/products/:slug | Delete a specific product by slug       | Private          | 
+
+### Categories
+| Method | Routes            | Functionalities                    | Access | 
+| ------ | ----------------- | ---------------------------------- | ------------- | 
+| GET    | /api/categories       | Get a list of all categories       | Public          | 
+| POST   | /api/categories       | Create a new categories            | Private          | 
+| PATCH  | /api/categories/:slug | Update a specific category by slug | Private          | 
+| DELETE | /api/categories/:slug | Delete a specific category by slug | Private          | 
+
+### Orders
+| Method | Routes                  | Functionalities                                  | Access              | 
+| ------ | ----------------------- | ------------------------------------------------ | -------------------------- | 
+| GET    | /api/orders                 | Get a list of all orders                         | Private                       | 
+| POST   | /api/orders                 | Create a new order                               | Private          | 
+| GET    | /api/orders/:orderId        | Get a specific order by orderId                  | Private  | 
+| PATCH  | /api/orders/status/:orderId | Update the status of a specific order by orderId | Private                       | 
+
+### Authentication
+| Method | Routes            | Functionalities   | Access  | 
+| ------ | ----------------- | ----------------- | ------- | 
+| POST   | /api/auth/register | Create an account | Private | 
+|        |                   |                   |         | 
+|        |                   |                   |         | 
+|        |                   |                   |         | 
