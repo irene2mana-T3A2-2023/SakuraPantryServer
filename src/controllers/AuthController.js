@@ -30,7 +30,7 @@ export const register = async (req, res) => {
 
     // Creating new user
     const newUser = new User({ firstName, lastName, email, password: hashedPassword });
-    
+
     // Save the new user to the database
     await newUser.save();
 
