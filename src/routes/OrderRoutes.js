@@ -3,22 +3,15 @@ import * as OrderController from '../controllers/OrderController.js';
 
 const router = express.Router();
 
-// Define routes for '/api/orders' endpoint
-router.route('/')
-// Get all orders
-.get(OrderController.getAllOrders)
-// Create a new orders
-.post(OrderController.createOrder);
 
-// Define routes for 'api/orders/:OrderId' endpoint
-router.route('/:OrderId')
+// Get a list of all orders
+router.get('/orders', OrderController.getAllOrders);
 // Get a specific order by OrderId
-.get(OrderController.getOrder);
-
-
-router.route('/status/:OrderId')
+router.get('/orders/:OrderId', OrderController.getOrderById);
+// Create a new orders
+router.post('/orders', OrderController.createOrder);
 // Update order status by OrderId
-.patch(OrderController.updateOrderStatus);
+router.patch('/orders/status/:OrderId', OrderController.updateOrderStatus);
 
 
 export default router;

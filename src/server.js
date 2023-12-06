@@ -1,9 +1,9 @@
 import express from 'express';
 import cors from 'cors';
 import { envConfig } from './configs/env.js';
-import orderRouter from './routes/OrderRoutes.js';
-import productRouter from './routes/ProductRoutes.js';
-import categoryRouter from './routes/CategoryRoutes.js';
+import orderRoutes from './routes/OrderRoutes.js';
+import productRoutes from './routes/ProductRoutes.js';
+import categoryRoutes from './routes/CategoryRoutes.js';
 
 
 // define a server instance
@@ -26,9 +26,9 @@ app.get('/', (req, res) => {
   });
 });
 
-// Routes
-app.use('/api/categories', categoryRouter);
-app.use('/api/products', productRouter);
-app.use('/api/orders', orderRouter);
+// R
+app.use('/api', categoryRoutes);
+app.use('/api', productRoutes);
+app.use('/api', orderRoutes);
 
 export default app;

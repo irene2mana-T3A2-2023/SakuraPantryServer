@@ -1,24 +1,25 @@
 
 
 // Get a list of all orders
-export const getAllOrders = (req, res)=> {
-    res.json({
-        message: 'API is working'
-    });
+export const getAllOrders = (_)=> {
+
 };
+
 
 // Get a specific order by OrderId
-export const getOrder = (req, res) => {
+export const getOrderById = (_) => {
 
 };
+
 
 // Create a order by authenticated user 
-export const createOrder = (req, res) => {
+export const createOrder = (_) => {
 
 };
 
+
 // Update the status of a specific order by OrderId
-export const updateOrderStatus = (req, res) => {
+export const updateOrderStatus = (_) => {
 
 };
 

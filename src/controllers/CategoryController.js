@@ -1,22 +1,19 @@
 
 
 // Get a list of all categories 
-export const getAllCategories = (req, res) => {
-    res.json({
-        message: 'API is working'
-    });
+export const getAllCategories = (_) => {
 };
 
 // Create a new category
-export const createCategory = (req, res) => {
+export const createCategory = (_) => {
 
 };
 // Update a specific category by slug
-export const updateCategory = (req, res) => {
+export const updateCategory = (_) => {
 
 };
 
 // Delete a specific category by slug
-export const deleteCategory = (req, res) => {
+export const deleteCategory = (_) => {
 
 };

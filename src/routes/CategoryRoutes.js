@@ -3,20 +3,14 @@ import * as CategoryController from '../controllers/CategoryController.js';
 
 const router = express.Router();
 
-//Define routes for '/api/categories' endpoint
-router.route('/')
 //Get a list of all categories
-.get(CategoryController.getAllCategories)
+router.get('/categories', CategoryController.getAllCategories);
 //Create a new category
-.post(CategoryController.createCategory);
-
-
-//Define routes for '/api/categories/:slug' endpoint
-router.route('/:slug')
+router.post('/categories', CategoryController.createCategory);
 //Update a specific category by slug
-.patch(CategoryController.updateCategory)
+router.patch('/categories/:slug', CategoryController.updateCategory);
 //Delete a specific category by slug
-.delete(CategoryController.deleteCategory);
+router.delete('/categories/:slug', CategoryController.deleteCategory);
 
 
 

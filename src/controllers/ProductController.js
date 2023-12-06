@@ -1,27 +1,28 @@
 
 // Get a list of all products
-export const getAllProducts = (req, res) => {
-    res.json({
-        message: 'API is working'
-    });
+export const getAllProducts = (_) => {
+
+};
+
+// Get a specific product by slug
+export const getProduct = (_) => {
+
 };
 
 // Create a new product
-export const createProduct = (req, res) => {
+export const createProduct = (_) => {
 
 };
 
-// Get a specific product
-export const getProduct = (req, res) => {
+
+// Update a specific product by slug
+export const updateProduct = (_) => {
 
 };
 
-// Update a specific product
-export const updateProduct = (req, res) => {
 
-};
-// Delete a specific product
-export const deleteProduct = (req, res) => {
+// Delete a specific product by slug
+export const deleteProduct = (_) => {
 
 };
 
