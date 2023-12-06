@@ -26,9 +26,11 @@ app.get('/', (req, res) => {
   });
 });
 
-// R
+// Use the category routes
 app.use('/api', categoryRoutes);
+// Use the product routes
 app.use('/api', productRoutes);
+// Use the order routes
 app.use('/api', orderRoutes);
 
 export default app;
