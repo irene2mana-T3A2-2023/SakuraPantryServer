@@ -1,18 +1,19 @@
 import mongoose from 'mongoose';
 import User from './models/UserModel.js';
+import Product from './models/ProductModel.js';
+import Category from './models/CategoryModel.js';
 import databaseConnect from './dbConnection.js';
+import Order from './models/OrderModel.js';
 
 // Execute database connection then seed data
 databaseConnect()
   .then(async () => {
     try {
-      // Drop the database before seeding again
-      await User.collection.drop();
-
       // eslint-disable-next-line no-console
       console.log('Creating seed data');
-
+      
       // Seed an admin user
+      await User.collection.drop();
       let adminUser = await User.create({
         email: 'AdminUser@email.com',
         password: 'AdminUser1',
@@ -31,9 +32,51 @@ databaseConnect()
 
       // eslint-disable-next-line no-console
       console.log(user1);
+
+      // Seed a category
+      await Category.collection.drop();
+      let category1 = await Category.create({
+        name: 'Noodles',
+        slug: 'noodles'
+      });
+
+      // eslint-disable-next-line no-console
+      console.log(category1);
+
+      // Seed a product
+      await Product.collection.drop();
+      let product1 = await Product.create({
+        name: 'Ramen',
+        slug: 'ramen',
+        category: "656fcf38e9cbf8d74062e363",
+        description: "Ramen is yummy!",
+        stockQuantity: 5,
+        imageUrl: "https://shopifull.com/wp-content/uploads/2020/04/j-basket-Japanese-ramen-noodles-800gm.jpg",
+        price: "8.00",
+        isFeatured: true
+      });
+
+      // eslint-disable-next-line no-console
+      console.log(product1);
+
+      // Seed an order
+      await Order.collection.drop();
+      let order1 = await Order.create({
+        user: '656fd08ae403bba71b83a457',
+        items: {
+          product: '656fd08ae403bba71b83a45f',
+          quantity: 2
+        },
+        totalPrice: '16.00',
+        paymentMethod: 'Credit Card'
+      });
+
+      // eslint-disable-next-line no-console
+      console.log(order1);
+
     } catch (dropError) {
       // eslint-disable-next-line no-console
-      console.error('Error dropping User collection:', dropError);
+      console.error('Error dropping collections:', dropError);
       throw dropError;
     }
   })

@@ -34,7 +34,7 @@ export const register = async (req, res) => {
     // Save the new user to the database
     await newUser.save();
 
-    // Sending the access token in the response
+    // Respond a message indicating successful user registration
     res.status(200).json({ message: 'User successfully registered' });
   } catch (err) {
     // Handle error
