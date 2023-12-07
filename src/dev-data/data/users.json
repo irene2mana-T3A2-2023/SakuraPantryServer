@@ -9,8 +9,8 @@
         "password": "User1"
     },
     {
-        "email": "user2",
-        "password": "user2@email.com"
+        "email": "user2@email.com",
+        "password": "user2"
     }
 
 ]

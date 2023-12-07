@@ -10,13 +10,12 @@ import { dirname } from 'path';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
+// Read JSON files
+const users = JSON.parse(fs.readFileSync(`${__dirname}/users.json`, 'utf-8'));
+const categories = JSON.parse(fs.readFileSync(`${__dirname}/categories.json`, 'utf-8'));
 
 // Function to import dev data
 const importData = async () => {
-
-  const users = JSON.parse(fs.readFileSync(`${__dirname}/users.json`, 'utf-8'));
-  const categories = JSON.parse(fs.readFileSync(`${__dirname}/categories.json`, 'utf-8'));
-
   try {
     await User.create(users);
     await Category.create(categories);
@@ -37,7 +36,7 @@ const deleteData = async () => {
     console.log('Data successfully deleted!');
   } catch (deleteError) {
     // eslint-disable-next-line no-console
-    console.log(deleteError);
+    console.error('Error during data deleting:', deleteError);
   }
 };
 
