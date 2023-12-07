@@ -98,37 +98,40 @@ A utility that monitors for any changes in your source code and automatically re
 An opinionated code formatter that supports multiple languages and integrates with most editors to ensure consistent code style across the project.
 
 ## API Endpoints
+
 ### Products
-| Method | Routes          | Functionalities                         | Access | 
-| ------ | --------------- | --------------------------------------- | ------------- | 
-| GET    | /api/products      | Get a list of all products              | Public          | 
-| GET    | /api/products/:slug | Get details of specific product by slug | Public          | 
-| POST   | /api/products      | Create a new product                    | Private         | 
-| PATCH  | /api/products/:slug | Update a specific product by slug       | Private          | 
-| DELETE | /api/products/:slug | Delete a specific product by slug       | Private          | 
+
+| Method | Routes                | Functionalities                           | Access   |
+| ------ | --------------------- | ------------------------------------------| ---------|
+| GET    | `/api/products`       | Get a list of all products                | Public   |
+| GET    | `/api/products/:slug` | Get details of a specific product by slug | Public   |
+| POST   | `/api/products`       | Create a new product                      | Private  |
+| PATCH  | `/api/products/:slug` | Update a specific product by slug         | Private  |
+| DELETE | `/api/products/:slug` | Delete a specific product by slug         | Private  |
 
 ### Categories
-| Method | Routes            | Functionalities                    | Access | 
-| ------ | ----------------- | ---------------------------------- | ------------- | 
-| GET    | /api/categories       | Get a list of all categories       | Public          | 
-| POST   | /api/categories       | Create a new categories            | Private          | 
-| PATCH  | /api/categories/:slug | Update a specific category by slug | Private          | 
-| DELETE | /api/categories/:slug | Delete a specific category by slug | Private          | 
+
+| Method | Routes                  | Functionalities                     | Access  |
+| ------ | ----------------------- | ----------------------------------- | --------|
+| GET    | `/api/categories`       | Get a list of all categories        | Public  |
+| POST   | `/api/categories`       | Create a new categories             | Private |
+| PATCH  | `/api/categories/:slug` | Update a specific category by slug  | Private |
+| DELETE | `/api/categories/:slug` | Delete a specific category by slug  | Private |
 
 ### Orders
-| Method | Routes                  | Functionalities                                  | Access              | 
-| ------ | ----------------------- | ------------------------------------------------ | -------------------------- | 
-| GET    | /api/orders                 | Get a list of all orders                         | Private                       | 
-| POST   | /api/orders                 | Create a new order                               | Private          | 
-| GET    | /api/orders/:orderId        | Get a specific order by orderId                  | Private  | 
-| PATCH  | /api/orders/status/:orderId | Update the status of a specific order by orderId | Private                       | 
+
+| Method | Routes                        | Functionalities                                  | Access   |
+| ------ | ----------------------------- | ------------------------------------------------ | ---------|
+| GET    | `/api/orders`                 | Get a list of all orders                         | Private  |
+| POST   | `/api/orders`                 | Create a new order                               | Private  |
+| GET    | `/api/orders/:orderId`        | Get a specific order by orderId                  | Private  |
+| PATCH  | `/api/orders/status/:orderId` | Update the status of a specific order by orderId | Private  |
 
 ### Authentication
-| Method | Routes            | Functionalities   | Access  | 
-| ------ | ----------------- | ----------------- | ------- | 
-| POST   | /api/auth/register | Create an account | Public | 
-|        |                   |                   |         | 
-|        |                   |                   |         | 
-|        |                   |                   |         | 
-=======
 
+| Method | Routes                      | Functionalities                                 | Access  |
+| ------ | --------------------------- | ----------------------------------------------- | ------- |
+| POST   | `/api/auth/register`        | Create a new user account                       | Public  |
+| POST   | `/api/auth/login`           | Authenticates a user and issues a JWT token     | Public  |
+| POST   | `/api/auth/forgot-password` | Initiates the password recovery process         | Public  |
+| POST   | `/api/auth/reset-password`  | Completes password recovery using a reset token | Private |
