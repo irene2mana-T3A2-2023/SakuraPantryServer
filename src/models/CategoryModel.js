@@ -13,7 +13,15 @@ const CategorySchema = new Schema(
       type: String,
       required: true,
       unique: true
-    }
+    },
+    products: [
+      {
+        product: {
+          type: mongoose.Types.ObjectId,
+          ref: 'Product'
+        }
+      }
+    ]
   },
   { timestamps: true }
 );

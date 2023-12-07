@@ -11,7 +11,7 @@ databaseConnect()
     try {
       // eslint-disable-next-line no-console
       console.log('Creating seed data');
-      
+
       // Seed an admin user
       await User.collection.drop();
       let adminUser = await User.create({
@@ -95,4 +95,3 @@ databaseConnect()
     // eslint-disable-next-line no-console
     console.error('An unexpected error occurred:', error);
   });
-
