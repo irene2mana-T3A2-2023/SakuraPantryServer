@@ -126,7 +126,7 @@ An opinionated code formatter that supports multiple languages and integrates wi
 ### Authentication
 | Method | Routes            | Functionalities   | Access  | 
 | ------ | ----------------- | ----------------- | ------- | 
-| POST   | /api/auth/register | Create an account | Private | 
+| POST   | /api/auth/register | Create an account | Public | 
 |        |                   |                   |         | 
 |        |                   |                   |         | 
 |        |                   |                   |         | 
