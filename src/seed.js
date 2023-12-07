@@ -11,9 +11,10 @@ databaseConnect()
     try {
       // eslint-disable-next-line no-console
       console.log('Creating seed data');
-      
+
       // Seed an admin user
       await User.collection.drop();
+
       let adminUser = await User.create({
         email: 'AdminUser@email.com',
         password: 'AdminUser1',
@@ -48,11 +49,12 @@ databaseConnect()
       let product1 = await Product.create({
         name: 'Ramen',
         slug: 'ramen',
-        category: "656fcf38e9cbf8d74062e363",
-        description: "Ramen is yummy!",
+        category: '656fcf38e9cbf8d74062e363',
+        description: 'Ramen is yummy!',
         stockQuantity: 5,
-        imageUrl: "https://shopifull.com/wp-content/uploads/2020/04/j-basket-Japanese-ramen-noodles-800gm.jpg",
-        price: "8.00",
+        imageUrl:
+          'https://shopifull.com/wp-content/uploads/2020/04/j-basket-Japanese-ramen-noodles-800gm.jpg',
+        price: '8.00',
         isFeatured: true
       });
 
@@ -73,7 +75,6 @@ databaseConnect()
 
       // eslint-disable-next-line no-console
       console.log(order1);
-
     } catch (dropError) {
       // eslint-disable-next-line no-console
       console.error('Error dropping collections:', dropError);
