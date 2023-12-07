@@ -135,3 +135,6 @@ An opinionated code formatter that supports multiple languages and integrates wi
 | POST   | `/api/auth/login`           | Authenticates a user and issues a JWT token     | Public  |
 | POST   | `/api/auth/forgot-password` | Initiates the password recovery process         | Public  |
 | POST   | `/api/auth/reset-password`  | Completes password recovery using a reset token | Private |
+
+- `Public Access` - Accessible without requiring user authentication.
+- `Private Access` -  Requires user authentication to be accessible.
