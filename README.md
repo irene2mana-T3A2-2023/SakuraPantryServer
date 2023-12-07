@@ -31,7 +31,7 @@ It uses nodemon for automatic restarting upon file changes and sets `NODE_ENV` t
 
 ### `npm run lint`
 
-Runs ESLint to check for code issues in the `src` directory.\
+Runs [ESLint](https://eslint.org/) to check for code issues in the `src` directory.\
 It helps in maintaining code quality and consistency.
 
 ### `npm run lint:fix`
@@ -40,7 +40,38 @@ Automatically fixes fixable issues and suppresses output for warnings.
 
 ### `npm run format`
 
-Uses [Prettier](https://www.npmjs.com/package/prettier) to format the JavaScript files in the src directory, ensuring a consistent code style across the project.
+Uses [Prettier](https://prettier.io/) to format the JavaScript files in the src directory, ensuring a consistent code style across the project.
+
+## Server Dependencies
+
+### `bcryptjs`
+
+Used for hashing passwords securely. It protects user data by converting plain text passwords into hashed formats before database storage, enhancing security against data breaches.
+
+### `cors`
+
+Acts as middleware for Express, enabling Cross-Origin Resource Sharing (CORS).\
+CORS is crucial for web application security, as it regulates how a web application can make requests to different domains, ensuring controlled and secure interaction with external resources.
+
+### `dotenv`
+
+Facilitates the management of environment variables. By separating configuration from code, it enhances security and flexibility, especially crucial for handling sensitive data like API keys and database credentials.
+
+### `express`
+
+A fast, unopinionated, minimalist web framework for Node.js, perfectly suited for efficiently building web applications and APIs without unnecessary complexity.
+
+### `mongoose`
+
+An Object Data Modelling (ODM) library for MongoDB and Node.js. It provides a straightforward, schema-based solution to model your application data and interact with MongoDB databases using JavaScript or TypeScript.
+
+### `joi`
+
+Joi is a comprehensive schema description language and validator for JavaScript. In our project, it is specifically utilized for validating environment variables. This ensures that our application's configuration adheres to expected formats and standards, providing an additional layer of security and reliability by preventing misconfiguration and potential runtime errors.
+
+### `jsonwebtoken`
+
+Implements JSON Web Tokens (JWT) for secure information transmission as JSON objects. Primarily used for user authentication and session management, it issues a JWT upon login, which authenticates further server requests, verifying user identity.
 
 ## Server Development Dependencies
 
@@ -58,7 +89,6 @@ A static code analysis tool that helps identify and fix patterns in JavaScript c
 
 Disables all ESLint rules that conflict with Prettier, ensuring seamless integration of ESLint with Prettier for code formatting.
 
-
 ### `nodemon`
 
 A utility that monitors for any changes in your source code and automatically restarts your server, enhancing the development experience.
@@ -66,25 +96,6 @@ A utility that monitors for any changes in your source code and automatically re
 ### `prettier`
 
 An opinionated code formatter that supports multiple languages and integrates with most editors to ensure consistent code style across the project.
-
-## Server Dependencies
-
-### `cors`  
-
-Acts as middleware for Express, enabling Cross-Origin Resource Sharing (CORS).\
-CORS is crucial for web application security, as it regulates how a web application can make requests to different domains, ensuring controlled and secure interaction with external resources.
-
-### `dotenv`
-
-Facilitates the management of environment variables. By separating configuration from code, it enhances security and flexibility, especially crucial for handling sensitive data like API keys and database credentials.
-
-### `express`
-
-A fast, unopinionated, minimalist web framework for Node.js, perfectly suited for efficiently building web applications and APIs without unnecessary complexity.
-
-### `mongoose`
-
-An Object Data Modelling (ODM) library for MongoDB and Node.js. It provides a straightforward, schema-based solution to model your application data and interact with MongoDB databases using JavaScript or TypeScript. 
 
 ## API Endpoints
 ### Products
@@ -119,3 +130,5 @@ An Object Data Modelling (ODM) library for MongoDB and Node.js. It provides a st
 |        |                   |                   |         | 
 |        |                   |                   |         | 
 |        |                   |                   |         | 
+=======
+
