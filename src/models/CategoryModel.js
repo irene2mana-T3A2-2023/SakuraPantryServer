@@ -21,7 +21,7 @@ const CategorySchema = new Schema(
 // This middleware is to perform some logic or actions before saving the document.
 CategorySchema.pre('save', async function (next) {
   // eslint-disable-next-line no-console
-  console.log('About to save a user to the DB!');
+  console.log('About to save a category to the DB!');
   next();
 });
 

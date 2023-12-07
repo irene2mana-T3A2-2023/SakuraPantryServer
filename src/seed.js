@@ -48,11 +48,12 @@ databaseConnect()
       let product1 = await Product.create({
         name: 'Ramen',
         slug: 'ramen',
-        category: "656fcf38e9cbf8d74062e363",
-        description: "Ramen is yummy!",
+        category: category1._id,
+        description: 'Ramen is yummy!',
         stockQuantity: 5,
-        imageUrl: "https://shopifull.com/wp-content/uploads/2020/04/j-basket-Japanese-ramen-noodles-800gm.jpg",
-        price: "8.00",
+        imageUrl:
+          'https://shopifull.com/wp-content/uploads/2020/04/j-basket-Japanese-ramen-noodles-800gm.jpg',
+        price: '8.00',
         isFeatured: true
       });
 
@@ -62,9 +63,9 @@ databaseConnect()
       // Seed an order
       await Order.collection.drop();
       let order1 = await Order.create({
-        user: '656fd08ae403bba71b83a457',
+        user: user1._id,
         items: {
-          product: '656fd08ae403bba71b83a45f',
+          product: product1._id,
           quantity: 2
         },
         totalPrice: '16.00',
@@ -73,7 +74,6 @@ databaseConnect()
 
       // eslint-disable-next-line no-console
       console.log(order1);
-
     } catch (dropError) {
       // eslint-disable-next-line no-console
       console.error('Error dropping collections:', dropError);
@@ -95,3 +95,4 @@ databaseConnect()
     // eslint-disable-next-line no-console
     console.error('An unexpected error occurred:', error);
   });
+
