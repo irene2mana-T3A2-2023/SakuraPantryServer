@@ -9,36 +9,36 @@ import { envConfig } from '../configs/env.js';
 export const register = async (req, res) => {
   const { firstName, lastName, email, password, confirmPassword } = req.body;
 
-  // Check if any required fields for user registration are missing
+   // Check if all required fields are provided
   if (!firstName || !lastName || !email || !password || !confirmPassword) {
     return res.status(400).json({ message: 'Missing required fields' });
   }
 
-  //  Validate that the password and confirmPassword match.
+  // Check if the password and confirmPassword fields match
   if (password !== confirmPassword) {
     return res.status(400).json({ message: 'Password and confirm password do not match' });
   }
 
   try {
-    // Verify if the database already has a user with the given email
+    // Check for an existing user with the same email
     const existingUser = await User.findOne({ email });
 
-    // Send a message indicating the email already exists
+    // If a user with the same email exists, return an error response
     if (existingUser) {
       return res.status(400).json({ message: 'Email already exists' });
     }
 
-    // Hashing the password
+    // Generate a salt and hash the password
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
 
-    // Creating new user
+    // Create a new user instance with the provided data and hashed password
     const newUser = new User({ firstName, lastName, email, password: hashedPassword });
 
     // Save the new user to the database
     await newUser.save();
 
-    // Respond a message indicating successful user registration
+    // Send a success response indicating the user was registered
     res.status(200).json({ message: 'User successfully registered' });
   } catch (err) {
     // Handle error
