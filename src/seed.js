@@ -96,5 +96,3 @@ databaseConnect()
     // eslint-disable-next-line no-console
     console.error('An unexpected error occurred:', error);
   });
-
-

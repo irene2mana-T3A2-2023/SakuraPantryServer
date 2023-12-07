@@ -6,4 +6,3 @@ export const filterSchema = (fieldsToExclude = ['__v', '_id']) => ({
     fieldsToExclude.forEach((field) => delete returnedObj[field]);
   }
 });
-
