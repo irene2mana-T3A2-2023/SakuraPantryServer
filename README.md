@@ -86,11 +86,11 @@ A fast, unopinionated, minimalist web framework for Node.js, perfectly suited fo
 
 An Object Data Modelling (ODM) library for MongoDB and Node.js. It provides a straightforward, schema-based solution to model your application data and interact with MongoDB databases using JavaScript or TypeScript. 
 
-## API Endopoints
+## API Endpoints
 ### Products
 | Method | Routes          | Functionalities                         | Access | 
 | ------ | --------------- | --------------------------------------- | ------------- | 
-| GET    | /api/products/      | Get a list of all products              | Public          | 
+| GET    | /api/products      | Get a list of all products              | Public          | 
 | GET    | /api/products/:slug | Get details of specific product by slug | Public          | 
 | POST   | /api/products      | Create a new product                    | Private         | 
 | PATCH  | /api/products/:slug | Update a specific product by slug       | Private          | 
