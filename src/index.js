@@ -8,4 +8,3 @@ server.listen(envConfig.port, async () => {
   // eslint-disable-next-line no-console
   console.log(`Server listening on port ${envConfig.port}`);
 });
-
