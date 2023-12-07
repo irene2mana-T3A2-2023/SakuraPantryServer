@@ -1,0 +1,26 @@
+[
+    {
+        "name": "Noodles",
+        "slug": "noodles"
+    },
+    {
+        "name": "Miso",
+        "slug": "miso"
+    },
+    {
+        "name": "Dashi",
+        "slug": "dashi"
+    },
+    {
+        "name": "Sauces",
+        "slug": "sauces"
+    },
+    {
+        "name": "Seasonings",
+        "slug": "seasonings"
+    },
+    {
+        "name": "Seaweed",
+        "slug": "seaweed"
+    }
+]

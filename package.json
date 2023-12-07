@@ -8,6 +8,8 @@
     "start": "cross-env NODE_ENV=production node src/index.js",
     "dev": "cross-env NODE_ENV=development nodemon src/index.js",
     "seed": "cross-env NODE_ENV=development node src/seed.js",
+    "import-data" : "cross-env NODE_ENV=development node src/dev-data/data/import-dev-data.js --import",
+    "delete-data" : "cross-env NODE_ENV=development node src/dev-data/data/import-dev-data.js --delete",
     "lint": "eslint \"**/*.js\"",
     "lint:fix": "eslint \"**/*.js\" --fix",
     "format": "prettier --write \"**/*.js\""
