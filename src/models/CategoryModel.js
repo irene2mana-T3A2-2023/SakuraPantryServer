@@ -1,5 +1,4 @@
 import mongoose from 'mongoose';
-import ProductSchema from './ProductModel.js';
 
 const Schema = mongoose.Schema;
 
@@ -18,8 +17,10 @@ const CategorySchema = new Schema(
     },
     products: [
       {
-        type: mongoose.Types.ObjectId,
-        ref: 'Product'
+        product: {
+          type: mongoose.Types.ObjectId,
+          ref: 'Product'
+        }
       }
     ]
   },
