@@ -15,4 +15,3 @@ router.patch('/products/:slug', ProductController.updateProduct);
 router.delete('/products/:slug', ProductController.deleteProduct);
 
 export default router;
-

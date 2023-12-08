@@ -14,6 +14,7 @@ databaseConnect()
 
       // Seed an admin user
       await User.collection.drop();
+
       let adminUser = await User.create({
         email: 'AdminUser@email.com',
         password: 'AdminUser1',
