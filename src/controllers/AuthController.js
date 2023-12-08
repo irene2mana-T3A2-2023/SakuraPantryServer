@@ -1,15 +1,17 @@
 import User from '../models/UserModel.js';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
+import crypto from 'crypto';
+import nodemailer from 'nodemailer';
 import { envConfig } from '../configs/env.js';
 
 // @route POST api/auth/register
-// @desc Register user
+// @desc Register a new user account
 // @access Public
 export const register = async (req, res) => {
   const { firstName, lastName, email, password, confirmPassword } = req.body;
 
-   // Check if all required fields are provided
+  // Check if all required fields are provided
   if (!firstName || !lastName || !email || !password || !confirmPassword) {
     return res.status(400).json({ message: 'Missing required fields' });
   }
@@ -47,7 +49,7 @@ export const register = async (req, res) => {
 };
 
 // @route POST api/auth/login
-// @desc Authenticate logged in user
+// @desc Authenticates a user and issues a JWT token.
 // @access Public
 export const login = async (req, res) => {
   // Extract email, password, and rememberMe from the request body
@@ -75,6 +77,67 @@ export const login = async (req, res) => {
 
     // Respond with the user details and token
     return res.status(200).json({ user: existingUser, token });
+  } catch (err) {
+    // Handle error
+    return res.status(500).json({ message: err.message });
+  }
+};
+
+// @route POST api/auth/forgot-password
+// @desc Initiates the password recovery process.
+// @access Public
+export const forgotPassword = async (req, res) => {
+  try {
+    // Extract email from the request body
+    const { email } = req.body;
+
+     // Search for a user with the provided email
+    const existingUser = await User.findOne({ email });
+
+    // Check if the user exists with provided email
+    if (!existingUser) {
+      return res.status(400).json({message: 'User not found'});
+    }
+
+    // Generate a random reset token using crypto
+    const resetToken = crypto.randomBytes(20).toString('hex');
+
+    // Assign the reset token and expiration time to the user
+    existingUser.resetPasswordToken = resetToken;
+    existingUser.resetPasswordExpires = Date.now() + parseInt(envConfig.jwtExpiresIn);
+
+    // Save the updated user information
+    await existingUser.save();
+
+    // Create a transport for sending email using Nodemailer
+    const transporter = nodemailer.createTransport({
+      service: 'gmail',
+      host: 'smtp.gmail.com',
+      port: 587,
+      secure: false,
+      auth: {
+        user: envConfig.mail.user,
+        pass: envConfig.mail.password
+      }
+    });
+
+    // Create the reset password URL
+    const resetUrl = `${envConfig.clientHost}/reset-password?token=${resetToken}`;
+
+    // Send an email to the user with the reset password link
+    await transporter.sendMail({
+      from: {
+        name: 'Sakura pantry',
+        address: envConfig.mail.user
+      },
+      to: existingUser.email,
+      subject: 'Password Reset',
+      html: `<p>You requested a password reset. Please go to this link to reset your password:<p>\
+      <a href=${resetUrl}>Reset password link</a></p>`
+    });
+
+    // Confirm to the user that the password reset link has been sent
+    return res.status(200).json({message: 'Password reset link sent to your email'});
   } catch (err) {
     // Handle error
     return res.status(500).json({ message: err.message });
