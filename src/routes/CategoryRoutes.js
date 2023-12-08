@@ -13,3 +13,5 @@ router.patch('/categories/:slug', CategoryController.updateCategory);
 router.delete('/categories/:slug', CategoryController.deleteCategory);
 
 export default router;
+
+
