@@ -12,6 +12,4 @@ router.patch('/categories/:slug', CategoryController.updateCategory);
 //Delete a specific category by slug
 router.delete('/categories/:slug', CategoryController.deleteCategory);
 
-
-
 export default router;

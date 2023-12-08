@@ -3,8 +3,7 @@ import * as ProductController from '../controllers/ProductController.js';
 
 const router = express.Router();
 
-
-// Get a list of all products 
+// Get all products in the DB
 router.get('/products', ProductController.getAllProducts);
 // Get a specific product by slug
 router.get('/products/:slug', ProductController.getProduct);
@@ -14,7 +13,5 @@ router.post('/products', ProductController.createProduct);
 router.patch('/products/:slug', ProductController.updateProduct);
 // Delete a specific product by Slug
 router.delete('/products/:slug', ProductController.deleteProduct);
-
-
 
 export default router;
