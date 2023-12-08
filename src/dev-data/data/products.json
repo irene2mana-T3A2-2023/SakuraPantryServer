@@ -1,0 +1,52 @@
+[
+    {
+        "name": "Ramen",
+        "slug": "ramen",
+        "description": "Ramen is yummy!",
+        "category": "657046215ed01f56e0a4e007",
+        "stockQuantity": 5,
+        "imageUrl": "https://shopifull.com/wp-content/uploads/2020/04/j-basket-Japanese-ramen-noodles-800gm.jpg",
+        "price": 8.00,
+        "isFeatured": true
+    },
+    {
+        "name": "Udon",
+        "slug": "udon",
+        "description": "Udon is yummy!",
+        "category": "657046215ed01f56e0a4e007",
+        "stockQuantity": 5,
+        "imageUrl": "https://shopifull.com/wp-content/uploads/2020/04/j-basket-Japanese-ramen-noodles-801gm.jpg",
+        "price": 8.00,
+        "isFeatured": true
+    },
+    {
+        "name": "Ponzu",
+        "slug": "ponzu",
+        "description": "What is ponzu?",
+        "category": "657046215ed01f56e0a4e00a",
+        "stockQuantity": 5,
+        "imageUrl": "https://shopifull.com/wp-content/uploads/2020/04/j-basket-Japanese-ramen-noodles-802gm.jpg",
+        "price": 8.00,
+        "isFeatured": true
+    },
+    {
+        "name": "White Miso",
+        "slug": "white-miso",
+        "description": "I love miso soup!",
+        "category": "657046215ed01f56e0a4e008",
+        "stockQuantity": 5,
+        "imageUrl": "https://shopifull.com/wp-content/uploads/2020/04/j-basket-Japanese-ramen-noodles-803gm.jpg",
+        "price": 8.00,
+        "isFeatured": true
+    },
+    {
+        "name": "Shichimi",
+        "slug": "shichimi",
+        "description": "Shichimi in noodle soup is best!",
+        "category": "657046215ed01f56e0a4e00b",
+        "stockQuantity": 5,
+        "imageUrl": "https://shopifull.com/wp-content/uploads/2020/04/j-basket-Japanese-ramen-noodles-804gm.jpg",
+        "price": 8.00,
+        "isFeatured": true
+    }
+]
