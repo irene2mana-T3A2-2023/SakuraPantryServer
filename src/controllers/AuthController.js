@@ -105,7 +105,7 @@ export const forgotPassword = async (req, res) => {
 
     // Assign the reset token and expiration time to the user
     existingUser.resetPasswordToken = resetToken;
-    existingUser.resetPasswordExpires = Date.now() + 5 * 60 * 1000; // 5 mins
+    existingUser.resetPasswordExpires = Date.now() + 15 * 60 * 1000; // 15 mins
 
     // Save the updated user information
     await existingUser.save();
@@ -128,13 +128,24 @@ export const forgotPassword = async (req, res) => {
     // Send an email to the user that includes the reset password URL
     await transporter.sendMail({
       from: {
-        name: 'Sakura pantry',
+        name: 'Sakura Pantry',
         address: envConfig.mail.user
       },
       to: existingUser.email,
       subject: 'Password Reset',
-      html: `<p>You requested a password reset. Please go to this link to reset your password:<p>\
-      <a href=${resetUrl}>Reset password link</a></p>`
+      html: `
+      <h1>Reset Password</h1>
+      <br />
+      <p>A password reset event has been triggered. The password reset window is limited to 15 minutes.</p>
+      <br />
+      <p>If you do not reset your password within 5 minutes, you will need to submit a new request</p>
+      <br />
+      <p>To complete the password reset process, visit the following link:</p>
+      <br />
+      <a href=${resetUrl}>Reset password</a></p>
+      
+      <p>If you did not request this change, please contact our support team immediately.</p> <br />
+      `
     });
 
     // Confirm the password reset link has been sent
