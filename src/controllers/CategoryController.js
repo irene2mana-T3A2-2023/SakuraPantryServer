@@ -9,6 +9,7 @@ export const createCategory = async () => {
   // eslint-disable-next-line no-console
   console.log('Create a new category');
 };
+
 // Update a specific category by slug
 export const updateCategory = async () => {
   // eslint-disable-next-line no-console
