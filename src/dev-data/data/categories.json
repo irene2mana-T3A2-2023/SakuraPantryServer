@@ -2,25 +2,12 @@
     {
         "_id": "657046215ed01f56e0a4e007",
         "name": "Noodles",
-        "slug": "noodles",
-        "products": [
-            {
-                "_id": "65708f176a101a0a94107ac2"
-            },
-            {
-                "_id": "65708f176a101a0a94107ac3"
-            }
-        ]
+        "slug": "noodles"
     },
     {   
         "_id": "657046215ed01f56e0a4e008",
         "name": "Miso",
-        "slug": "miso",
-        "products": [
-            {
-                "_id": "6570a336827473fdcf3b143b"
-            }
-        ]
+        "slug": "miso"
     },
     {   
         "_id": "657046215ed01f56e0a4e009",

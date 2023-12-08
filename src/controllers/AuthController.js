@@ -9,7 +9,7 @@ import { envConfig } from '../configs/env.js';
 export const register = async (req, res) => {
   const { firstName, lastName, email, password, confirmPassword } = req.body;
 
-   // Check if all required fields are provided
+  // Check if all required fields are provided
   if (!firstName || !lastName || !email || !password || !confirmPassword) {
     return res.status(400).json({ message: 'Missing required fields' });
   }

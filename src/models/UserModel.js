@@ -25,12 +25,12 @@ const UserSchema = new Schema(
     },
     firstName: {
       type: String,
-      required: false,
+      required: true,
       unique: false
     },
     lastName: {
       type: String,
-      required: false,
+      required: true,
       unique: false
     },
     // phone should be unique, but it will throw duplicate error if there's no value provided regardless null value
