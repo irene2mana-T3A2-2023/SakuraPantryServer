@@ -136,15 +136,17 @@ export const forgotPassword = async (req, res) => {
       html: `
       <h1>Reset Password</h1>
       <br />
+      <h3>Dear ${existingUser.lastName},</h3>
+
       <p>A password reset event has been triggered. The password reset window is limited to 15 minutes.</p>
-      <br />
-      <p>If you do not reset your password within 5 minutes, you will need to submit a new request</p>
-      <br />
+      <p>If you do not reset your password within 5 minutes, you will need to submit a new request.</p>
       <p>To complete the password reset process, visit the following link:</p>
       <br />
       <a href=${resetUrl}>Reset password</a></p>
       
-      <p>If you did not request this change, please contact our support team immediately.</p> <br />
+      <p>If you did not request this change, please contact our support team immediately.</p>
+      <p>Kind regards,</p>
+      <h4>Sakura Pantry Support Team.</h4>
       `
     });
 
