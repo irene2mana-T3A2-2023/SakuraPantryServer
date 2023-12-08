@@ -1,4 +1,7 @@
 import mongoose from 'mongoose';
+import bcrypt from 'bcryptjs';
+import { filterSchema } from '../utils/common.js';
+
 const Schema = mongoose.Schema;
 
 // Define User Schema
@@ -11,8 +14,7 @@ const UserSchema = new Schema(
     },
     password: {
       type: String,
-      required: true,
-      unique: false
+      required: true
     },
     role: {
       type: String,
@@ -74,8 +76,21 @@ const UserSchema = new Schema(
       }
     }
   },
-  { timestamps: true }
+  {
+    // Enable automatic timestamps for creation and updates
+    timestamps: true,
+    // Apply filterSchema to transform the JSON output of the schema
+    toJSON: filterSchema(['__v', '_id', 'password'])
+  }
 );
+
+// Define an instance method on UserSchema
+UserSchema.method({
+  // comparePassword is used to compare the provided password with the hashed password stored in the database.
+  comparePassword(password) {
+    return bcrypt.compareSync(password, this.password);
+  }
+});
 
 // This middleware is to perform some logic or actions before saving the document.
 UserSchema.pre('save', async function (next) {
