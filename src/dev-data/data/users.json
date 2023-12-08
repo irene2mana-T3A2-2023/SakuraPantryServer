@@ -1,16 +1,22 @@
 [
     {
+        "firstName":"Lara",
+        "lastName": "Macintosh",
         "email": "adminUser@email.com",
         "password": "Admin1",
         "role": "admin"
     },
     {
-        "email": "user1@email.com",
-        "password": "User1"
+        "firstName":"Shizuka",
+        "lastName": "Kagami",
+        "email": "shizuka.k@email.com",
+        "password": "shizuka123"
     },
     {
-        "email": "user2@email.com",
-        "password": "user2"
+        "firstName":"Ronnie",
+        "lastName": "Campbell",
+        "email": "ronnie.c@email.com",
+        "password": "ronnie123"
     }
 
 ]

@@ -4,10 +4,10 @@ import dotenv from 'dotenv';
 import { fileURLToPath } from 'url';
 
 // Convert the URL of the current module to a file path and assign it to '__filename'.
-export const __filename = fileURLToPath(import.meta.url);
+const __filename = fileURLToPath(import.meta.url);
 
 // Determine the directory name of the current module and assign it to '__dirname'.
-export const __dirname = path.dirname(__filename);
+const __dirname = path.dirname(__filename);
 
 // Define a Joi schema for validating the 'NODE_ENV' environment variable.
 const nodeEnvValidator = Joi.string()
