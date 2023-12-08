@@ -23,7 +23,7 @@ export const register = async (req, res) => {
   }
 
   try {
-    // Check for an existing user with the provided email
+    // Search for a user with the provided email
     const existingUser = await User.findOne({ email });
 
     // If a user with the same email exists, return an error response
@@ -122,7 +122,7 @@ export const forgotPassword = async (req, res) => {
       }
     });
 
-    // Create the reset password URL
+    // Create the reset password URL, which includes the reset password token.
     const resetUrl = `${envConfig.clientHost}/reset-password?token=${resetToken}`;
 
     // Send an email to the user with the reset password link

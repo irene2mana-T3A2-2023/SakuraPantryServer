@@ -53,6 +53,10 @@ Used for hashing passwords securely. It protects user data by converting plain t
 Acts as middleware for Express, enabling Cross-Origin Resource Sharing (CORS).\
 CORS is crucial for web application security, as it regulates how a web application can make requests to different domains, ensuring controlled and secure interaction with external resources.
 
+### `crypto-js`
+
+JavaScript library that provides cryptographic functionality. In our application, it's primarily used for secure encryption and decryption operations. This can include generating secure random tokens, hashing, or any other cryptographic needs that ensure data security within our application.
+
 ### `dotenv`
 
 Facilitates the management of environment variables. By separating configuration from code, it enhances security and flexibility, especially crucial for handling sensitive data like API keys and database credentials.
@@ -72,6 +76,10 @@ Joi is a comprehensive schema description language and validator for JavaScript.
 ### `jsonwebtoken`
 
 Implements JSON Web Tokens (JWT) for secure information transmission as JSON objects. Primarily used for user authentication and session management, it issues a JWT upon login, which authenticates further server requests, verifying user identity.
+
+### `nodemailer`
+
+A module for Node.js applications to allow easy email sending. It simplifies the process of sending emails from within the application, whether it's for user verification emails, password reset links, notifications, or any other email-based communication. The library supports various transport options, including SMTP.
 
 ## Server Development Dependencies
 
