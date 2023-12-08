@@ -10,7 +10,7 @@ import { envConfig } from '../configs/env.js';
 // @access Public
 export const register = async (req, res) => {
   // Extract firstName, lastName, email, password, and confirmPassword from the request body
-  const { firstName, lastName, email, password, confirmPassword } = req.body;
+  const { firstName, lastName, email, password, confirmPassword, ...rest } = req.body;
 
   // Check if all required fields are provided
   if (!firstName || !lastName || !email || !password || !confirmPassword) {
@@ -36,7 +36,7 @@ export const register = async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, salt);
 
     // Create a new user instance with the provided data and hashed password
-    const newUser = new User({ firstName, lastName, email, password: hashedPassword });
+    const newUser = new User({ firstName, lastName, email, password: hashedPassword, ...rest });
 
     // Save the new user to the database
     await newUser.save();
