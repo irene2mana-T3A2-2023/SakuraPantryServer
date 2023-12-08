@@ -9,6 +9,7 @@ import { envConfig } from '../configs/env.js';
 // @desc Register a new user account
 // @access Public
 export const register = async (req, res) => {
+  // Extract firstName, lastName, email, password, and confirmPassword from the request body
   const { firstName, lastName, email, password, confirmPassword } = req.body;
 
   // Check if all required fields are provided
@@ -22,7 +23,7 @@ export const register = async (req, res) => {
   }
 
   try {
-    // Check for an existing user with the same email
+    // Check for an existing user with the provided email
     const existingUser = await User.findOne({ email });
 
     // If a user with the same email exists, return an error response
@@ -69,10 +70,10 @@ export const login = async (req, res) => {
       return res.status(400).json({ message: 'Invalid email or password' });
     }
 
-    // Determine the token's expiration time based on the rememberMe flag (nice to have now).
+    // Determine the token's expiration time based on the rememberMe flag (rememberME is nice-to-have-now).
     const expiresIn = rememberMe ? '30d' : envConfig.jwtExpiresIn;
 
-    // Generate a JWT token for the authenticated user
+    // Create a JWT token for the authenticated user and assign an expiration time to this token.
     const token = jwt.sign({ userId: existingUser._id }, envConfig.jwtSecret, { expiresIn });
 
     // Respond with the user details and token
@@ -104,7 +105,7 @@ export const forgotPassword = async (req, res) => {
 
     // Assign the reset token and expiration time to the user
     existingUser.resetPasswordToken = resetToken;
-    existingUser.resetPasswordExpires = Date.now() + parseInt(envConfig.jwtExpiresIn);
+    existingUser.resetPasswordExpires = Date.now() + 5 * 60 * 1000; // 5 mins
 
     // Save the updated user information
     await existingUser.save();
