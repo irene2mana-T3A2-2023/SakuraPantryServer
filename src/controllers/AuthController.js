@@ -125,7 +125,7 @@ export const forgotPassword = async (req, res) => {
     // Create the reset password URL, which includes the reset password token.
     const resetUrl = `${envConfig.clientHost}/reset-password?token=${resetToken}`;
 
-    // Send an email to the user with the reset password link
+    // Send an email to the user that includes the reset password URL
     await transporter.sendMail({
       from: {
         name: 'Sakura pantry',
@@ -137,8 +137,8 @@ export const forgotPassword = async (req, res) => {
       <a href=${resetUrl}>Reset password link</a></p>`
     });
 
-    // Confirm to the user that the password reset link has been sent
-    return res.status(200).json({message: 'Password reset link sent to your email'});
+    // Confirm the password reset link has been sent
+    return res.status(200).json({message: 'Password reset link has been sent to your email'});
   } catch (err) {
     // Handle error
     return res.status(500).json({ message: err.message });
