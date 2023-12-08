@@ -9,11 +9,7 @@ import { envConfig } from '../configs/env.js';
 // @desc Register a new user account
 // @access Public
 export const register = async (req, res) => {
-<<<<<<< HEAD
-  // Extract firstName, lastName, email, password, and confirmPassword and so on, from the request body
-=======
-  // Extract firstName, lastName, email, password, and confirmPassword from the request body
->>>>>>> d5fe006f4b80f9b56fbf3c6616a16908716bc23f
+  // Extract firstName, lastName, email, password, and confirmPassword and other keys from the request body.
   const { firstName, lastName, email, password, confirmPassword, ...rest } = req.body;
 
   // Check if all required fields are provided
@@ -96,20 +92,12 @@ export const forgotPassword = async (req, res) => {
     // Extract email from the request body
     const { email } = req.body;
 
-<<<<<<< HEAD
     // Search for a user with the provided email
-=======
-     // Search for a user with the provided email
->>>>>>> d5fe006f4b80f9b56fbf3c6616a16908716bc23f
     const existingUser = await User.findOne({ email });
 
     // Check if the user exists with provided email
     if (!existingUser) {
-<<<<<<< HEAD
       return res.status(400).json({ message: 'User not found' });
-=======
-      return res.status(400).json({message: 'User not found'});
->>>>>>> d5fe006f4b80f9b56fbf3c6616a16908716bc23f
     }
 
     // Generate a random reset token using crypto
@@ -151,11 +139,7 @@ export const forgotPassword = async (req, res) => {
       <h3>Dear ${existingUser.lastName},</h3>
 
       <p>A password reset event has been triggered. The password reset window is limited to 15 minutes.</p>
-<<<<<<< HEAD
       <p>If you do not reset your password within 15 minutes, you will need to submit a new request.</p>
-=======
-      <p>If you do not reset your password within 5 minutes, you will need to submit a new request.</p>
->>>>>>> d5fe006f4b80f9b56fbf3c6616a16908716bc23f
       <p>To complete the password reset process, visit the following link:</p>
       <br />
       <a href=${resetUrl}>Reset password</a></p>
