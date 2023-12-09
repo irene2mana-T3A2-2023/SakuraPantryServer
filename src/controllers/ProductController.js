@@ -6,7 +6,7 @@ import slugify from 'slugify';
 export const getAllProducts = async (req, res) => {
   let result = await Product.find({});
 
-  res.json({
+  res.status(201).json({
     products: result
   });
 };
@@ -23,7 +23,7 @@ export const getProduct = async (req, res) => {
       return res.status(404).json({ message: 'Product not found' });
     }
 
-    res.json(result);
+    res.status(201).json(result);
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error('An error has occured: ', error);
@@ -64,9 +64,25 @@ export const createProduct = async (req, res) => {
 
 // Update a specific product by slug
 // Authorisation: admin only
-export const updateProduct = async () => {
-  // eslint-disable-next-line no-console
-  console.log('Update a specific product');
+export const updateProduct = async (req, res) => {
+  try {
+    let result = await Product.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+      runValidators: true
+    });
+
+    if (!result) {
+      return res.status(404).json({ message: 'Product not found' });
+    }
+
+    res.status(200).json({
+      product: result
+    });
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error('An error has occured: ', error);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
 };
 
 // Delete a specific product by slug
