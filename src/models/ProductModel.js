@@ -37,7 +37,9 @@ const ProductSchema = new Schema(
     price: {
       type: Number,
       required: true,
-      min: 0
+      min: 0,
+      get: (value) => value.toFixed(2),
+      set: (value) => parseFloat(value).toFixed(2)
     },
     isFeatured: {
       type: Boolean,

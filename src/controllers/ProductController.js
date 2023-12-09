@@ -37,12 +37,11 @@ export const getProduct = async (req, res) => {
 // Create a new product
 // Authorisation: admin only
 export const createProduct = async (req, res) => {
-  const { name, description, category, stockQuantity, imageUrl, price, isFeatured } = req.body;
-
-  const slug = slugify(name, { lower: true });
-
   try {
-    const newProduct = new Product({
+    const { name, description, category, stockQuantity, imageUrl, price, isFeatured } = req.body;
+    const slug = slugify(name, { lower: true });
+
+    const newProduct = await Product.create({
       name,
       slug,
       description,
@@ -53,7 +52,6 @@ export const createProduct = async (req, res) => {
       isFeatured
     });
 
-    await newProduct.save();
     res.status(201).json(newProduct);
   } catch (error) {
     // eslint-disable-next-line no-console
@@ -66,10 +64,16 @@ export const createProduct = async (req, res) => {
 // Authorisation: admin only
 export const updateProduct = async (req, res) => {
   try {
-    let result = await Product.findByIdAndUpdate(req.params.id, req.body, {
-      new: true,
-      runValidators: true
-    });
+    const { slug } = req.params;
+
+    let result = await Product.findOneAndUpdate(
+      { slug: slug }, // Find by slug
+      req.body,
+      {
+        new: true,
+        runValidators: true
+      }
+    );
 
     if (!result) {
       return res.status(404).json({ message: 'Product not found' });

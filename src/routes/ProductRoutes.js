@@ -11,8 +11,8 @@ router.get('/products/:slug', ProductController.getProduct);
 // Create a new product - admin only
 router.post('/products', isAuthenticatedUser, isAdmin, ProductController.createProduct);
 // Update a specific product by slug - admin only
-router.patch('/products/:slug', isAdmin, ProductController.updateProduct);
+router.patch('/products/:slug', isAuthenticatedUser, isAdmin, ProductController.updateProduct);
 // Delete a specific product by slug - admin only
-router.delete('/products/:slug', isAdmin, ProductController.deleteProduct);
+router.delete('/products/:slug', isAuthenticatedUser, isAdmin, ProductController.deleteProduct);
 
 export default router;

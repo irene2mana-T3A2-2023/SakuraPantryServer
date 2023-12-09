@@ -17,10 +17,10 @@ export const isAuthenticatedUser = async (req, res, next) => {
 
     try {
       // Verify the JWT token
-      const user = await jwt.verify(token, envConfig.jwtSecret);
+      const decodedToken = await jwt.verify(token, envConfig.jwtSecret);
 
       // Set the decoded user information in the request object
-      req.user = user;
+      req.user = decodedToken;
 
       // Call the next middleware or route handler
       next();
@@ -43,14 +43,8 @@ export const isAdmin = async (req, res, next) => {
     // Assuming the user has been authenticated with isAuthenticatedUser
     const user = await User.findById(req.user.userId).exec();
 
-    // Check if the authenticated user exists
-    if (!user) {
-      // If the user is not found, send a forbidden response
-      return res.status(403).json({ error: 'Access forbidden. User not found.' });
-    }
-
-    // Check if the user has the 'admin' role
-    if (user.role === 'admin') {
+    // Check if the user exists and has the 'admin' role
+    if (user && user.role === 'admin') {
       // If the user is an admin, proceed to the next middleware or route handler
       next();
     } else {
