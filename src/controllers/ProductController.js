@@ -41,6 +41,16 @@ export const createProduct = async (req, res) => {
     const { name, description, category, stockQuantity, imageUrl, price, isFeatured } = req.body;
     const slug = slugify(name, { lower: true });
 
+    // Check if a product with the same name or slug already exists
+    const existingProduct = await Product.findOne({ $or: [{ name }, { slug }] });
+
+    if (existingProduct) {
+      return res
+        .status(400)
+        .json({ message: 'Product with the same name or slug already exists.' });
+    }
+
+    // If no existing product, create a new one
     const newProduct = await Product.create({
       name,
       slug,
@@ -91,7 +101,20 @@ export const updateProduct = async (req, res) => {
 
 // Delete a specific product by slug
 // Authorisation: admin only
-export const deleteProduct = async () => {
-  // eslint-disable-next-line no-console
-  console.log('Delete a specific products');
+export const deleteProduct = async (req, res) => {
+  try {
+    const { slug } = req.params;
+
+    const result = await Product.findOneAndDelete({ slug });
+
+    if (!result) {
+      return res.status(404).json({ message: 'Product not found' });
+    }
+
+    res.status(200).json({ message: 'Product successfully deleted' });
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error('An error has occured: ', error);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
 };
