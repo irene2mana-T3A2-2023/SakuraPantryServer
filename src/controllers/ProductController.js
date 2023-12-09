@@ -41,13 +41,13 @@ export const createProduct = async (req, res) => {
     const { name, description, category, stockQuantity, imageUrl, price, isFeatured } = req.body;
     const slug = slugify(name, { lower: true });
 
-    // Check if a product with the same name or slug already exists
-    const existingProduct = await Product.findOne({ $or: [{ name }, { slug }] });
+    // Check if a product with the same name already exists
+    const existingProduct = await Product.findOne({ name });
 
     if (existingProduct) {
       return res
         .status(400)
-        .json({ message: 'Product with the same name or slug already exists.' });
+        .json({ message: 'Product with the same name already exists.' });
     }
 
     // If no existing product, create a new one
