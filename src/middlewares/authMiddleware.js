@@ -36,20 +36,25 @@ export const isAuthenticatedUser = async (req, res, next) => {
   }
 };
 
-// Admin authorization middleware
-export const isAdmin = async (req, res, next) => {
+// Role-based authorisation middleware
+export const authoriseRole = (authorisedRole) => async (req, res, next) => {
   try {
     // Retrieve the user from the database using the user ID from the token
     // Assuming the user has been authenticated with isAuthenticatedUser
     const user = await User.findById(req.user.userId).exec();
 
-    // Check if the user exists and has the 'admin' role
-    if (user && user.role === 'admin') {
-      // If the user is an admin, proceed to the next middleware or route handler
+    // Check if the authenticated user exists
+    if (!user) {
+      return res.status(403).json({ error: 'Access forbidden. User not found. ' });
+    }
+
+    // Check if the user has one of the authorised roles
+    if (authorisedRole.includes(user.role)) {
+      // If the user has the authorised role, proceed to the next middleware or route handler
       next();
     } else {
-      // If the user is not an admin, send a forbidden response
-      return res.status(403).json({ error: 'Access forbidden. Admin privileges required.' });
+      // If the user does not have an authorised role, send a forbidden response
+      return res.status(403).json({ error: 'Access forbidden. Unauthorised role.' });
     }
   } catch (error) {
     // Handle unexpected errors

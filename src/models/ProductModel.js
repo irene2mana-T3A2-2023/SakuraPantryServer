@@ -43,7 +43,8 @@ const ProductSchema = new Schema(
       type: Boolean,
       default: false
     }
-  }, { timestamps: true }
+  },
+  { timestamps: true }
 );
 
 // This middleware is to perform some logic or actions before saving the document.
