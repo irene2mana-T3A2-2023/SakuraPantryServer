@@ -6,7 +6,7 @@ import Product from '../../models/ProductModel.js';
 // This is to test if the id reference between categories and products is working
 const readData = async () => {
   await databaseConnect();
-  const categoryId = '657046215ed01f56e0a4e00a'; // replace this with different _id in categories.json to test
+  const categoryId = '657046215ed01f56e0a4e00b'; // replace this with different _id in categories.json to test
 
   try {
     const products = await Product.find({ category: categoryId }).exec();
