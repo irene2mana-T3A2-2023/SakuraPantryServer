@@ -4,7 +4,7 @@ import { envConfig } from '../configs/env.js';
 import User from '../models/UserModel.js';
 
 // User authentication middleware
-export const authenticateToken = async (req, res, next) => {
+export const isAuthenticatedUser = async (req, res, next) => {
   try {
     // Extract the JWT from the "Authorization" header
     const token = req.headers.authorization.split(' ')[1];
