@@ -37,16 +37,13 @@ const ProductSchema = new Schema(
     price: {
       type: Number,
       required: true,
-      min: 0,
-      get: (value) => value.toFixed(2),
-      set: (value) => parseFloat(value).toFixed(2)
+      min: 0
     },
     isFeatured: {
       type: Boolean,
       default: false
     }
-  },
-  { timestamps: true }
+  }, { timestamps: true }
 );
 
 // This middleware is to perform some logic or actions before saving the document.
