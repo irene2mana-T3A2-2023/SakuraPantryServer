@@ -7,8 +7,10 @@ const router = express.Router();
 
 // Get all products in the DB
 router.get('/products', ProductController.getAllProducts);
+
 // Get a specific product by slug
 router.get('/products/:slug', tryCatch(ProductController.getProduct));
+
 // Create a new product - admin only
 router.post(
   '/products',
@@ -16,6 +18,7 @@ router.post(
   authoriseRole(['admin']),
   tryCatch(ProductController.createProduct)
 );
+
 // Update a specific product by slug - admin only
 router.patch(
   '/products/:slug',
@@ -23,6 +26,7 @@ router.patch(
   authoriseRole(['admin']),
   tryCatch(ProductController.updateProduct)
 );
+
 // Delete a specific product by slug - admin only
 router.delete(
   '/products/:slug',
