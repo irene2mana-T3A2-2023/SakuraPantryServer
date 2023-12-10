@@ -1,32 +1,27 @@
 [
     {
         "_id": "657046215ed01f56e0a4e007",
-        "name": "Noodles",
-        "slug": "noodles"
+        "name": "Sauces&Seasonings",
+        "slug": "sauces-seasonings"
     },
     {   
-        "_id": "657046215ed01f56e0a4e008",
-        "name": "Miso",
-        "slug": "miso"
+        "_id": "657046215ed01f56e80a4e00",
+        "name": "Confectionary&Snacks",
+        "slug": "confectionary-snacks"
     },
     {   
         "_id": "657046215ed01f56e0a4e009",
-        "name": "Dashi",
-        "slug": "dashi"
+        "name": "Instant Foods",
+        "slug": "instant-foods"
     },
     {
         "_id": "657046215ed01f56e0a4e00a",
-        "name": "Sauces",
-        "slug": "sauces"
+        "name": "Drinks&Sake",
+        "slug": "drinks-sake"
     },
     {
         "_id": "657046215ed01f56e0a4e00b",
-        "name": "Seasonings",
-        "slug": "seasonings"
-    },
-    {
-        "_id": "657046215ed01f56e0a4e00c",
-        "name": "Seaweed",
-        "slug": "seaweed"
+        "name": "Health Foods",
+        "slug": "health-foods"
     }
 ]
