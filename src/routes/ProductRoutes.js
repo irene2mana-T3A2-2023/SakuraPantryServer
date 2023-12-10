@@ -9,10 +9,10 @@ const router = express.Router();
 router.get('/products', ProductController.getAllProducts);
 
 // Search a product by keyword
-router.get('/products/search', ProductController.searchProduct);
+router.get('/products/search', tryCatch(ProductController.searchProduct));
 
 // Get a specific product by slug
-router.get('/products/:slug', ProductController.getProduct);
+router.get('/products/:slug', tryCatch(ProductController.getProduct));
 
 // Create a new product - admin only
 router.post(
