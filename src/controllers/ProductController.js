@@ -59,7 +59,9 @@ export const createProduct = async (req, res) => {
     const existingProduct = await Product.findOne({ name });
 
     if (existingProduct) {
-      return res.status(400).json({ message: 'Product with the same name already exists.' });
+      return res
+        .status(400)
+        .json({ message: 'Product with the same name already exists.' });
     }
 
     // If no existing product, create a new one
