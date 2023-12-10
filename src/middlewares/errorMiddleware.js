@@ -10,6 +10,7 @@ class ErrorResponse extends Error {
   }
 }
 
+// eslint-disable-next-line no-unused-vars
 const errorHandler = (err, req, res, next) => {
   // Create a shallow copy of the error object and copy the error message to the new error object
   let error = { ...err, message: err.message };
