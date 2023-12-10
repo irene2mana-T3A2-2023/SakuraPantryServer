@@ -1,5 +1,4 @@
 import databaseConnect from '../../dbConnection.js';
-// import Category from '../../models/CategoryModel.js';
 import Product from '../../models/ProductModel.js';
 
 // Function to get all products belong to a category

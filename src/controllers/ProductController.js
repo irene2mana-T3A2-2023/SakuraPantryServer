@@ -33,6 +33,20 @@ export const getProduct = async (req, res) => {
 
 // Search a product by keyword
 // Authorisation: none
+export const searchProduct = async (req, res) => {
+  try {
+    const keyword = req.query.keyword;
+    const results = await Product.find({
+      // Use regex to perform a case-insensitive search
+      name: { $regex: new RegExp(keyword, 'i') }
+    });
+    res.status(200).json(results);
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error('An error has occured: ', error);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
+};
 
 // Create a new product
 // Authorisation: admin only
@@ -45,9 +59,7 @@ export const createProduct = async (req, res) => {
     const existingProduct = await Product.findOne({ name });
 
     if (existingProduct) {
-      return res
-        .status(400)
-        .json({ message: 'Product with the same name already exists.' });
+      return res.status(400).json({ message: 'Product with the same name already exists.' });
     }
 
     // If no existing product, create a new one
