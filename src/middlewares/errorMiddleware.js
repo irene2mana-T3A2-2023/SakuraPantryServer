@@ -1,4 +1,8 @@
-// Wrapping default error class with custom error class
+/**
+ * Create a new ErrorResponse object
+ * @param {string} message - The error message
+ * @param {number} statusCode - The HTTP status code associated with the error
+ */
 class ErrorResponse extends Error {
   constructor(message, statusCode) {
     super(message);
@@ -7,18 +11,18 @@ class ErrorResponse extends Error {
 }
 
 const errorHandler = (err, req, res, next) => {
-  let error = { ...err };
-  error.message = err.message;
+  // Create a shallow copy of the error object and copy the error message to the new error object
+  let error = { ...err, message: err.message };
 
-  // Validation error
-  if (err.name === 'ValidatorError') {
+  // Mongoose validation error
+  if (err.name === 'ValidationError') {
     error = new ErrorResponse(
-      Object.values(err.error).map(({ message }) => message),
+      Object.values(err.errors).map(({ message }) => message),
       400
     );
   }
 
-  // Wrong ObjectId (in case of searching users)
+  // Mongoose cast error (e.g., invalid ObjectId)
   if (err.name === 'CastError') {
     error = new ErrorResponse(`Resource not found with id of ${err.value}`, 404);
   }
