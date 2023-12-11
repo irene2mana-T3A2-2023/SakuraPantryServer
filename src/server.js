@@ -7,6 +7,8 @@ import orderRoutes from './routes/OrderRoutes.js';
 import productRoutes from './routes/ProductRoutes.js';
 import categoryRoutes from './routes/CategoryRoutes.js';
 
+import errorHandler from './middlewares/errorMiddleware.js';
+
 // define a server instance
 const app = express();
 
@@ -21,6 +23,9 @@ app.use(cors(corsOptions));
 // middleware to enable request.body
 app.use(express.json());
 
+// middleware to parse the URL-encoded data
+app.use(express.urlencoded({ extended: true }));
+
 // Use the auth routes
 app.use('/api', authRoutes);
 // Use the category routes
@@ -29,6 +34,8 @@ app.use('/api', categoryRoutes);
 app.use('/api', productRoutes);
 // Use the order routes
 app.use('/api', orderRoutes);
+
+app.use(errorHandler);
 
 app.get('/', (req, res) => {
   res.json({
