@@ -1,7 +1,6 @@
 import express from 'express';
 import * as ProductController from '../controllers/ProductController.js';
 import { authoriseRole, isAuthenticatedUser } from '../middlewares/authMiddleware.js';
-// import { tryCatch } from '../utils/tryCatch.js';
 
 const router = express.Router();
 
