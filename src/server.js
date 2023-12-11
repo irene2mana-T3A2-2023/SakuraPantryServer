@@ -7,11 +7,10 @@ import orderRoutes from './routes/OrderRoutes.js';
 import productRoutes from './routes/ProductRoutes.js';
 import categoryRoutes from './routes/CategoryRoutes.js';
 
-import errorHandler from './middlewares/errorMiddleware.js';
 import AppError from './middlewares/appError.js';
-import globalErrorHandler from './controllers/ErrorController.js';
+import globalErrorHandler from './middlewares/errorMiddleware.js';
 
-// define a server instance
+// Define a server instance
 const app = express();
 
 // Set CORS options to allow requests only from the client host specified in the environment configuration.
@@ -19,13 +18,13 @@ const corsOptions = {
   origin: envConfig.clientHost
 };
 
-// enable CORS - Cross Origin Resource Sharing
+// Enable CORS - Cross Origin Resource Sharing
 app.use(cors(corsOptions));
 
-// middleware to enable request.body
+// Middleware to enable request.body
 app.use(express.json());
 
-// middleware to parse the URL-encoded data
+// Middleware to parse the URL-encoded data
 app.use(express.urlencoded({ extended: true }));
 
 // Use the auth routes
@@ -42,11 +41,8 @@ app.all('*', (req, res, next) => {
   next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
 });
 
-// middleware for global error handler
+// Middleware for global error handler
 app.use(globalErrorHandler);
-
-// Middleware for error handling
-app.use(errorHandler);
 
 // Testing route
 app.get('/', (req, res) => {

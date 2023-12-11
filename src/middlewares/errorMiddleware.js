@@ -1,40 +1,87 @@
-/**
- * Create a new ErrorResponse object
- * @param {string} message - The error message
- * @param {number} statusCode - The HTTP status code associated with the error
- */
-class ErrorResponse extends Error {
-  constructor(message, statusCode) {
-    super(message);
-    this.statusCode = statusCode;
-  }
-}
+/* eslint-disable no-console */
+import AppError from './appError.js';
 
-// eslint-disable-next-line no-unused-vars
-const errorHandler = (err, req, res, next) => {
-  // Create a shallow copy of the error object and copy the error message to the new error object
-  let error = { ...err, message: err.message };
-
-  // Mongoose validation error
-  if (err.name === 'ValidationError') {
-    error = new ErrorResponse(
-      Object.values(err.errors).map(({ message }) => message),
-      400
-    );
-  }
-
-  // Mongoose cast error (e.g., invalid ObjectId)
-  if (err.name === 'CastError') {
-    error = new ErrorResponse(`Resource not found with id of ${err.value}`, 404);
-  }
-
-  // Duplicated field
-  if (err.code === 11000) {
-    error = new ErrorResponse('Duplicate field value entered', 400);
-  }
-
-  // Other unexpected errors
-  res.status(error.statusCode || 500).json({ error: error.message || 'Internal Server Error' });
+// Function to handle CastError in Mongoose (eg. invalid ObjectId)
+const handleCastErrorDB = (err) => {
+  const message = `Invalid ${err.path}: ${err.value}.`;
+  return new AppError(message, 400);
 };
 
-export default errorHandler;
+// Function to handle duplicated fields
+const handleDuplicateFieldsDB = (err) => {
+  // Use Regex to match the values between the quotation marks in errmsg created by Mongoose
+  const value = err.errmsg.match(/(["'])(\\?.)*?\1/)[0];
+  console.log(value);
+
+  const message = `Duplicate field value: ${value}. Please use another value!`;
+  return new AppError(message, 400);
+};
+
+// Function to handle ValidationError in Mongoose
+const handleValidationErrorDB = (err) => {
+  // Loop over an array of all error messages and extract each error's message
+  const errors = Object.values(err.errors).map((el) => el.message);
+
+  // Define and return the error's message with all messages joined as a string
+  const message = `Invalid input data. ${errors.join('. ')}`;
+  return new AppError(message, 400);
+};
+
+// Function to send all error details in development
+const sendErrorDev = (err, res) => {
+  res.status(err.statusCode).json({
+    status: err.status,
+    error: err,
+    message: err.message,
+    stack: err.stack
+  });
+};
+
+// Function to send limited error details in production
+const sendErrorProd = (err, res) => {
+  // Operational, trusted error: send message to client
+  if (err.isOperational) {
+    res.status(err.statusCode).json({
+      status: err.status,
+      message: err.message
+    });
+    // Programming or other unknown error: don't leak error details
+  } else {
+    // Log error to the console
+    console.error('ERROR: ', err);
+    // Send generic message
+    res.status(500).json({
+      status: 'error',
+      message: 'Something went wrong!'
+    });
+  }
+};
+
+// Function to handle errors globally
+/* eslint-disable no-unused-vars */
+const globalErrorHandler = (err, req, res, next) => {
+  err.statusCode = err.statusCode || 500;
+  err.status = err.status || 'error';
+
+  if (process.env.NODE_ENV === 'development') {
+    sendErrorDev(err, res);
+  } else if (process.env.NODE_ENV === 'production') {
+    let error = { ...err };
+
+    if (error.name === 'CastError') {
+      error = handleCastErrorDB(error);
+    }
+
+    if (error.code === 11000) {
+      error = handleDuplicateFieldsDB(error);
+    }
+
+    if (error.name === 'ValidationError') {
+      error = handleValidationErrorDB(error);
+    }
+
+    sendErrorProd(error, res);
+  }
+};
+
+export default globalErrorHandler;

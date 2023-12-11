@@ -100,8 +100,8 @@ export const deleteProduct = catchAsync(async (req, res, next) => {
     return next(new AppError('Product not found', 404));
   }
 
-  res.status(200).json({ message: 'Product successfully deleted' });
+  res.status(204).json({ message: 'Product successfully deleted' });
 });
 
 // Get product stats
-// Working in progress...
+// This route is not yet defined
