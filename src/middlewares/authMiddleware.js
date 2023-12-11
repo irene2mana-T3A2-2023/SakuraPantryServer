@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import jwt from 'jsonwebtoken';
 import { envConfig } from '../configs/env.js';
 import User from '../models/UserModel.js';
@@ -30,7 +31,6 @@ export const isAuthenticatedUser = async (req, res, next) => {
     }
   } catch (error) {
     // Handle unexpected errors
-    // eslint-disable-next-line no-console
     console.error('Authentication middleware error:', error);
     res.status(500).json({ error: 'Internal Server Error' });
   }

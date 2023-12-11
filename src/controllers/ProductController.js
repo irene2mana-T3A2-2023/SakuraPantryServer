@@ -2,6 +2,7 @@
 import Product from '../models/ProductModel.js';
 import slugify from 'slugify';
 import catchAsync from '../utils/catchAsync.js';
+import AppError from '../middlewares/appError.js';
 
 // Get all products in the DB - DONE
 // Authorisation: none
@@ -20,7 +21,7 @@ export const getProduct = catchAsync(async (req, res, next) => {
   const result = await Product.findOne({ slug });
 
   if (!result) {
-    return res.status(404).json({ message: 'Product not found' });
+    return next(new AppError('Product not found', 404));
   }
 
   res.status(201).json(result);
@@ -44,10 +45,10 @@ export const createProduct = catchAsync(async (req, res, next) => {
   const slug = slugify(name, { lower: true });
 
   // Check if a product with the same name already exists
-  const existingProduct = await Product.findOne({ name });
+  const existingProduct = await Product.findOne({ $or: [{ name }, { slug }] });
 
   if (existingProduct) {
-    return res.status(400).json({ message: 'Product with the same name already exists.' });
+    return next(new AppError('Product with the same name or slug already exists', 400));
   }
 
   // If no existing product, create a new one
@@ -80,7 +81,7 @@ export const updateProduct = catchAsync(async (req, res, next) => {
   );
 
   if (!result) {
-    return res.status(404).json({ message: 'Product not found' });
+    return next(new AppError('Product not found', 404));
   }
 
   res.status(200).json({
@@ -96,10 +97,11 @@ export const deleteProduct = catchAsync(async (req, res, next) => {
   const result = await Product.findOneAndDelete({ slug });
 
   if (!result) {
-    return res.status(404).json({ message: 'Product not found' });
+    return next(new AppError('Product not found', 404));
   }
 
   res.status(200).json({ message: 'Product successfully deleted' });
 });
 
 // Get product stats
+// Working in progress...
