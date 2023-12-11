@@ -1,19 +1,21 @@
+/* eslint-disable no-unused-vars */
 import Product from '../models/ProductModel.js';
 import slugify from 'slugify';
+import catchAsync from '../utils/catchAsync.js';
 
 // Get all products in the DB - DONE
 // Authorisation: none
-export const getAllProducts = async (req, res) => {
+export const getAllProducts = catchAsync(async (req, res, next) => {
   let result = await Product.find({});
 
   res.status(201).json({
     products: result
   });
-};
+});
 
 // Get a specific product by slug - DONE
 // Authorisation: none
-export const getProduct = async (req, res) => {
+export const getProduct = catchAsync(async (req, res, next) => {
   const { slug } = req.params;
   const result = await Product.findOne({ slug });
 
@@ -22,22 +24,22 @@ export const getProduct = async (req, res) => {
   }
 
   res.status(201).json(result);
-};
+});
 
 // Search a product by keyword
 // Authorisation: none
-export const searchProduct = async (req, res) => {
-    const keyword = req.query.keyword;
-    const results = await Product.find({
-      // Use regex to perform a case-insensitive search
-      name: { $regex: new RegExp(keyword, 'i') }
-    });
-    res.status(200).json(results);
-};
+export const searchProduct = catchAsync(async (req, res, next) => {
+  const keyword = req.query.keyword;
+  const results = await Product.find({
+    // Use regex to perform a case-insensitive search
+    name: { $regex: new RegExp(keyword, 'i') }
+  });
+  res.status(200).json(results);
+});
 
 // Create a new product
 // Authorisation: admin only
-export const createProduct = async (req, res) => {
+export const createProduct = catchAsync(async (req, res, next) => {
   const { name, description, category, stockQuantity, imageUrl, price, isFeatured } = req.body;
   const slug = slugify(name, { lower: true });
 
@@ -61,11 +63,11 @@ export const createProduct = async (req, res) => {
   });
 
   res.status(201).json(newProduct);
-};
+});
 
 // Update a specific product by slug
 // Authorisation: admin only
-export const updateProduct = async (req, res) => {
+export const updateProduct = catchAsync(async (req, res, next) => {
   const { slug } = req.params;
 
   let result = await Product.findOneAndUpdate(
@@ -84,11 +86,11 @@ export const updateProduct = async (req, res) => {
   res.status(200).json({
     product: result
   });
-};
+});
 
 // Delete a specific product by slug
 // Authorisation: admin only
-export const deleteProduct = async (req, res) => {
+export const deleteProduct = catchAsync(async (req, res, next) => {
   const { slug } = req.params;
 
   const result = await Product.findOneAndDelete({ slug });
@@ -98,4 +100,6 @@ export const deleteProduct = async (req, res) => {
   }
 
   res.status(200).json({ message: 'Product successfully deleted' });
-};
+});
+
+// Get product stats

@@ -8,6 +8,8 @@ import productRoutes from './routes/ProductRoutes.js';
 import categoryRoutes from './routes/CategoryRoutes.js';
 
 import errorHandler from './middlewares/errorMiddleware.js';
+import AppError from './middlewares/appError.js';
+import globalErrorHandler from './controllers/ErrorController.js';
 
 // define a server instance
 const app = express();
@@ -35,8 +37,18 @@ app.use('/api', productRoutes);
 // Use the order routes
 app.use('/api', orderRoutes);
 
+// Middleware to handle 404 Not Found error
+app.all('*', (req, res, next) => {
+  next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
+});
+
+// middleware for global error handler
+app.use(globalErrorHandler);
+
+// Middleware for error handling
 app.use(errorHandler);
 
+// Testing route
 app.get('/', (req, res) => {
   res.json({
     message: 'API is working'
