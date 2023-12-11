@@ -59,7 +59,7 @@ export const authoriseRole = (authorisedRole) => async (req, res, next) => {
   } catch (error) {
     // Handle unexpected errors
     // eslint-disable-next-line no-console
-    console.error('Admin authorization middleware error:', error);
+    console.error('Authorisation middleware error:', error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
 };
