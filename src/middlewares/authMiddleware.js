@@ -15,24 +15,24 @@ export const isAuthenticatedUser = async (req, res, next) => {
       return res.status(401).json({ error: 'Unauthorized access. Token not provided.' });
     }
 
-    try {
-      // Verify the JWT token
-      const decodedToken = await jwt.verify(token, envConfig.jwtSecret);
+    // Verify the JWT token
+    const decodedToken = await jwt.verify(token, envConfig.jwtSecret);
 
-      // Set the decoded user information in the request object
-      req.user = decodedToken;
+    // Set the decoded user information in the request object
+    req.user = decodedToken;
 
-      // Call the next middleware or route handler
-      next();
-    } catch (jwtError) {
-      // If verification fails, send a 403 Forbidden response
-      return res.status(403).json({ error: 'Access forbidden. Invalid token.' });
-    }
+    // Call the next middleware or route handler
+    next();
   } catch (error) {
     // Handle unexpected errors
     // eslint-disable-next-line no-console
     console.error('Authentication middleware error:', error);
-    res.status(500).json({ error: 'Internal Server Error' });
+    res.status(error instanceof jwt.JsonWebTokenError ? 403 : 500).json({
+      error:
+        error instanceof jwt.JsonWebTokenError
+          ? 'Access forbidden. Invalid token'
+          : 'Internal Server Error'
+    });
   }
 };
 
