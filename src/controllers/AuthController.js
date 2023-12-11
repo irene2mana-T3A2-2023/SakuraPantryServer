@@ -123,7 +123,7 @@ export const forgotPassword = async (req, res) => {
     });
 
     // Create the reset password URL, which includes the reset password token.
-    const resetUrl = `${envConfig.clientHost}/reset-password?token=${resetToken}`;
+    const resetUrl = `${envConfig.clientHost}/reset-password/${resetToken}`;
 
     // Send an email to the user that includes the reset password URL
     await transporter.sendMail({
