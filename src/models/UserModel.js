@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 import bcrypt from 'bcryptjs';
 import { filterSchema } from '../utils/common.js';
+import validator from 'validator';
 
 const Schema = mongoose.Schema;
 
@@ -10,11 +11,16 @@ const UserSchema = new Schema(
     email: {
       type: String,
       required: true,
-      unique: true
+      unique: [true, 'Please provide your email'],
+      lowercase: true,
+      validate: [validator.isEmail, 'Please provide a valid email']
     },
     password: {
       type: String,
-      required: true
+      required: [true, 'Please provide your password'],
+      minlength: [8, 'Password must be at least 8 characters long'],
+      // need to validate password in back-end?
+      select: false // this is to exclude the password field from the query results by default
     },
     role: {
       type: String,
@@ -83,6 +89,10 @@ const UserSchema = new Schema(
     toJSON: filterSchema(['__v', '_id', 'password'])
   }
 );
+
+// Not sure this have been done and whether it should be done here
+// https://www.mongodb.com/blog/post/password-authentication-with-mongoose-part-1
+// A Mongoose middleware that will automatically hash the password before it’s saved to the database
 
 // Define an instance method on UserSchema
 UserSchema.method({

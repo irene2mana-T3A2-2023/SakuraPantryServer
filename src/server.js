@@ -36,6 +36,13 @@ app.use('/api', productRoutes);
 // Use the order routes
 app.use('/api', orderRoutes);
 
+// Testing route
+app.get('/', (req, res) => {
+  res.json({
+    message: 'API is working'
+  });
+});
+
 // Middleware to handle 404 Not Found error
 app.all('*', (req, res, next) => {
   next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
@@ -43,12 +50,5 @@ app.all('*', (req, res, next) => {
 
 // Middleware for global error handler
 app.use(globalErrorHandler);
-
-// Testing route
-app.get('/', (req, res) => {
-  res.json({
-    message: 'API is working'
-  });
-});
 
 export default app;
