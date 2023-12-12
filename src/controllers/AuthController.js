@@ -90,41 +90,41 @@ export const forgotPassword = catchAsync(async (req, res, next) => {
   if (!existingUser) {
     return res.status(400).json({ message: 'User not found' });
   }
-  
-    // Generate a random reset token using crypto
-    const resetToken = crypto.randomBytes(20).toString('hex');
 
-    // Assign the reset token and expiration time to the user
-    existingUser.resetPasswordToken = resetToken;
-    existingUser.resetPasswordExpires = Date.now() + 15 * 60 * 1000; // 15 mins
+  // Generate a random reset token using crypto
+  const resetToken = crypto.randomBytes(20).toString('hex');
 
-    // Save the updated user information
-    await existingUser.save();
+  // Assign the reset token and expiration time to the user
+  existingUser.resetPasswordToken = resetToken;
+  existingUser.resetPasswordExpires = Date.now() + 15 * 60 * 1000; // 15 mins
 
-    // Create a transport for sending email using Nodemailer
-    const transporter = nodemailer.createTransport({
-      service: 'gmail',
-      host: 'smtp.gmail.com',
-      port: 587,
-      secure: false,
-      auth: {
-        user: envConfig.mail.user,
-        pass: envConfig.mail.password
-      }
-    });
+  // Save the updated user information
+  await existingUser.save();
 
-    // Create the reset password URL, which includes the reset password token.
-    const resetUrl = `${envConfig.clientHost}/reset-password/${resetToken}`;
+  // Create a transport for sending email using Nodemailer
+  const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    host: 'smtp.gmail.com',
+    port: 587,
+    secure: false,
+    auth: {
+      user: envConfig.mail.user,
+      pass: envConfig.mail.password
+    }
+  });
 
-    // Send an email to the user that includes the reset password URL
-    await transporter.sendMail({
-      from: {
-        name: 'Sakura Pantry',
-        address: envConfig.mail.user
-      },
-      to: existingUser.email,
-      subject: 'Password Reset',
-      html: `
+  // Create the reset password URL, which includes the reset password token.
+  const resetUrl = `${envConfig.clientHost}/reset-password/${resetToken}`;
+
+  // Send an email to the user that includes the reset password URL
+  await transporter.sendMail({
+    from: {
+      name: 'Sakura Pantry',
+      address: envConfig.mail.user
+    },
+    to: existingUser.email,
+    subject: 'Password Reset',
+    html: `
       <h1>Reset Password</h1>
       <br />
       <h3>Dear ${existingUser.lastName},</h3>

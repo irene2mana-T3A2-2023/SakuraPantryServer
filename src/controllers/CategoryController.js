@@ -15,7 +15,7 @@ export const getAllCategories = catchAsync(async (req, res, next) => {
 });
 
 // Create a new category - DONE
-// Authorisation: admin only 
+// Authorisation: admin only
 export const createCategory = catchAsync(async (req, res, next) => {
   const { name } = req.body;
   const slug = slugify(name, { lower: true });
@@ -29,7 +29,7 @@ export const createCategory = catchAsync(async (req, res, next) => {
 
   // If no existing category, create a new one
   const newCategory = await Category.create({
-    name, 
+    name,
     slug
   });
 
@@ -37,18 +37,14 @@ export const createCategory = catchAsync(async (req, res, next) => {
 });
 
 // Update a specific category by slug - DONE
-// Authorisation: admin only 
+// Authorisation: admin only
 export const updateCategory = catchAsync(async (req, res, next) => {
   const { slug } = req.params;
 
-  let result = await Category.findOneAndUpdate(
-    { slug: slug },
-    req.body,
-    {
-      new: true,
-      runValidators: true
-    }
-  );
+  let result = await Category.findOneAndUpdate({ slug: slug }, req.body, {
+    new: true,
+    runValidators: true
+  });
 
   if (!result) {
     return next(new AppError('Product not found', 404));
@@ -60,7 +56,7 @@ export const updateCategory = catchAsync(async (req, res, next) => {
 });
 
 // Delete a specific category by slug
-// Authorisation: admin only 
+// Authorisation: admin only
 export const deleteCategory = catchAsync(async (req, res, next) => {
   const { slug } = req.params;
 

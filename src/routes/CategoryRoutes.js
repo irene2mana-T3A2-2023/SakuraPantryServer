@@ -5,12 +5,32 @@ import { authoriseRole, isAuthenticatedUser } from '../middlewares/authMiddlewar
 const router = express.Router();
 
 // Get a list of all categories
-router.get('/categories', isAuthenticatedUser, authoriseRole(['admin']), CategoryController.getAllCategories);
+router.get(
+  '/categories',
+  isAuthenticatedUser,
+  authoriseRole(['admin']),
+  CategoryController.getAllCategories
+);
 // Create a new category
-router.post('/categories', isAuthenticatedUser, authoriseRole(['admin']), CategoryController.createCategory);
+router.post(
+  '/categories',
+  isAuthenticatedUser,
+  authoriseRole(['admin']),
+  CategoryController.createCategory
+);
 // Update a specific category by slug
-router.patch('/categories/:slug', isAuthenticatedUser, authoriseRole(['admin']), CategoryController.updateCategory);
+router.patch(
+  '/categories/:slug',
+  isAuthenticatedUser,
+  authoriseRole(['admin']),
+  CategoryController.updateCategory
+);
 // Delete a specific category by slug
-router.delete('/categories/:slug', isAuthenticatedUser, authoriseRole(['admin']), CategoryController.deleteCategory);
+router.delete(
+  '/categories/:slug',
+  isAuthenticatedUser,
+  authoriseRole(['admin']),
+  CategoryController.deleteCategory
+);
 
 export default router;

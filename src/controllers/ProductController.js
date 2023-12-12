@@ -50,7 +50,7 @@ export const createProduct = catchAsync(async (req, res, next) => {
   if (existingProduct) {
     return next(new AppError('Product with the same name or slug already exists', 400));
   }
-  
+
   // If no existing product, create a new one
   const newProduct = await Product.create({
     name,
