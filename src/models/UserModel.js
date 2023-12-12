@@ -18,15 +18,8 @@ const UserSchema = new Schema(
     password: {
       type: String,
       required: [true, 'Please provide your password'],
-      minlength: [8, 'Password must be at least 8 characters long'],
-      // need to validate password in back-end? not working yet
-      validate: {
-        validator: function (password) {
-          const passwordRegex = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&-+=()])(?=\\S+$).{8, 20}$/;
-          return passwordRegex.test(password);
-        },
-        message: 'Password must meet the specified complexity requirements'
-      }
+      minlength: [8, 'Password must be at least 8 characters long']
+      // need to validate password in back-end?
     },
     role: {
       type: String,
