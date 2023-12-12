@@ -1,5 +1,12 @@
 import express from 'express';
-import { register, login, forgotPassword, resetPassword } from '../controllers/AuthController.js';
+import {
+  register,
+  login,
+  forgotPassword,
+  resetPassword,
+  currentUser
+} from '../controllers/AuthController.js';
+import { authoriseRole, isAuthenticatedUser } from '../middlewares/authMiddleware.js';
 
 // Create a new router object using Express
 const router = express.Router();
@@ -15,6 +22,9 @@ router.post('/auth/forgot-password', forgotPassword);
 
 // Route for resetting a password - POST request to '/auth/reset-password' will be handled by the 'resetPassword' controller
 router.post('/auth/reset-password', resetPassword);
+
+//Route for checking user's authentication status and allows access only to users who have the specificed role as user.
+router.get('/auth/current-user', isAuthenticatedUser, authoriseRole(['user']), currentUser);
 
 // Export the router to be used in other parts of the application
 export default router;

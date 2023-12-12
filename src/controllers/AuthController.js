@@ -183,3 +183,11 @@ export const resetPassword = catchAsync(async (req, res, next) => {
   // Send success response
   res.status(200).json({ message: 'Password has been successfully reset' });
 });
+
+export const currentUser = async (req, res) => {
+  const user = await User.findById(req.user.userId);
+  if (!user) {
+    return res.status(400).json({ message: 'User not found' });
+  }
+  res.status(200).json(user);
+};
