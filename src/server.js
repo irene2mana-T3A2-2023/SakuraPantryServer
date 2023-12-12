@@ -18,7 +18,7 @@ const app = express();
 
 // GLOBAL MIDDLEWARES
 // Set security HTTP headers
-app.use(helmet())
+app.use(helmet());
 
 // Set CORS options to allow requests only from the client host specified in the environment configuration.
 const corsOptions = {

@@ -18,8 +18,16 @@ const UserSchema = new Schema(
     password: {
       type: String,
       required: [true, 'Please provide your password'],
-      minlength: [8, 'Password must be at least 8 characters long']
+      minlength: [8, 'Password must be at least 8 characters long'],
       // need to validate password in back-end?
+      validate: {
+        validator: function (password) {
+          const passwordRegex =
+            /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+          return passwordRegex.test(password);
+        },
+        message: 'Password must include at least one uppercase letter, one lowercase letter, one digit and one special character.'
+      }
     },
     role: {
       type: String,
@@ -31,18 +39,40 @@ const UserSchema = new Schema(
     firstName: {
       type: String,
       required: true,
-      unique: false
+      unique: false,
+      validate: {
+        validator: function (firstName) {
+          const firstNameRegex =
+            /^[a-zA-Z ]+$/;
+          return firstNameRegex.test(firstName);
+        },
+        message: 'First name can contain only letters and space.'
+      }
     },
     lastName: {
       type: String,
       required: true,
-      unique: false
+      unique: false,
+      validate: {
+        validator: function (lastName) {
+          const lastNameRegex =
+            /^[a-zA-Z ]+$/;
+          return lastNameRegex.test(lastName);
+        },
+        message: 'Last name can contain only letters and space.'
+      }
     },
-    // phone should be unique, but it will throw duplicate error if there's no value provided regardless null value
-    // solution: validate the uniqueness of phone in application logic or front-end
     phone: {
       type: String,
-      required: false
+      required: false,
+      validate: {
+        validator: function (phone) {
+          const lastNameRegex =
+            /^[0-9]+$/;
+          return lastNameRegex.test(phone);
+        },
+        message: 'Phone number can contain only numbers.'
+      }
     },
     status: {
       type: String,
