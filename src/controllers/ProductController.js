@@ -4,8 +4,9 @@ import slugify from 'slugify';
 import catchAsync from '../utils/catchAsync.js';
 import AppError from '../middlewares/appError.js';
 
-// Get all products in the DB - DONE
-// Authorisation: none
+// @desc    Get all products
+// @route   GET /api/products
+// @access  Public
 export const getAllProducts = catchAsync(async (req, res, next) => {
   let result = await Product.find({});
 
@@ -14,8 +15,9 @@ export const getAllProducts = catchAsync(async (req, res, next) => {
   });
 });
 
-// Get a specific product by slug - DONE
-// Authorisation: none
+// @desc    Get a product by slug
+// @route   GET /api/products/:slug
+// @access  Public
 export const getProduct = catchAsync(async (req, res, next) => {
   const { slug } = req.params;
   const result = await Product.findOne({ slug });
@@ -27,8 +29,9 @@ export const getProduct = catchAsync(async (req, res, next) => {
   res.status(201).json(result);
 });
 
-// Search a product by keyword
-// Authorisation: none
+// @desc    Search a product by keyword
+// @route   GET /api/products/search?keyword=
+// @access  Public
 export const searchProduct = catchAsync(async (req, res, next) => {
   const keyword = req.query.keyword;
   const results = await Product.find({
@@ -38,8 +41,9 @@ export const searchProduct = catchAsync(async (req, res, next) => {
   res.status(200).json(results);
 });
 
-// Create a new product
-// Authorisation: admin only
+// @desc    Create a product
+// @route   GET /api/products
+// @access  Private/Admin
 export const createProduct = catchAsync(async (req, res, next) => {
   const { name, description, category, stockQuantity, imageUrl, price, isFeatured } = req.body;
   const slug = slugify(name, { lower: true });
@@ -66,8 +70,9 @@ export const createProduct = catchAsync(async (req, res, next) => {
   res.status(201).json(newProduct);
 });
 
-// Update a specific product by slug
-// Authorisation: admin only
+// @desc    Update a product by slug
+// @route   PATCH /api/products/:slug
+// @access  Private/Admin
 export const updateProduct = catchAsync(async (req, res, next) => {
   const { slug } = req.params;
 
@@ -89,8 +94,9 @@ export const updateProduct = catchAsync(async (req, res, next) => {
   });
 });
 
-// Delete a specific product by slug
-// Authorisation: admin only
+// @desc    Delete a product by slug
+// @route   DELETE /api/products/:slug
+// @access  Private/Admin
 export const deleteProduct = catchAsync(async (req, res, next) => {
   const { slug } = req.params;
 
