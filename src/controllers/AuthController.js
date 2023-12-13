@@ -184,10 +184,12 @@ export const resetPassword = catchAsync(async (req, res, next) => {
   res.status(200).json({ message: 'Password has been successfully reset' });
 });
 
-export const currentUser = async (req, res) => {
+// Attempt to find a user in the database using the user ID.
+export const currentUser = catchAsync(async (req, res) => {
   const user = await User.findById(req.user.userId);
   if (!user) {
-    return res.status(400).json({ message: 'User not found' });
-  }
+    //If the user is not found, return a response with a 400 status code.
+    return res.status(400).json({ message: 'User is not authenticated' });
+  } //If the user is found, send a response back with a 200 status code.
   res.status(200).json(user);
-};
+});
