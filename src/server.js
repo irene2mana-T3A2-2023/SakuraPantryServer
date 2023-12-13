@@ -35,9 +35,6 @@ app.use('/api', categoryRoutes);
 app.use('/api', productRoutes);
 // Use the order routes
 app.use('/api', orderRoutes);
-/** GET /health-check - Check service health */
-app.use('/health-check', (req, res) => res.json({ message: 'Server is running'}));
-
 
 // Middleware to handle 404 Not Found error
 app.all('*', (req, res, next) => {
