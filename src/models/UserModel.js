@@ -2,6 +2,7 @@ import mongoose from 'mongoose';
 import bcrypt from 'bcryptjs';
 import { filterSchema } from '../utils/common.js';
 import validator from 'validator';
+import catchAsync from '../utils/catchAsync.js';
 
 const Schema = mongoose.Schema;
 
@@ -18,14 +19,6 @@ const UserSchema = new Schema(
     password: {
       type: String,
       required: [true, 'Please provide your password']
-      // validate: {
-      //   validator: function (password) {
-      //     const passwordRegex =
-      //       /^[a-zA-Z0-9]{8,30}$/;
-      //     return passwordRegex.test(password);
-      //   },
-      //   message: 'Password should be between 8 to 30 characters and contain letters or numbers only'
-      // }
     },
     role: {
       type: String,

@@ -171,12 +171,10 @@ export const resetPassword = catchAsync(async (req, res, next) => {
     return res.status(400).json({ message: 'Invalid or expired reset password token' });
   }
 
-  // Generate a salt and hash the new password
-  const salt = await bcrypt.genSalt(10);
-  const hashedPassword = await bcrypt.hash(newPassword, salt);
+  // Set the new password
+  existingUser.password = newPassword;
 
-  // Update the user's password and clear the reset token fields
-  existingUser.password = hashedPassword;
+  // Clear the reset token fields
   existingUser.resetPasswordToken = undefined;
   existingUser.resetPasswordExpires = undefined;
 
