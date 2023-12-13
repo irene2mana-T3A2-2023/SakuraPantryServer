@@ -10,7 +10,7 @@ import AppError from '../middlewares/appError.js';
 export const getAllProducts = catchAsync(async (req, res, next) => {
   let result = await Product.find({});
 
-  res.status(201).json({
+  res.status(200).json({
     products: result
   });
 });
@@ -26,7 +26,7 @@ export const getProduct = catchAsync(async (req, res, next) => {
     return next(new AppError('Product not found', 404));
   }
 
-  res.status(201).json(result);
+  res.status(200).json(result);
 });
 
 // @desc    Search a product by keyword

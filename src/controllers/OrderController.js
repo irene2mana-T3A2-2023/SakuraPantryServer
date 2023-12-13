@@ -1,13 +1,18 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-console */
 
-import catchAsync from '../utils/catchAsync';
+import AppError from '../middlewares/appError.js';
+import Order from '../models/OrderModel.js';
+import catchAsync from '../utils/catchAsync.js';
 
 // @desc    Get all orders
 // @route   GET /api/orders
 // @access  Private/Admin
 export const getAllOrders = catchAsync(async (req, res, next) => {
-  console.log('Get all orders');
+  const results = await Order.find({}).populate('user', 'id firstName lastName email');
+  res.status(200).json({
+    orders: results
+  });
 });
 
 // @desc    Get logged in user orders
@@ -21,7 +26,16 @@ export const getMyOrders = catchAsync(async (req, res, next) => {
 // @route   GET /api/orders/:id
 // @access  Private
 export const getOrderById = catchAsync(async (req, res, next) => {
-  console.log('Get a specific order by OrderId');
+  const result = await Order.findById(req.params.id).populate(
+    'user',
+    'firstName lastName email'
+  );
+
+  if(!result) {
+    return next(new AppError('Order not found', 404));
+  }
+
+  res.status(200).json(result)
 });
 
 // @desc    Create new order
