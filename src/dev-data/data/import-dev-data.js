@@ -1,6 +1,5 @@
 import mongoose from 'mongoose';
 import fs from 'fs';
-import User from '../../models/UserModel.js';
 import Category from '../../models/CategoryModel.js';
 import Product from '../../models/ProductModel.js';
 import databaseConnect from '../../dbConnection.js';
@@ -12,14 +11,12 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 // Read JSON files
-const users = JSON.parse(fs.readFileSync(`${__dirname}/users.json`, 'utf-8'));
 const categories = JSON.parse(fs.readFileSync(`${__dirname}/categories.json`, 'utf-8'));
 const products = JSON.parse(fs.readFileSync(`${__dirname}/products.json`, 'utf-8'));
 
 // Function to import dev data
 const importData = async () => {
   try {
-    await User.create(users);
     await Category.create(categories);
     await Product.create(products);
     // eslint-disable-next-line no-console
@@ -33,7 +30,6 @@ const importData = async () => {
 // Function to delete dev data
 const deleteData = async () => {
   try {
-    await User.deleteMany();
     await Category.deleteMany();
     await Product.deleteMany();
     // eslint-disable-next-line no-console

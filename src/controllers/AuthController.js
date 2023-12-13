@@ -33,12 +33,15 @@ export const register = catchAsync(async (req, res, next) => {
     return res.status(400).json({ message: 'Email already exists' });
   }
 
-  // Generate a salt and hash the password
-  const salt = await bcrypt.genSalt(10);
-  const hashedPassword = await bcrypt.hash(password, salt);
+  // Create a new user instance
+  const newUser = new User({ firstName, lastName, email, password, ...rest });
 
-  // Create a new user instance with the provided data and hashed password
-  const newUser = new User({ firstName, lastName, email, password: hashedPassword, ...rest });
+  // Validate the password complexity using the model method
+  if (!newUser.isPasswordValid(password)) {
+    return res.status(400).json({
+      message: 'Password should be between 8 to 30 characters and contain letters or numbers only'
+    });
+  }
 
   // Save the new user to the database
   await newUser.save();
@@ -169,12 +172,10 @@ export const resetPassword = catchAsync(async (req, res, next) => {
     return res.status(400).json({ message: 'Invalid or expired reset password token' });
   }
 
-  // Generate a salt and hash the new password
-  const salt = await bcrypt.genSalt(10);
-  const hashedPassword = await bcrypt.hash(newPassword, salt);
+  // Set the new password
+  existingUser.password = newPassword;
 
-  // Update the user's password and clear the reset token fields
-  existingUser.password = hashedPassword;
+  // Clear the reset token fields
   existingUser.resetPasswordToken = undefined;
   existingUser.resetPasswordExpires = undefined;
 
