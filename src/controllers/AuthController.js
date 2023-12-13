@@ -6,6 +6,7 @@ import crypto from 'crypto';
 import nodemailer from 'nodemailer';
 import { envConfig } from '../configs/env.js';
 import catchAsync from '../utils/catchAsync.js';
+import AppError from '../middlewares/appError.js';
 
 // @route POST api/auth/register
 // @desc Register a new user account
@@ -182,4 +183,14 @@ export const resetPassword = catchAsync(async (req, res, next) => {
 
   // Send success response
   res.status(200).json({ message: 'Password has been successfully reset' });
+});
+
+// Attempt to find a user in the database using the user ID.
+export const currentUser = catchAsync(async (req, res, next) => {
+  const user = await User.findById(req.user.userId);
+  if (!user) {
+    //If the user is not found, return a response with a 400 status code.
+    return next(new AppError('User is not authenticated', 400));
+  } //If the user is found, send a response back with a 200 status code.
+  res.status(200).json(user);
 });
