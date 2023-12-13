@@ -17,17 +17,15 @@ const UserSchema = new Schema(
     },
     password: {
       type: String,
-      required: [true, 'Please provide your password'],
-      minlength: [8, 'Password must be at least 8 characters long'],
-      // need to validate password in back-end?
-      validate: {
-        validator: function (password) {
-          const passwordRegex =
-            /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-          return passwordRegex.test(password);
-        },
-        message: 'Password must include at least one uppercase letter, one lowercase letter, one digit and one special character.'
-      }
+      required: [true, 'Please provide your password']
+      // validate: {
+      //   validator: function (password) {
+      //     const passwordRegex =
+      //       /^[a-zA-Z0-9]{8,30}$/;
+      //     return passwordRegex.test(password);
+      //   },
+      //   message: 'Password should be between 8 to 30 characters and contain letters or numbers only'
+      // }
     },
     role: {
       type: String,
@@ -42,11 +40,10 @@ const UserSchema = new Schema(
       unique: false,
       validate: {
         validator: function (firstName) {
-          const firstNameRegex =
-            /^[a-zA-Z ]+$/;
+          const firstNameRegex = /^[a-zA-Z]{2,30}$/;
           return firstNameRegex.test(firstName);
         },
-        message: 'First name can contain only letters and space.'
+        message: 'First name must be between 2 to 30 characters and contain letters only'
       }
     },
     lastName: {
@@ -55,11 +52,10 @@ const UserSchema = new Schema(
       unique: false,
       validate: {
         validator: function (lastName) {
-          const lastNameRegex =
-            /^[a-zA-Z ]+$/;
+          const lastNameRegex = /^[a-zA-Z]{2,30}$/;
           return lastNameRegex.test(lastName);
         },
-        message: 'Last name can contain only letters and space.'
+        message: 'Last name must be between 2 to 30 characters and contain letters only'
       }
     },
     phone: {
@@ -67,8 +63,7 @@ const UserSchema = new Schema(
       required: false,
       validate: {
         validator: function (phone) {
-          const lastNameRegex =
-            /^[0-9]+$/;
+          const lastNameRegex = /^[0-9]+$/;
           return lastNameRegex.test(phone);
         },
         message: 'Phone number can contain only numbers.'
@@ -119,9 +114,21 @@ const UserSchema = new Schema(
   }
 );
 
-// Not sure this have been done and whether it should be done here
-// https://www.mongodb.com/blog/post/password-authentication-with-mongoose-part-1
-// A Mongoose middleware that will automatically hash the password before it’s saved to the database
+// Password validation logic
+UserSchema.methods.isPasswordValid = function (password) {
+  return /^[a-zA-Z0-9]{8,30}$/.test(password);
+};
+
+// A middleware that will automatically hash the password before it’s saved to the database
+UserSchema.pre('save', async function (next) {
+  // only hash the password if it has been modified (or is new)
+  if (this.isModified('password')) {
+    // Generate a salt and hash the password
+    const salt = await bcrypt.genSalt(10);
+    this.password = await bcrypt.hash(this.password, salt);
+  }
+  next();
+});
 
 // Define an instance method on UserSchema
 UserSchema.method({
@@ -129,13 +136,6 @@ UserSchema.method({
   comparePassword(password) {
     return bcrypt.compareSync(password, this.password);
   }
-});
-
-// This middleware is to perform some logic or actions before saving the document.
-UserSchema.pre('save', async function (next) {
-  // eslint-disable-next-line no-console
-  console.log('About to save a user to the DB!');
-  next();
 });
 
 // Define User Model
