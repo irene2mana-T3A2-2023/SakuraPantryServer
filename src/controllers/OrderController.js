@@ -19,23 +19,22 @@ export const getAllOrders = catchAsync(async (req, res, next) => {
 // @route   GET /api/orders/myorders
 // @access  Private
 export const getMyOrders = catchAsync(async (req, res, next) => {
-  console.log('Get a list of orders for logged in user');
+  const results = await Order.find({ user: req.user._id });
+
+  res.status(200).json(results);
 });
 
 // @desc    Get order by ID
 // @route   GET /api/orders/:id
 // @access  Private
 export const getOrderById = catchAsync(async (req, res, next) => {
-  const result = await Order.findById(req.params.id).populate(
-    'user',
-    'firstName lastName email'
-  );
+  const result = await Order.findById(req.params.id).populate('user', 'firstName lastName email');
 
-  if(!result) {
+  if (!result) {
     return next(new AppError('Order not found', 404));
   }
 
-  res.status(200).json(result)
+  res.status(200).json(result);
 });
 
 // @desc    Create new order
@@ -49,5 +48,20 @@ export const createOrder = catchAsync(async (req, res, next) => {
 // @route   GET /api/orders/:id/status
 // @access  Private/Admin
 export const updateOrderStatus = catchAsync(async (req, res, next) => {
-  console.log('Update the status of a specific order by OrderId');
+
+  let result = await Order.findByIdAndUpdate(
+    req.body,
+    {
+      new: true,
+      runValidators: true
+    }
+  )
+
+  if (!result) {
+    return next(new AppError('Order not found', 404));
+  };
+
+  result.status(200).json({
+    order: result
+  })
 });
