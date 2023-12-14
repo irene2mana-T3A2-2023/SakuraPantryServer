@@ -42,27 +42,11 @@ export const getOrderById = catchAsync(async (req, res, next) => {
 // @route   POST /api/orders
 // @access  Private/Authenticated user
 export const createOrder = catchAsync(async (req, res, next) => {
-  const { orderItems, shippingAddress, paymentMethod } = req.body;
+  const { orderItems, user, shippingAddress, paymentMethod } = req.body;
 
   if (orderItems && orderItems.length === 0) {
     return next(new AppError('No order items', 404));
   }
-
-  // const itemsFromDB = await Product.find({
-  //   _id: { $in: orderItems.map((product) => product._id) }
-  // });
-
-  // const dbOrderItems = orderItems.map((itemFromCustomer) => {
-  //   const matchingItemFromDB = itemsFromDB.find(
-  //     (itemFromDB) => itemFromDB._id.toString() === itemFromCustomer._id
-  //   );
-  //   return {
-  //     ...itemFromCustomer,
-  //     product: itemFromCustomer._id,
-  //     price: matchingItemFromDB.price,
-  //     _id: undefined
-  //   };
-  // });
 
   // Calculate total price
   let totalPrice = orderItems.reduce(
@@ -73,13 +57,11 @@ export const createOrder = catchAsync(async (req, res, next) => {
   totalPrice = (Math.round(totalPrice * 100) / 100).toFixed(2);
 
   const newOrder = await Order.create({
-    // Iterate over each item in the orderItems array and tranform it into a new form
     orderItems: orderItems.map((item) => ({
       ...item,
-      product: item._id,
       _id: undefined
     })),
-    user: req.user._id,
+    user,
     paymentMethod,
     shippingAddress,
     totalPrice
