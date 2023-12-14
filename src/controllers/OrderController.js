@@ -1,10 +1,11 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-console */
-
 import AppError from '../middlewares/appError.js';
 import Order from '../models/OrderModel.js';
 import Product from '../models/ProductModel.js';
+import User from '../models/UserModel.js';
 import catchAsync from '../utils/catchAsync.js';
+import { getUserFromJwt } from '../utils/getAuthUser.js';
 
 // @desc    Get all orders
 // @route   GET /api/orders
@@ -20,7 +21,9 @@ export const getAllOrders = catchAsync(async (req, res, next) => {
 // @route   GET /api/orders/myorders
 // @access  Private
 export const getMyOrders = catchAsync(async (req, res, next) => {
-  const results = await Order.find({ user: req.user._id });
+  const decodedUser = getUserFromJwt(req);
+
+  const results = await Order.find({ user: decodedUser.userId });
 
   res.status(200).json(results);
 });
@@ -29,7 +32,7 @@ export const getMyOrders = catchAsync(async (req, res, next) => {
 // @route   GET /api/orders/:id
 // @access  Private
 export const getOrderById = catchAsync(async (req, res, next) => {
-  const result = await Order.findById(req.params.id).populate('user', 'firstName lastName email');
+  const result = await Order.findById(req.params.id).exec();
 
   if (!result) {
     return next(new AppError('Order not found', 404));
@@ -42,25 +45,33 @@ export const getOrderById = catchAsync(async (req, res, next) => {
 // @route   POST /api/orders
 // @access  Private/Authenticated user
 export const createOrder = catchAsync(async (req, res, next) => {
-  const { orderItems, user, shippingAddress, paymentMethod } = req.body;
+  const { orderItems, shippingAddress, paymentMethod } = req.body;
 
   if (orderItems && orderItems.length === 0) {
     return next(new AppError('No order items', 404));
   }
 
-  // Calculate total price
-  let totalPrice = orderItems.reduce(
-    (acc, item) => acc + (item.price * 100 * item.quantity) / 100,
-    0
+  const user = await User.findById(req.user.userId).exec();
+
+  const orderItemsWithPrices = await Promise.all(
+    orderItems.map(async (item) => {
+      const product = await Product.findById(item.product);
+      if (!product) {
+        return next(new AppError('Product not found', 404));
+      }
+      return {
+        quantity: item.quantity,
+        product: item.product,
+        totalPrice: item.quantity * product.price
+      };
+    })
   );
 
+  let totalPrice = orderItemsWithPrices.reduce((acc, item) => acc + item.totalPrice, 0);
   totalPrice = (Math.round(totalPrice * 100) / 100).toFixed(2);
 
   const newOrder = await Order.create({
-    orderItems: orderItems.map((item) => ({
-      ...item,
-      _id: undefined
-    })),
+    orderItems: orderItemsWithPrices,
     user,
     paymentMethod,
     shippingAddress,
@@ -74,7 +85,7 @@ export const createOrder = catchAsync(async (req, res, next) => {
 // @route   GET /api/orders/:id/status
 // @access  Private/Admin
 export const updateOrderStatus = catchAsync(async (req, res, next) => {
-  let result = await Order.findByIdAndUpdate(req.body, {
+  let result = await Order.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
     runValidators: true
   });
@@ -83,7 +94,7 @@ export const updateOrderStatus = catchAsync(async (req, res, next) => {
     return next(new AppError('Order not found', 404));
   }
 
-  result.status(200).json({
+  res.status(200).json({
     order: result
   });
 });

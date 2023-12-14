@@ -7,9 +7,12 @@ const router = express.Router();
 // Get a list of all orders
 router.get('/orders', isAuthenticatedUser, authoriseRole(['admin']), OrderController.getAllOrders);
 
-// Get a specific order by orderId
+// Get logged in user orders
+router.get('/orders/myorders', isAuthenticatedUser, OrderController.getMyOrders);
+
+// Get a specific order by id
 router.get(
-  '/orders/:orderId',
+  '/orders/:id',
   isAuthenticatedUser,
   authoriseRole(['admin', 'user']),
   OrderController.getOrderById
@@ -18,9 +21,9 @@ router.get(
 // Create a new orders
 router.post('/orders', isAuthenticatedUser, OrderController.createOrder);
 
-// Update order status by orderId
+// Update order status by id
 router.patch(
-  '/api/orders/:id/status',
+  '/orders/:id/status',
   isAuthenticatedUser,
   authoriseRole(['admin']),
   OrderController.updateOrderStatus
