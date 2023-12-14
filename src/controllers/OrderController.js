@@ -108,3 +108,6 @@ export const updateOrderStatus = catchAsync(async (req, res, next) => {
     order: result
   });
 });
+
+// Get order stats
+// This route is not yet defined

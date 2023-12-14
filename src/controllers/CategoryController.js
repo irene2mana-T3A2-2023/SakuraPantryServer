@@ -72,3 +72,6 @@ export const deleteCategory = catchAsync(async (req, res, next) => {
 
   res.status(200).json({ message: 'Category successfully deleted' });
 });
+
+// Get category stats
+// This route is not yet defined
