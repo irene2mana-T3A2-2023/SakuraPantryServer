@@ -3,6 +3,7 @@
 
 import AppError from '../middlewares/appError.js';
 import Order from '../models/OrderModel.js';
+import Product from '../models/ProductModel.js';
 import catchAsync from '../utils/catchAsync.js';
 
 // @desc    Get all orders
@@ -41,27 +42,66 @@ export const getOrderById = catchAsync(async (req, res, next) => {
 // @route   POST /api/orders
 // @access  Private/Authenticated user
 export const createOrder = catchAsync(async (req, res, next) => {
-  console.log('Create a Order by authenticated user');
+  const { orderItems, shippingAddress, paymentMethod } = req.body;
+
+  if (orderItems && orderItems.length === 0) {
+    return next(new AppError('No order items', 404));
+  }
+
+  // const itemsFromDB = await Product.find({
+  //   _id: { $in: orderItems.map((product) => product._id) }
+  // });
+
+  // const dbOrderItems = orderItems.map((itemFromCustomer) => {
+  //   const matchingItemFromDB = itemsFromDB.find(
+  //     (itemFromDB) => itemFromDB._id.toString() === itemFromCustomer._id
+  //   );
+  //   return {
+  //     ...itemFromCustomer,
+  //     product: itemFromCustomer._id,
+  //     price: matchingItemFromDB.price,
+  //     _id: undefined
+  //   };
+  // });
+
+  // Calculate total price
+  let totalPrice = orderItems.reduce(
+    (acc, item) => acc + (item.price * 100 * item.quantity) / 100,
+    0
+  );
+
+  totalPrice = (Math.round(totalPrice * 100) / 100).toFixed(2);
+
+  const newOrder = await Order.create({
+    // Iterate over each item in the orderItems array and tranform it into a new form
+    orderItems: orderItems.map((item) => ({
+      ...item,
+      product: item._id,
+      _id: undefined
+    })),
+    user: req.user._id,
+    paymentMethod,
+    shippingAddress,
+    totalPrice
+  });
+
+  res.status(201).json(newOrder);
 });
 
 // @desc    Update order status
 // @route   GET /api/orders/:id/status
 // @access  Private/Admin
 export const updateOrderStatus = catchAsync(async (req, res, next) => {
-
-  let result = await Order.findByIdAndUpdate(
-    req.body,
-    {
-      new: true,
-      runValidators: true
-    }
-  )
+  let result = await Order.findByIdAndUpdate(req.body, {
+    new: true,
+    runValidators: true
+  });
 
   if (!result) {
     return next(new AppError('Order not found', 404));
-  };
+  }
 
   result.status(200).json({
     order: result
-  })
+  });
 });
