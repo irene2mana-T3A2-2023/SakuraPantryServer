@@ -1,34 +1,15 @@
 /* eslint-disable no-console */
-import jwt from 'jsonwebtoken';
-import { envConfig } from '../configs/env.js';
 import User from '../models/UserModel.js';
+import { getUserFromJwt } from '../utils/getAuthUser.js';
 
 // User authentication middleware
 export const isAuthenticatedUser = async (req, res, next) => {
   try {
-    // Check if JWT exists in the "Authorization" header and extract it
-    const authHeader = req.header('Authorization');
-    const token = authHeader && authHeader.split(' ')[1];
+    // Set the decoded user information in the request object
+    req.user = getUserFromJwt(req);
 
-    // Check if no token is provided or not
-    if (!token) {
-      // If no token, send a 401 Unauthorized response
-      return res.status(401).json({ error: 'Unauthorized access. Token not provided.' });
-    }
-
-    try {
-      // Verify the JWT token
-      const decodedToken = await jwt.verify(token, envConfig.jwtSecret);
-
-      // Set the decoded user information in the request object
-      req.user = decodedToken;
-
-      // Call the next middleware or route handler
-      next();
-    } catch (jwtError) {
-      // If verification fails, send a 403 Forbidden response
-      return res.status(403).json({ error: 'Access forbidden. Invalid token.' });
-    }
+    // Call the next middleware or route handler
+    next();
   } catch (error) {
     // Handle unexpected errors
     console.error('Authentication middleware error:', error);
