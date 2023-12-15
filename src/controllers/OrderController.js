@@ -13,9 +13,7 @@ import { getUserFromJwt } from '../utils/getAuthUser.js';
 export const getAllOrders = catchAsync(async (req, res, next) => {
   // Retrieve orders from db and populate the 'user' field with selected user properties
   const results = await Order.find({}).populate('user', 'id firstName lastName email');
-  res.status(200).json({
-    orders: results
-  });
+  res.status(200).json(results);
 });
 
 // @desc    Get logged in user orders
@@ -104,9 +102,7 @@ export const updateOrderStatus = catchAsync(async (req, res, next) => {
     return next(new AppError('Order not found', 404));
   }
 
-  res.status(200).json({
-    order: result
-  });
+  res.status(200).json(result);
 });
 
 // Get order stats

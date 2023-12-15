@@ -8,11 +8,9 @@ import AppError from '../middlewares/appError.js';
 // @route   GET /api/categories
 // @access  Private/Admin
 export const getAllCategories = catchAsync(async (req, res, next) => {
-  let result = await Category.find({});
+  let results = await Category.find({});
 
-  res.status(201).json({
-    categories: result
-  });
+  res.status(201).json(results);
 });
 
 // @desc    Create a new category
@@ -53,9 +51,7 @@ export const updateCategory = catchAsync(async (req, res, next) => {
     return next(new AppError('Product not found', 404));
   }
 
-  res.status(200).json({
-    product: result
-  });
+  res.status(200).json(result);
 });
 
 // @desc    Delete a category by slug

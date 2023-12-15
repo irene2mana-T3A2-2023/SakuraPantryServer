@@ -8,11 +8,9 @@ import AppError from '../middlewares/appError.js';
 // @route   GET /api/products
 // @access  Public
 export const getAllProducts = catchAsync(async (req, res, next) => {
-  let result = await Product.find({});
+  let results = await Product.find({});
 
-  res.status(200).json({
-    products: result
-  });
+  res.status(200).json(results);
 });
 
 // @desc    Get a product by slug
@@ -89,9 +87,7 @@ export const updateProduct = catchAsync(async (req, res, next) => {
     return next(new AppError('Product not found', 404));
   }
 
-  res.status(200).json({
-    product: result
-  });
+  res.status(200).json(result);
 });
 
 // @desc    Delete a product by slug
