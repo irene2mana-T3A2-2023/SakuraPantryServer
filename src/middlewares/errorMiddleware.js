@@ -1,4 +1,5 @@
 /* eslint-disable no-console */
+import { envConfig } from '../configs/env.js';
 import AppError from './appError.js';
 
 // Function to handle CastError in Mongoose (eg. invalid ObjectId)
@@ -48,7 +49,10 @@ const sendErrorProd = (err, res) => {
     // Programming or other unknown error: don't leak error details
   } else {
     // Log error to the console
-    console.error('ERROR: ', err);
+    if (envConfig.env === 'development') {
+      // eslint-disable-next-line no-console
+      console.error('ERROR: ', err);
+    }
     // Send generic message
     res.status(500).json({
       status: 'error',
