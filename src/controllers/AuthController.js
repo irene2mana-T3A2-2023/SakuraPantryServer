@@ -8,7 +8,8 @@ import catchAsync from '../utils/catchAsync.js';
 // @route POST api/auth/register
 // @desc Register a new user account
 // @access Public
-export const register = catchAsync(async (req, res, _) => {
+/* eslint-disable no-unused-vars */
+export const register = catchAsync(async (req, res, next) => {
   // Extract firstName, lastName, email, password, and confirmPassword and other keys from the request body.
   const { firstName, lastName, email, password, confirmPassword, ...rest } = req.body;
 
@@ -50,7 +51,8 @@ export const register = catchAsync(async (req, res, _) => {
 // @route POST api/auth/login
 // @desc Authenticates a user and issues a JWT token.
 // @access Public
-export const login = catchAsync(async (req, res, _) => {
+/* eslint-disable no-unused-vars */
+export const login = catchAsync(async (req, res, next) => {
   // Extract email, password, and rememberMe from the request body
   const { email, password, rememberMe } = req.body;
 
@@ -80,7 +82,8 @@ export const login = catchAsync(async (req, res, _) => {
 // @route POST api/auth/forgot-password
 // @desc Initiates the password recovery process.
 // @access Public
-export const forgotPassword = catchAsync(async (req, res, _) => {
+/* eslint-disable no-unused-vars */
+export const forgotPassword = catchAsync(async (req, res, next) => {
   // Extract email from the request body
   const { email } = req.body;
 
@@ -149,7 +152,8 @@ export const forgotPassword = catchAsync(async (req, res, _) => {
 // @route POST api/auth/reset-password
 // @desc Completes password recovery using a reset token
 // @access Private
-export const resetPassword = catchAsync(async (req, res, _) => {
+/* eslint-disable no-unused-vars */
+export const resetPassword = catchAsync(async (req, res, next) => {
   // Extract resetToken, newPassword, confirmNewPassword from the request body
   const { resetToken, newPassword, confirmNewPassword } = req.body;
 
@@ -191,7 +195,8 @@ export const resetPassword = catchAsync(async (req, res, _) => {
 // @route POST api/auth/current-user
 // @desc Check current authenticated user
 // @access Private
-export const currentUser = catchAsync(async (req, res, _) => {
+/* eslint-disable no-unused-vars */
+export const currentUser = catchAsync(async (req, res, next) => {
   const user = await User.findById(req.user.userId);
 
   // Send success response
