@@ -1,15 +1,16 @@
 export default {
-  // Sets the testing environment to Node.js. This is useful for server-side testing.
+  // Define the environment in which the tests will run. 'node' indicates a server-side environment, which is optimal for backend testing.
   testEnvironment: 'node',
 
-  // An array of glob patterns indicating a set of files for which test coverage information should be skipped.
+  // An array of glob patterns indicating a set of files for which test coverage information should be skipped. Here, all files within 'node_modules' are ignored.
   coveragePathIgnorePatterns: ['/node_modules/'],
 
-  // Path to a module that runs some code to configure or set up the testing environment before each test.
+  // Provide the path to a module that sets up the global environment for tests. This script runs once before all test suites.
   globalSetup: '<rootDir>/src/tests/globalSetup.js',
 
-  // An array of file paths that will be run after the test framework has been installed in the testing environment but before the tests are run.
+  // List of scripts to be executed after the Jest environment is set up but before tests begin. Useful for per-test setup.
   setupFilesAfterEnv: ['<rootDir>/src/tests/setupFile.js'],
 
+  // Configuration object for transforming modules.
   transform: {}
 };
