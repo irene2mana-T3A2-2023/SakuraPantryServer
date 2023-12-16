@@ -3,6 +3,7 @@ import app from '../../server.js';
 import { envConfig } from '../../configs/env.js';
 import nodemailer from 'nodemailer';
 import { jest } from '@jest/globals';
+import User from '../../models/UserModel.js'
 
 const registerEndpoint = '/api/auth/register';
 const logInEndpoint = '/api/auth/login';
@@ -22,7 +23,8 @@ describe('Authentication-related APIs', () => {
 
       const res = await request(app).post(registerEndpoint).send(requestBody);
 
-      expect(res.statusCode).toBe(400);
+      expect(res.statusCode).toEqual(400);
+      expect(res.body).toEqual({ message: 'Missing required fields' });
     });
 
     it('Should raise an error when password and confirmPassword do not matched', async () => {
@@ -36,7 +38,8 @@ describe('Authentication-related APIs', () => {
 
       const res = await request(app).post(registerEndpoint).send(requestBody);
 
-      expect(res.statusCode).toBe(400);
+      expect(res.statusCode).toEqual(400);
+      expect(res.body).toEqual({ message: 'Password and confirm password do not match' });
     });
 
     it('Should raise an error when registering with an invalid password', async () => {
@@ -50,7 +53,10 @@ describe('Authentication-related APIs', () => {
 
       const res = await request(app).post(registerEndpoint).send(requestBody);
 
-      expect(res.statusCode).toBe(400);
+      expect(res.statusCode).toEqual(400);
+      expect(res.body).toEqual({
+        message: 'Password should be between 8 to 30 characters and contain letters or numbers only'
+      });
     });
 
     it('Should register successfully', async () => {
@@ -64,7 +70,8 @@ describe('Authentication-related APIs', () => {
 
       const res = await request(app).post(registerEndpoint).send(requestBody);
 
-      expect(res.statusCode).toBe(200);
+      expect(res.statusCode).toEqual(200);
+      expect(res.body).toEqual({ message: 'User successfully registered' });
     });
 
     it('Should raise an error when attempting to register with a duplicated email', async () => {
@@ -78,7 +85,8 @@ describe('Authentication-related APIs', () => {
 
       const res = await request(app).post(registerEndpoint).send(requestBody);
 
-      expect(res.statusCode).toBe(400);
+      expect(res.statusCode).toEqual(400);
+      expect(res.body).toEqual({ message: 'Email already exists' });
     });
   });
 
@@ -91,7 +99,9 @@ describe('Authentication-related APIs', () => {
 
       const res = await request(app).post(logInEndpoint).send(requestBody);
 
-      expect(res.statusCode).toBe(400);
+      expect(res.statusCode).toEqual(400);
+      expect(res.body).toEqual({ message: 'Missing email or password' });
+      
     });
 
     describe('Should raise an error when login with invalid email or password', () => {
@@ -103,7 +113,8 @@ describe('Authentication-related APIs', () => {
 
         const res = await request(app).post(logInEndpoint).send(requestBody);
 
-        expect(res.statusCode).toBe(400);
+        expect(res.statusCode).toEqual(400);
+        expect(res.body).toEqual({ message: 'Invalid email or password' });
       });
 
       it('Should raise an error when attempting to log in with a wrong password', async () => {
@@ -114,7 +125,8 @@ describe('Authentication-related APIs', () => {
 
         const res = await request(app).post(logInEndpoint).send(requestBody);
 
-        expect(res.statusCode).toBe(400);
+        expect(res.statusCode).toEqual(400);
+        expect(res.body).toEqual({ message: 'Invalid email or password' });
       });
     });
 
@@ -130,9 +142,8 @@ describe('Authentication-related APIs', () => {
 
         const res = await request(app).post(logInEndpoint).send(requestBody);
 
-        expect(expiresIn).toBe('30d');
-
-        expect(res.statusCode).toBe(200);
+        expect(expiresIn).toEqual('30d');
+        expect(res.statusCode).toEqual(200);
       });
 
       it('Should set expiresIn to envConfig.jwtExpiresIn when rememberMe is false', async () => {
@@ -146,9 +157,8 @@ describe('Authentication-related APIs', () => {
 
         const res = await request(app).post(logInEndpoint).send(requestBody);
 
-        expect(expiresIn).toBe(envConfig.jwtExpiresIn);
-
-        expect(res.statusCode).toBe(200);
+        expect(expiresIn).toEqual(envConfig.jwtExpiresIn);
+        expect(res.statusCode).toEqual(200);
       });
     });
   });
@@ -162,7 +172,7 @@ describe('Authentication-related APIs', () => {
 
       // Spy on createTransport and mock its implementation
       jest.spyOn(nodemailer, 'createTransport').mockReturnValue({
-        sendMail: sendMailMock,
+        sendMail: sendMailMock
       });
     });
 
@@ -178,7 +188,8 @@ describe('Authentication-related APIs', () => {
 
       const res = await request(app).post(forgotPasswordEndpoint).send(requestBody);
 
-      expect(res.statusCode).toBe(400);
+      expect(res.statusCode).toEqual(400);
+      expect(res.body).toEqual({ message: 'User not found' });
     });
 
     it('Should send the reset password link via email successfully', async () => {
@@ -189,18 +200,70 @@ describe('Authentication-related APIs', () => {
       const res = await request(app).post(forgotPasswordEndpoint).send(requestBody);
 
       expect(nodemailer.createTransport).toHaveBeenCalled();
-
       expect(sendMailMock).toHaveBeenCalled();
-  
-      expect(res.statusCode).toBe(200);
+      expect(res.statusCode).toEqual(200);
+      expect(res.body).toEqual({ message: 'Password reset link has been sent to your email' });
     });
   });
 
   describe(`[POST] ${resetPasswordEndpoint}`, () => {
-    it('Should raise an error when newPassword and confirmNewPassword do not matched', async () => {
-      const param = {
+    it('Should raise an error when one of required fields is missing', async () => {
+      const requestBody = {
+        resetToken: '',
+        newPassword: '',
+        confirmNewPassword: ''
+      };
 
-      }
+      const res = await request(app).post(resetPasswordEndpoint).send(requestBody);
+
+      expect(res.statusCode).toEqual(400);
+      expect(res.body).toEqual({ message: 'Missing required fields' });
+    });
+
+    it('Should raise an error when newPassword and confirmNewPassword do not matched', async () => {
+      const requestBody = {
+        resetToken: '12345',
+        newPassword: 'password',
+        confirmNewPassword: 'password1'
+      };
+
+      const res = await request(app).post(resetPasswordEndpoint).send(requestBody);
+
+      expect(res.statusCode).toEqual(400);
+      expect(res.body).toEqual({ message: 'New password and confirm new password do not match' });
+    });
+
+    it('Should raise an error when providing invalid reset token', async () => {
+      const requestBody = {
+        resetToken: '12345',
+        newPassword: 'password',
+        confirmNewPassword: 'password'
+      };
+
+      const res = await request(app).post(resetPasswordEndpoint).send(requestBody);
+
+      expect(res.statusCode).toEqual(400);
+      expect(res.body).toEqual({ message: 'Invalid or expired reset password token' });
+    });
+
+    it('Should reset password with a valid token', async () => {
+      const existingUser = await User.findOne({ email: 'john@test.com' });
+
+      existingUser.resetPasswordToken = '123456789';
+      existingUser.resetPasswordExpires = Date.now() + 15 * 60 * 1000;
+
+      await existingUser.save();
+
+      const requestBody = {
+        resetToken: '123456789',
+        newPassword: 'password',
+        confirmNewPassword: 'password'
+      };
+
+      const res = await request(app).post(resetPasswordEndpoint).send(requestBody);
+
+      expect(res.statusCode).toEqual(200);
+      expect(res.body).toEqual({ message: 'Password has been successfully reset' });
     })
-  })
+  });
 });

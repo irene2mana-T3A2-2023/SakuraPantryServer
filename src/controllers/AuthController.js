@@ -156,6 +156,11 @@ export const resetPassword = catchAsync(async (req, res, next) => {
   // Extract resetToken, newPassword, confirmNewPassword from the request body
   const { resetToken, newPassword, confirmNewPassword } = req.body;
 
+  // Check if all required fields are provided
+  if (!resetToken || !newPassword || !confirmNewPassword) {
+    return res.status(400).json({ message: 'Missing required fields' });
+  }
+
   // Check if the new passwords match
   if (newPassword !== confirmNewPassword) {
     return res.status(400).json({ message: 'New password and confirm new password do not match' });
