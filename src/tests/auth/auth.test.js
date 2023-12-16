@@ -3,12 +3,13 @@ import app from '../../server.js';
 import { envConfig } from '../../configs/env.js';
 import nodemailer from 'nodemailer';
 import { jest } from '@jest/globals';
-import User from '../../models/UserModel.js'
+import User from '../../models/UserModel.js';
 
 const registerEndpoint = '/api/auth/register';
 const logInEndpoint = '/api/auth/login';
 const forgotPasswordEndpoint = '/api/auth/forgot-password';
 const resetPasswordEndpoint = '/api/auth/reset-password';
+const currentUserEndpoint = '/api/auth/current-user';
 
 describe('Authentication-related APIs', () => {
   describe(`[POST] ${registerEndpoint}`, () => {
@@ -101,7 +102,6 @@ describe('Authentication-related APIs', () => {
 
       expect(res.statusCode).toEqual(400);
       expect(res.body).toEqual({ message: 'Missing email or password' });
-      
     });
 
     describe('Should raise an error when login with invalid email or password', () => {
@@ -264,6 +264,48 @@ describe('Authentication-related APIs', () => {
 
       expect(res.statusCode).toEqual(200);
       expect(res.body).toEqual({ message: 'Password has been successfully reset' });
-    })
+    });
+  });
+
+  describe(`[GET] ${currentUserEndpoint}`, () => {
+    it('Should raise an error if user has not logged in', async () => {
+      const res = await request(app).get(currentUserEndpoint);
+
+      expect(res.statusCode).toEqual(401);
+      expect(res.body).toEqual({ error: 'Unauthorized access. Token not provided.' });
+    });
+
+    it('Should raise an error when the provided token is invalid or expired', async () => {
+      const res = await request(app)
+        .get(currentUserEndpoint)
+        .set('Authorization', `Bearer 7fk8579jfhk398fj3985`);
+
+      expect(res.statusCode).toEqual(403);
+      expect(res.body).toEqual({ error: 'Access forbidden. Invalid token.' });
+    });
+
+    it('Should get the current user information for normal user', async () => {
+      const res = await request(app)
+        .get(currentUserEndpoint)
+        .set('Authorization', `Bearer ${global.mockUsers.userToken}`);
+
+      expect(res.statusCode).toEqual(200);
+      expect(res.body.firstName).toEqual('Chihiro');
+      expect(res.body.lastName).toEqual('Ogino');
+      expect(res.body.email).toEqual('user@test.com');
+      expect(res.body.role).toEqual('user');
+    });
+
+    it('Should get the current user information for admin', async () => {
+      const res = await request(app)
+        .get(currentUserEndpoint)
+        .set('Authorization', `Bearer ${global.mockUsers.adminToken}`);
+
+      expect(res.statusCode).toEqual(200);
+      expect(res.body.firstName).toEqual('Lara');
+      expect(res.body.lastName).toEqual('Macintosh');
+      expect(res.body.email).toEqual('admin@test.com');
+      expect(res.body.role).toEqual('admin');
+    });
   });
 });

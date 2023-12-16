@@ -13,7 +13,7 @@ async function setupMockUsers() {
     role: 'admin'
   });
 
-  const nonAdminUser = await User.create({
+  const user = await User.create({
     firstName: 'Chihiro',
     lastName: 'Ogino',
     email: 'user@test.com',
@@ -21,11 +21,11 @@ async function setupMockUsers() {
     confirmPassword: 'password'
   });
 
-  const adminToken = jwt.sign({ id: adminUser.id }, envConfig.jwtSecret);
+  const adminToken = jwt.sign({ userId: adminUser.id }, envConfig.jwtSecret);
 
-  const nonAdminToken = jwt.sign({ id: nonAdminUser.id }, envConfig.jwtSecret);
+  const userToken = jwt.sign({ userId: user.id }, envConfig.jwtSecret);
 
-  return { adminToken, nonAdminToken };
+  return { adminToken, userToken };
 }
 
 beforeAll(async () => {

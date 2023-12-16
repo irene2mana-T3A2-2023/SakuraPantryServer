@@ -1,17 +1,14 @@
-/* eslint-disable no-unused-vars */
 import User from '../models/UserModel.js';
-import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import crypto from 'crypto';
 import nodemailer from 'nodemailer';
 import { envConfig } from '../configs/env.js';
 import catchAsync from '../utils/catchAsync.js';
-import AppError from '../middlewares/appError.js';
 
 // @route POST api/auth/register
 // @desc Register a new user account
 // @access Public
-export const register = catchAsync(async (req, res, next) => {
+export const register = catchAsync(async (req, res, _) => {
   // Extract firstName, lastName, email, password, and confirmPassword and other keys from the request body.
   const { firstName, lastName, email, password, confirmPassword, ...rest } = req.body;
 
@@ -53,7 +50,7 @@ export const register = catchAsync(async (req, res, next) => {
 // @route POST api/auth/login
 // @desc Authenticates a user and issues a JWT token.
 // @access Public
-export const login = catchAsync(async (req, res, next) => {
+export const login = catchAsync(async (req, res, _) => {
   // Extract email, password, and rememberMe from the request body
   const { email, password, rememberMe } = req.body;
 
@@ -83,7 +80,7 @@ export const login = catchAsync(async (req, res, next) => {
 // @route POST api/auth/forgot-password
 // @desc Initiates the password recovery process.
 // @access Public
-export const forgotPassword = catchAsync(async (req, res, next) => {
+export const forgotPassword = catchAsync(async (req, res, _) => {
   // Extract email from the request body
   const { email } = req.body;
 
@@ -152,7 +149,7 @@ export const forgotPassword = catchAsync(async (req, res, next) => {
 // @route POST api/auth/reset-password
 // @desc Completes password recovery using a reset token
 // @access Private
-export const resetPassword = catchAsync(async (req, res, next) => {
+export const resetPassword = catchAsync(async (req, res, _) => {
   // Extract resetToken, newPassword, confirmNewPassword from the request body
   const { resetToken, newPassword, confirmNewPassword } = req.body;
 
@@ -192,11 +189,9 @@ export const resetPassword = catchAsync(async (req, res, next) => {
 });
 
 // Attempt to find a user in the database using the user ID.
-export const currentUser = catchAsync(async (req, res, next) => {
+export const currentUser = catchAsync(async (req, res, _) => {
   const user = await User.findById(req.user.userId);
-  if (!user) {
-    //If the user is not found, return a response with a 400 status code.
-    return next(new AppError('User is not authenticated', 400));
-  } //If the user is found, send a response back with a 200 status code.
+
+  // Send success response
   res.status(200).json(user);
 });
