@@ -52,7 +52,6 @@ app.use('/api', orderRoutes);
 /** GET /health-check - Check service health */
 app.use('/health-check', (_, res) => res.json({ message: 'Server is running' }));
 
-
 // Testing route
 app.get('/', (req, res) => {
   res.json({

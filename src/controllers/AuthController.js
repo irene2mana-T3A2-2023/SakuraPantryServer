@@ -70,7 +70,7 @@ export const login = catchAsync(async (req, res, next) => {
     return res.status(400).json({ message: 'Invalid email or password' });
   }
 
-  // Determine the token's expiration time based on the rememberMe flag (rememberME is nice-to-have-now).
+  // Determine the token's expiration time based on the rememberMe flag.
   const expiresIn = rememberMe ? '30d' : envConfig.jwtExpiresIn;
 
   // Create a JWT token for the authenticated user and assign an expiration time to this token.
