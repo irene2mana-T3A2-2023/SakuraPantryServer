@@ -9,5 +9,7 @@ export default {
   globalSetup: '<rootDir>/src/tests/globalSetup.js',
 
   // An array of file paths that will be run after the test framework has been installed in the testing environment but before the tests are run.
-  setupFilesAfterEnv: ['<rootDir>/src/tests/setupFile.js']
+  setupFilesAfterEnv: ['<rootDir>/src/tests/setupFile.js'],
+
+  transform: {}
 };
