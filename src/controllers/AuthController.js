@@ -188,7 +188,10 @@ export const resetPassword = catchAsync(async (req, res, _) => {
   res.status(200).json({ message: 'Password has been successfully reset' });
 });
 
-// Attempt to find a user in the database using the user ID.
+
+// @route POST api/auth/current-user
+// @desc Check current authenticated user
+// @access Private
 export const currentUser = catchAsync(async (req, res, _) => {
   const user = await User.findById(req.user.userId);
 

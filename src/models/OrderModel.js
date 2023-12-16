@@ -9,14 +9,12 @@ const OrderSchema = new Schema(
       ref: 'User',
       required: true
     },
-    items: [
+    orderItems: [
       {
+        quantity: { type: Number, required: true },
         product: {
           type: mongoose.Types.ObjectId,
-          ref: 'Product'
-        },
-        quantity: {
-          type: Number,
+          ref: 'Product',
           required: true
         }
       }
@@ -37,26 +35,9 @@ const OrderSchema = new Schema(
       required: true
     },
     shippingAddress: {
-      street: {
-        type: String,
-        required: false,
-        unique: false
-      },
-      city: {
-        type: String,
-        required: false,
-        unique: false
-      },
-      state: {
-        type: String,
-        required: false,
-        unique: false
-      },
-      postcode: {
-        type: String,
-        required: false,
-        unique: false
-      }
+      address: { type: String, required: true },
+      city: { type: String, required: true },
+      postcode: { type: String, required: true }
     }
   },
   { timestamps: true }

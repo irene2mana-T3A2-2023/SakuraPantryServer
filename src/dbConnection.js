@@ -11,8 +11,6 @@ import util from 'node:util';
  */
 async function databaseConnect() {
   try {
-    // eslint-disable-next-line no-console
-    console.log('Connecting to:\n' + envConfig.mongo.host);
     await mongoose.connect(envConfig.mongo.host);
 
     // Enable Mongoose query logging in development mode for debugging purposes.

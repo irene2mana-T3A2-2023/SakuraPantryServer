@@ -4,18 +4,18 @@ import Category from '../models/CategoryModel.js';
 import catchAsync from '../utils/catchAsync.js';
 import AppError from '../middlewares/appError.js';
 
-// Get a list of all categories - DONE
-// Authorisation: admin only
+// @desc    View all categories
+// @route   GET /api/categories
+// @access  Private/Admin
 export const getAllCategories = catchAsync(async (req, res, next) => {
-  let result = await Category.find({});
+  let results = await Category.find({});
 
-  res.status(201).json({
-    categories: result
-  });
+  res.status(201).json(results);
 });
 
-// Create a new category - DONE
-// Authorisation: admin only
+// @desc    Create a new category
+// @route   POST /api/categories
+// @access  Private/Admin
 export const createCategory = catchAsync(async (req, res, next) => {
   const { name } = req.body;
   const slug = slugify(name, { lower: true });
@@ -36,8 +36,9 @@ export const createCategory = catchAsync(async (req, res, next) => {
   res.status(201).json(newCategory);
 });
 
-// Update a specific category by slug - DONE
-// Authorisation: admin only
+// @desc    Update a category by slug
+// @route   PATCH /api/categories/:slug
+// @access  Private/Admin
 export const updateCategory = catchAsync(async (req, res, next) => {
   const { slug } = req.params;
 
@@ -50,13 +51,12 @@ export const updateCategory = catchAsync(async (req, res, next) => {
     return next(new AppError('Product not found', 404));
   }
 
-  res.status(200).json({
-    product: result
-  });
+  res.status(200).json(result);
 });
 
-// Delete a specific category by slug
-// Authorisation: admin only
+// @desc    Delete a category by slug
+// @route   DELETE /api/categories/:slug
+// @access  Private/Admin
 export const deleteCategory = catchAsync(async (req, res, next) => {
   const { slug } = req.params;
 
@@ -68,3 +68,6 @@ export const deleteCategory = catchAsync(async (req, res, next) => {
 
   res.status(200).json({ message: 'Category successfully deleted' });
 });
+
+// Get category stats
+// This route is not yet defined
