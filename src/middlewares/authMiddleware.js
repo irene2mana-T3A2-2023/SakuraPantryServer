@@ -26,7 +26,7 @@ export const authoriseRole = (authorisedRole) => async (req, res, next) => {
 
     // Check if the authenticated user exists
     if (!user) {
-      return res.status(403).json({ error: 'Access forbidden. User not found. ' });
+      return res.status(403).json({ error: 'Access forbidden. User not found.' });
     }
 
     // Check if the user has one of the authorised roles

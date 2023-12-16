@@ -188,7 +188,6 @@ export const resetPassword = catchAsync(async (req, res, _) => {
   res.status(200).json({ message: 'Password has been successfully reset' });
 });
 
-
 // @route POST api/auth/current-user
 // @desc Check current authenticated user
 // @access Private
