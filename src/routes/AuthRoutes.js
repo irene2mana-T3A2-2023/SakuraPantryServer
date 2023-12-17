@@ -24,7 +24,12 @@ router.post('/auth/forgot-password', forgotPassword);
 router.post('/auth/reset-password', resetPassword);
 
 //Route for checking user's authentication status and allows access only to users who have the specificed role.
-router.get('/auth/current-user', isAuthenticatedUser, authoriseRole(['user', 'admin']), currentUser);
+router.get(
+  '/auth/current-user',
+  isAuthenticatedUser,
+  authoriseRole(['user', 'admin']),
+  currentUser
+);
 
 // Export the router to be used in other parts of the application
 export default router;

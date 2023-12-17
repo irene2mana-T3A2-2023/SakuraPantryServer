@@ -1,4 +1,5 @@
 /* eslint-disable no-console */
+import { envConfig } from '../configs/env.js';
 import User from '../models/UserModel.js';
 import { getUserFromJwt } from '../utils/getAuthUser.js';
 
@@ -12,7 +13,11 @@ export const isAuthenticatedUser = async (req, res, next) => {
     next();
   } catch (error) {
     // Handle unexpected errors
-    console.error('Authentication middleware error:', error);
+    if (envConfig.env === 'development') {
+      // eslint-disable-next-line no-console
+      console.error('Authentication middleware error:', error);
+    }
+
     res.status(500).json({ error: 'Internal Server Error' });
   }
 };
@@ -26,7 +31,7 @@ export const authoriseRole = (authorisedRole) => async (req, res, next) => {
 
     // Check if the authenticated user exists
     if (!user) {
-      return res.status(403).json({ error: 'Access forbidden. User not found. ' });
+      return res.status(403).json({ error: 'Access forbidden. User not found.' });
     }
 
     // Check if the user has one of the authorised roles
@@ -39,8 +44,11 @@ export const authoriseRole = (authorisedRole) => async (req, res, next) => {
     }
   } catch (error) {
     // Handle unexpected errors
-    // eslint-disable-next-line no-console
-    console.error('Admin authorization middleware error:', error);
+    if (envConfig.env === 'development') {
+      // eslint-disable-next-line no-console
+      console.error('Admin authorization middleware error:', error);
+    }
+
     res.status(500).json({ error: 'Internal Server Error' });
   }
 };
