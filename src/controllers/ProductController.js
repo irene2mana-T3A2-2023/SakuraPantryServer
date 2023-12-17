@@ -8,7 +8,33 @@ import AppError from '../middlewares/appError.js';
 // @route   GET /api/products
 // @access  Public
 export const getAllProducts = catchAsync(async (req, res, next) => {
-  let results = await Product.find({});
+  let results = await Product.find({}).populate({
+    path: 'category',
+    select: 'name slug' 
+  });
+
+  res.status(200).json(results);
+});
+
+// @desc    Get new arrival products
+// @route   GET /api/products/new-arrivals
+// @access  Public
+// Get the five most recently created products, ordered from the newest to the oldest.
+export const getNewArrivalProducts = catchAsync(async (req, res, next) => {
+  let results = await Product.find({}).populate({
+    path: 'category',
+    select: 'name slug' 
+  }).sort({ createdAt : -1}).limit(5);
+
+  res.status(200).json(results);
+});
+
+// @desc    Get featured products
+// @route   GET /api/products/feature
+// @access  Public
+// Get the top five products where the 'isFeatured' attribute is set to true.
+export const getFeatureProducts = catchAsync(async (req, res, next) => {
+  let results = await Product.find({isFeatured:true}).populate({path: 'category', select: 'name slug'}).limit(5);
 
   res.status(200).json(results);
 });

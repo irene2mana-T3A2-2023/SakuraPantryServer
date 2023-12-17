@@ -4,8 +4,14 @@ import { authoriseRole, isAuthenticatedUser } from '../middlewares/authMiddlewar
 
 const router = express.Router();
 
-// Get all products in the DB
+// Get all products
 router.get('/products', ProductController.getAllProducts);
+
+// Get new arrival products
+router.get('/products/new-arrivals', ProductController.getNewArrivalProducts);
+
+// Get featured products
+router.get('/products/feature', ProductController.getFeatureProducts);
 
 // Search a product by keyword
 router.get('/products/search', ProductController.searchProduct);
