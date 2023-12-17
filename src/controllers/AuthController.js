@@ -1,16 +1,14 @@
-/* eslint-disable no-unused-vars */
 import User from '../models/UserModel.js';
-import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import crypto from 'crypto';
 import nodemailer from 'nodemailer';
 import { envConfig } from '../configs/env.js';
 import catchAsync from '../utils/catchAsync.js';
-import AppError from '../middlewares/appError.js';
 
 // @route POST api/auth/register
 // @desc Register a new user account
 // @access Public
+/* eslint-disable no-unused-vars */
 export const register = catchAsync(async (req, res, next) => {
   // Extract firstName, lastName, email, password, and confirmPassword and other keys from the request body.
   const { firstName, lastName, email, password, confirmPassword, ...rest } = req.body;
@@ -53,6 +51,7 @@ export const register = catchAsync(async (req, res, next) => {
 // @route POST api/auth/login
 // @desc Authenticates a user and issues a JWT token.
 // @access Public
+/* eslint-disable no-unused-vars */
 export const login = catchAsync(async (req, res, next) => {
   // Extract email, password, and rememberMe from the request body
   const { email, password, rememberMe } = req.body;
@@ -70,7 +69,7 @@ export const login = catchAsync(async (req, res, next) => {
     return res.status(400).json({ message: 'Invalid email or password' });
   }
 
-  // Determine the token's expiration time based on the rememberMe flag (rememberME is nice-to-have-now).
+  // Determine the token's expiration time based on the rememberMe flag.
   const expiresIn = rememberMe ? '30d' : envConfig.jwtExpiresIn;
 
   // Create a JWT token for the authenticated user and assign an expiration time to this token.
@@ -83,6 +82,7 @@ export const login = catchAsync(async (req, res, next) => {
 // @route POST api/auth/forgot-password
 // @desc Initiates the password recovery process.
 // @access Public
+/* eslint-disable no-unused-vars */
 export const forgotPassword = catchAsync(async (req, res, next) => {
   // Extract email from the request body
   const { email } = req.body;
@@ -152,9 +152,15 @@ export const forgotPassword = catchAsync(async (req, res, next) => {
 // @route POST api/auth/reset-password
 // @desc Completes password recovery using a reset token
 // @access Private
+/* eslint-disable no-unused-vars */
 export const resetPassword = catchAsync(async (req, res, next) => {
   // Extract resetToken, newPassword, confirmNewPassword from the request body
   const { resetToken, newPassword, confirmNewPassword } = req.body;
+
+  // Check if all required fields are provided
+  if (!resetToken || !newPassword || !confirmNewPassword) {
+    return res.status(400).json({ message: 'Missing required fields' });
+  }
 
   // Check if the new passwords match
   if (newPassword !== confirmNewPassword) {
@@ -186,12 +192,13 @@ export const resetPassword = catchAsync(async (req, res, next) => {
   res.status(200).json({ message: 'Password has been successfully reset' });
 });
 
-// Attempt to find a user in the database using the user ID.
+// @route POST api/auth/current-user
+// @desc Check current authenticated user
+// @access Private
+/* eslint-disable no-unused-vars */
 export const currentUser = catchAsync(async (req, res, next) => {
   const user = await User.findById(req.user.userId);
-  if (!user) {
-    //If the user is not found, return a response with a 400 status code.
-    return next(new AppError('User is not authenticated', 400));
-  } //If the user is found, send a response back with a 200 status code.
+
+  // Send success response
   res.status(200).json(user);
 });

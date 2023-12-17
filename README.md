@@ -15,6 +15,8 @@
 - [Irene Nguyen](https://github.com/irenenguyen1017)
 - [Ellen Pham](https://github.com/ellenpham)
 
+---
+
 ## Available Scripts
 
 In the project directory, you can run:
@@ -29,6 +31,10 @@ It sets the `NODE_ENV` environment variable to `production` and starts the appli
 Launches the server in development mode.\
 It uses nodemon for automatic restarting upon file changes and sets `NODE_ENV` to `development`.
 
+### `npm test`
+
+Launches the test runner in the interactive watch mode with coverage report. It sets the `NODE_ENV` to `test` and runs Jest with options to detect open handles, collect coverage information, and force exit after tests completion.
+
 ### `npm run lint`
 
 Runs [ESLint](https://eslint.org/) to check for code issues in the `src` directory.\
@@ -42,6 +48,8 @@ Automatically fixes fixable issues and suppresses output for warnings.
 
 Uses [Prettier](https://prettier.io/) to format the JavaScript files in the src directory, ensuring a consistent code style across the project.
 
+---
+
 ## Server Dependencies
 
 ### `bcryptjs`
@@ -52,6 +60,10 @@ Used for hashing passwords securely. It protects user data by converting plain t
 
 Acts as middleware for Express, enabling Cross-Origin Resource Sharing (CORS).\
 CORS is crucial for web application security, as it regulates how a web application can make requests to different domains, ensuring controlled and secure interaction with external resources.
+
+### `cross-env`
+
+Enables consistent use of environment variables across different operating systems, essential for scripts to work smoothly on both Windows and Unix-like environments.
 
 ### `crypto-js`
 
@@ -94,18 +106,18 @@ The validator package is a library for string validation and sanitization in Jav
 The helmet package is a collection of middleware functions for securing Express.js applications by setting various HTTP headers. These headers help protect against common web vulnerabilities by providing an additional layer of security.
 
 ### `express-mongo-sanitize`
+
 The express-mongo-sanitize package is a middleware for Express.js applications that helps prevent NoSQL injection attacks by sanitizing user-supplied data before it is used in MongoDB queries. NoSQL injection is a security vulnerability that can occur when untrusted data is used in MongoDB queries without proper validation or sanitization.
 
 ### `xss-clean`
+
 The xss-clean package is a middleware for Express.js applications that helps protect against Cross-Site Scripting (XSS) attacks by sanitizing user input. XSS attacks occur when an application allows untrusted data to be included in web pages without proper validation or escaping, potentially leading to the execution of malicious scripts in the context of the user's browser.
+
+---
 
 ## Server Development Dependencies
 
 Our project uses a variety of development tools to streamline the development process and ensure code quality. Below is a list of the development dependencies specified in our `package.json` file:
-
-### `cross-env`
-
-Enables consistent use of environment variables across different operating systems, essential for scripts to work smoothly on both Windows and Unix-like environments.
 
 ### `eslint`
 
@@ -115,6 +127,22 @@ A static code analysis tool that helps identify and fix patterns in JavaScript c
 
 Disables all ESLint rules that conflict with Prettier, ensuring seamless integration of ESLint with Prettier for code formatting.
 
+### `eslint-plugin-jest`
+
+Provides ESLint rules for Jest, helping to enforce best practices and catch common mistakes in Jest test files.
+
+### `eslint-plugin-prettier`
+
+Runs Prettier as an ESLint rule and reports differences as individual ESLint issues, integrating code formatting into the linting process.
+
+### `jest`
+
+A delightful JavaScript testing framework with a focus on simplicity, providing a complete and ready-to-use testing solution.
+
+### `mongodb-memory-server`
+
+Spins up an actual/real MongoDB server programmatically from within Node.js, for testing or mocking during development.
+
 ### `nodemon`
 
 A utility that monitors for any changes in your source code and automatically restarts your server, enhancing the development experience.
@@ -122,6 +150,12 @@ A utility that monitors for any changes in your source code and automatically re
 ### `prettier`
 
 An opinionated code formatter that supports multiple languages and integrates with most editors to ensure consistent code style across the project.
+
+### `supertest`
+
+A SuperAgent-driven library for testing HTTP servers, allowing you to test your REST API endpoints.
+
+---
 
 ## API Endpoints
 
