@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import Product from '../models/ProductModel.js';
 import slugify from 'slugify';
 import catchAsync from '../utils/catchAsync.js';
@@ -7,10 +6,11 @@ import AppError from '../middlewares/appError.js';
 // @desc    Get all products
 // @route   GET /api/products
 // @access  Public
+// eslint-disable-next-line no-unused-vars
 export const getAllProducts = catchAsync(async (req, res, next) => {
   let results = await Product.find({}).populate({
     path: 'category',
-    select: 'name slug' 
+    select: 'name slug'
   });
 
   res.status(200).json(results);
@@ -20,11 +20,15 @@ export const getAllProducts = catchAsync(async (req, res, next) => {
 // @route   GET /api/products/new-arrivals
 // @access  Public
 // Get the five most recently created products, ordered from the newest to the oldest.
+// eslint-disable-next-line no-unused-vars
 export const getNewArrivalProducts = catchAsync(async (req, res, next) => {
-  let results = await Product.find({}).populate({
-    path: 'category',
-    select: 'name slug' 
-  }).sort({ createdAt : -1}).limit(5);
+  let results = await Product.find({})
+    .populate({
+      path: 'category',
+      select: 'name slug'
+    })
+    .sort({ createdAt: -1 })
+    .limit(5);
 
   res.status(200).json(results);
 });
@@ -33,8 +37,11 @@ export const getNewArrivalProducts = catchAsync(async (req, res, next) => {
 // @route   GET /api/products/feature
 // @access  Public
 // Get the top five products where the 'isFeatured' attribute is set to true.
+// eslint-disable-next-line no-unused-vars
 export const getFeatureProducts = catchAsync(async (req, res, next) => {
-  let results = await Product.find({isFeatured:true}).populate({path: 'category', select: 'name slug'}).limit(5);
+  let results = await Product.find({ isFeatured: true })
+    .populate({ path: 'category', select: 'name slug' })
+    .limit(5);
 
   res.status(200).json(results);
 });
@@ -56,6 +63,7 @@ export const getProduct = catchAsync(async (req, res, next) => {
 // @desc    Search a product by keyword
 // @route   GET /api/products/search?keyword=
 // @access  Public
+// eslint-disable-next-line no-unused-vars
 export const searchProduct = catchAsync(async (req, res, next) => {
   const keyword = req.query.keyword;
   const results = await Product.find({
@@ -130,6 +138,3 @@ export const deleteProduct = catchAsync(async (req, res, next) => {
 
   res.status(200).json({ message: 'Product successfully deleted' });
 });
-
-// Get product stats
-// This route is not yet defined

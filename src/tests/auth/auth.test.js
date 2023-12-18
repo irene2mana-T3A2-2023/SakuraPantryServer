@@ -271,8 +271,8 @@ describe('Authentication-related APIs', () => {
     it('Should raise an error if user has not logged in', async () => {
       const res = await request(app).get(currentUserEndpoint);
 
-      expect(res.statusCode).toEqual(500);
-      expect(res.body).toEqual({ error: 'Internal Server Error' });
+      expect(res.statusCode).toEqual(401);
+      expect(res.body).toEqual({ message: 'Unauthorized access. Please authenticate to proceed' });
     });
 
     it('Should raise an error when the provided token is invalid or expired', async () => {
@@ -280,8 +280,8 @@ describe('Authentication-related APIs', () => {
         .get(currentUserEndpoint)
         .set('Authorization', `Bearer 7fk8579jfhk398fj3985`);
 
-      expect(res.statusCode).toEqual(500);
-      expect(res.body).toEqual({ error: 'Internal Server Error' });
+      expect(res.statusCode).toEqual(401);
+      expect(res.body).toEqual({ message: 'Unauthorized access. Please authenticate to proceed' });
     });
 
     it('Should get the current user information for normal user', async () => {
