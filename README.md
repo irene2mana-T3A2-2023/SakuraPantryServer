@@ -161,13 +161,15 @@ A SuperAgent-driven library for testing HTTP servers, allowing you to test your 
 
 ### Products
 
-| Method | Routes                | Functionalities                           | Access   |
-| ------ | --------------------- | ------------------------------------------| ---------|
-| GET    | `/api/products`       | Get a list of all products                | Public   |
-| GET    | `/api/products/:slug` | Get details of a specific product by slug | Public   |
-| POST   | `/api/products`       | Create a new product                      | Private  |
-| PATCH  | `/api/products/:slug` | Update a specific product by slug         | Private  |
-| DELETE | `/api/products/:slug` | Delete a specific product by slug         | Private  |
+| Method | Routes                   | Functionalities                           | Access   |
+| ------ | ------------------------ | ------------------------------------------| ---------|
+| GET    | `/api/products`          | Get a list of all products                | Public   |
+| GET    | `/api/products/:slug`    | Get details of a specific product by slug | Public   |
+| POST   | `/api/products`          | Create a new product                      | Private  |
+| PATCH  | `/api/products/:slug`    | Update a specific product by slug         | Private  |
+| DELETE | `/api/products/:slug`    | Delete a specific product by slug         | Private  |
+| GET    | `/products/new-arrivals` | Get a list of new arrival products        | Public   |
+| GET    | `/products/feature`      | Get a list of featured products           | Public   |
 
 ### Categories
 
@@ -195,6 +197,13 @@ A SuperAgent-driven library for testing HTTP servers, allowing you to test your 
 | POST   | `/api/auth/login`           | Authenticates a user and issues a JWT token     | Public  |
 | POST   | `/api/auth/forgot-password` | Initiates the password recovery process         | Public  |
 | POST   | `/api/auth/reset-password`  | Completes password recovery using a reset token | Private |
+
+### Admin Dashboard
+
+| Method | Routes                      | Functionalities                                 | Access  |
+| ------ | --------------------------- | ----------------------------------------------- | ------- |
+| GET    | `/api/dashboard/summary`    | Get all summary information for admin dashboard | Private |
+
 
 - `Public Access` - Accessible without requiring user authentication.
 - `Private Access` -  Requires user authentication to be accessible.
