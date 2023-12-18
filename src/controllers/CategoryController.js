@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import slugify from 'slugify';
 import Category from '../models/CategoryModel.js';
 import catchAsync from '../utils/catchAsync.js';
@@ -7,6 +6,7 @@ import AppError from '../middlewares/appError.js';
 // @desc    View all categories
 // @route   GET /api/categories
 // @access  Private/Admin
+// eslint-disable-next-line no-unused-vars
 export const getAllCategories = catchAsync(async (req, res, next) => {
   let results = await Category.find({});
 
@@ -68,6 +68,3 @@ export const deleteCategory = catchAsync(async (req, res, next) => {
 
   res.status(200).json({ message: 'Category successfully deleted' });
 });
-
-// Get category stats
-// This route is not yet defined

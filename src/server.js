@@ -9,6 +9,7 @@ import authRoutes from './routes/AuthRoutes.js';
 import orderRoutes from './routes/OrderRoutes.js';
 import productRoutes from './routes/ProductRoutes.js';
 import categoryRoutes from './routes/CategoryRoutes.js';
+import dashboardRoutes from './routes/DashboardRoutes.js';
 
 import AppError from './middlewares/appError.js';
 import globalErrorHandler from './middlewares/errorMiddleware.js';
@@ -49,15 +50,10 @@ app.use('/api', categoryRoutes);
 app.use('/api', productRoutes);
 // Use the order routes
 app.use('/api', orderRoutes);
+// Use the dashboard routes for admin only
+app.use('/api', dashboardRoutes);
 /** GET /health-check - Check service health */
 app.use('/health-check', (_, res) => res.json({ message: 'Server is running' }));
-
-// Testing route
-app.get('/', (req, res) => {
-  res.json({
-    message: 'API is working'
-  });
-});
 
 // Middleware to handle 404 Not Found error
 app.all('*', (req, res, next) => {

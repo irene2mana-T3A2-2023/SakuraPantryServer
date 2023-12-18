@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable no-console */
 import AppError from '../middlewares/appError.js';
 import Order from '../models/OrderModel.js';
 import Product from '../models/ProductModel.js';
@@ -10,6 +8,7 @@ import { getUserFromJwt } from '../utils/getAuthUser.js';
 // @desc    Get all orders
 // @route   GET /api/orders
 // @access  Private/Admin
+// eslint-disable-next-line no-unused-vars
 export const getAllOrders = catchAsync(async (req, res, next) => {
   // Retrieve orders from db and populate the 'user' field with selected user properties
   const results = await Order.find({}).populate('user', 'id firstName lastName email');
@@ -19,6 +18,7 @@ export const getAllOrders = catchAsync(async (req, res, next) => {
 // @desc    Get logged in user orders
 // @route   GET /api/orders/myorders
 // @access  Private
+// eslint-disable-next-line no-unused-vars
 export const getMyOrders = catchAsync(async (req, res, next) => {
   // Decode user info from the JWT in the request
   const decodedUser = getUserFromJwt(req);
@@ -104,6 +104,3 @@ export const updateOrderStatus = catchAsync(async (req, res, next) => {
 
   res.status(200).json(result);
 });
-
-// Get order stats
-// This route is not yet defined

@@ -18,7 +18,7 @@ export const isAuthenticatedUser = async (req, res, next) => {
       console.error('Authentication middleware error:', error);
     }
 
-    res.status(500).json({ error: 'Internal Server Error' });
+    res.status(401).json({ message: 'Unauthorized access. Please authenticate to proceed' });
   }
 };
 
@@ -31,7 +31,7 @@ export const authoriseRole = (authorisedRole) => async (req, res, next) => {
 
     // Check if the authenticated user exists
     if (!user) {
-      return res.status(403).json({ error: 'Access forbidden. User not found.' });
+      return res.status(403).json({ message: 'Access forbidden. User not found.' });
     }
 
     // Check if the user has one of the authorised roles
@@ -40,7 +40,7 @@ export const authoriseRole = (authorisedRole) => async (req, res, next) => {
       next();
     } else {
       // If the user does not have an authorised role, send a forbidden response
-      return res.status(403).json({ error: 'Access forbidden. Unauthorised role.' });
+      return res.status(403).json({ message: 'Access forbidden. Unauthorised role.' });
     }
   } catch (error) {
     // Handle unexpected errors
@@ -49,6 +49,6 @@ export const authoriseRole = (authorisedRole) => async (req, res, next) => {
       console.error('Admin authorization middleware error:', error);
     }
 
-    res.status(500).json({ error: 'Internal Server Error' });
+    res.status(500).json({ message: 'Internal Server Error' });
   }
 };
