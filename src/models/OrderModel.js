@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
+import validator from 'validator';
 
 // Define Order Schema
 const OrderSchema = new Schema(
@@ -31,13 +32,25 @@ const OrderSchema = new Schema(
     },
     paymentMethod: {
       type: String,
-      enum: ['Credit Card', 'PayPal', 'Stripe', 'Other'],
+      enum: ['Credit Card', 'PayPal', 'Stripe'],
       required: true
     },
     shippingAddress: {
       address: { type: String, required: true },
       city: { type: String, required: true },
+      state: { type: String, required: true },
       postcode: { type: String, required: true }
+    },
+    phone: {
+      type: String,
+      required: true,
+      validate: {
+        validator: function (phone) {
+          const lastNameRegex = /^[0-9]+$/;
+          return lastNameRegex.test(phone);
+        },
+        message: 'Phone number can contain only numbers.'
+      }
     }
   },
   { timestamps: true }
