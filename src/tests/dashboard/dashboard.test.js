@@ -21,8 +21,8 @@ describe(`[GET] ${dashboardSummaryEnpoint}`, () => {
     expect(res.statusCode).toEqual(200);
     expect(res.body.totalRevenue).toEqual(0);
     expect(res.body.totalOrder).toEqual(0);
-    expect(res.body.totalProduct).toEqual(0);
-    expect(res.body.totalCategory).toEqual(0);
+    expect(res.body.totalProduct).toEqual(30);
+    expect(res.body.totalCategory).toEqual(5);
     expect(res.body.totalUser).toEqual(2);
   });
 });

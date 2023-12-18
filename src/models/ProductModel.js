@@ -47,13 +47,6 @@ const ProductSchema = new Schema(
   { timestamps: true }
 );
 
-// This middleware is to perform some logic or actions before saving the document.
-ProductSchema.pre('save', async function (next) {
-  // eslint-disable-next-line no-console
-  console.log('About to save a product to the DB!');
-  next();
-});
-
 // Define Product Model
 const Product = mongoose.model('Product', ProductSchema);
 

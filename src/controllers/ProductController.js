@@ -37,13 +37,16 @@ export const getNewArrivalProducts = catchAsync(async (req, res, next) => {
 // @desc    Get relative products
 // @route   GET /api/products/relative-products
 // @access  Public
-// Get the top five products where the 'isFeatured' attribute is set to true.
+// Get the top five products related to a specific category
 // eslint-disable-next-line no-unused-vars
 export const relativeProductsByCategory = catchAsync(async (req, res, next) => {
+  //It first finds the category using the slug provided in the request prames.
   const category = await Category.findOne({ slug: req.params.categorySlug });
+  //If the category is not found, it returns an empty array.
   if (!category) {
     return res.status(200).json([]);
   }
+  //If the category is found, it then finds up to 5 products that belongs to this category.
   const relativeProducts = await Product.find({ category: category._id })
     .populate({
       path: 'category',
