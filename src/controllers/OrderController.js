@@ -47,7 +47,7 @@ export const getOrderById = catchAsync(async (req, res, next) => {
 // @route   POST /api/orders
 // @access  Private/Authenticated user
 export const createOrder = catchAsync(async (req, res, next) => {
-  const { orderItems, shippingAddress, paymentMethod } = req.body;
+  const { orderItems, shippingAddress, paymentMethod, phone } = req.body;
 
   // Check if there are no order items provided
   if (orderItems && orderItems.length === 0) {
@@ -82,6 +82,7 @@ export const createOrder = catchAsync(async (req, res, next) => {
     user,
     paymentMethod,
     shippingAddress,
+    phone,
     totalPrice
   });
 

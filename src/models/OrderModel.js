@@ -1,6 +1,5 @@
 import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
-import validator from 'validator';
 
 // Define Order Schema
 const OrderSchema = new Schema(
