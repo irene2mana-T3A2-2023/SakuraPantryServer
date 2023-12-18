@@ -43,6 +43,18 @@ const OrderSchema = new Schema(
   { timestamps: true }
 );
 
+OrderSchema.statics = {
+  async totalRevenue() {
+    const deliveredOrders = await this.find({ status: { $in: ['Delivered'] } });
+
+    const totalRevenue = deliveredOrders.reduce((total, order) => {
+      return total + order.totalPrice;
+    }, 0);
+
+    return totalRevenue;
+  }
+};
+
 // This middleware is to perform some logic or actions before saving the document.
 OrderSchema.pre('save', async function (next) {
   // eslint-disable-next-line no-console
