@@ -75,8 +75,10 @@ export const getFeatureProducts = catchAsync(async (req, res, next) => {
 // @access  Public
 export const getProduct = catchAsync(async (req, res, next) => {
   const { slug } = req.params;
-  const result = await Product.findOne({ slug });
-
+  const result = await Product.findOne({ slug }).populate({
+    path: 'category',
+    select: 'name slug'
+  });
   if (!result) {
     return next(new AppError('Product not found', 404));
   }
