@@ -43,14 +43,19 @@ const OrderSchema = new Schema(
   { timestamps: true }
 );
 
+// Extending the OrderSchema with custom static methods.
 OrderSchema.statics = {
+  // Calculates the total revenue from orders that have been delivered.
   async totalRevenue() {
+    // Fetching all orders with the status 'Delivered'.
     const deliveredOrders = await this.find({ status: { $in: ['Delivered'] } });
 
+    // Reducing the array of delivered orders to calculate the total revenue.
     const totalRevenue = deliveredOrders.reduce((total, order) => {
       return total + order.totalPrice;
     }, 0);
 
+    // Returning the calculated total revenue.
     return totalRevenue;
   }
 };
