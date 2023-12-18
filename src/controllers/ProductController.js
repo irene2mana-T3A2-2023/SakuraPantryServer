@@ -1,4 +1,5 @@
 import Product from '../models/ProductModel.js';
+import Category from '../models/CategoryModel.js';
 import slugify from 'slugify';
 import catchAsync from '../utils/catchAsync.js';
 import AppError from '../middlewares/appError.js';
@@ -33,8 +34,28 @@ export const getNewArrivalProducts = catchAsync(async (req, res, next) => {
   res.status(200).json(results);
 });
 
-// @desc    Get featured products
-// @route   GET /api/products/feature
+// @desc    Get relative products
+// @route   GET /api/products/relative-products
+// @access  Public
+// Get the top five products where the 'isFeatured' attribute is set to true.
+// eslint-disable-next-line no-unused-vars
+export const relativeProductsByCategory = catchAsync(async (req, res, next) => {
+  const category = await Category.findOne({ slug: req.params.categorySlug });
+  if (!category) {
+    return res.status(200).json([]);
+  }
+  const relativeProducts = await Product.find({ category: category._id })
+    .populate({
+      path: 'category',
+      select: 'name slug'
+    })
+    .limit(5);
+
+  res.status(200).json(relativeProducts);
+});
+
+// @desc    Get relative products
+// @route   GET /api/products/
 // @access  Public
 // Get the top five products where the 'isFeatured' attribute is set to true.
 // eslint-disable-next-line no-unused-vars
