@@ -5,12 +5,7 @@ import { authoriseRole, isAuthenticatedUser } from '../middlewares/authMiddlewar
 const router = express.Router();
 
 // Get a list of all categories
-router.get(
-  '/categories',
-  isAuthenticatedUser,
-  authoriseRole(['admin']),
-  CategoryController.getAllCategories
-);
+router.get('/categories', CategoryController.getAllCategories);
 // Create a new category
 router.post(
   '/categories',

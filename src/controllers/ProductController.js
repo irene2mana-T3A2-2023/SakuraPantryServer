@@ -9,11 +9,12 @@ import AppError from '../middlewares/appError.js';
 // @access  Public
 // eslint-disable-next-line no-unused-vars
 export const getAllProducts = catchAsync(async (req, res, next) => {
-  let results = await Product.find({}).populate({
-    path: 'category',
-    select: 'name slug'
-  });
-
+  let results = await Product.find({})
+    .populate({
+      path: 'category',
+      select: 'name slug'
+    })
+    .sort({ createdAt: -1 });
   res.status(200).json(results);
 });
 
@@ -105,7 +106,7 @@ export const searchProduct = catchAsync(async (req, res, next) => {
 export const createProduct = catchAsync(async (req, res, next) => {
   const { name, description, categorySlug, stockQuantity, imageUrl, price, isFeatured } = req.body;
 
-  const category = Category.findOne({ slug: categorySlug });
+  const category = await Category.findOne({ slug: categorySlug }).exec();
 
   if (!category) {
     return next(new AppError('No such category exists!', 404));
