@@ -1,4 +1,5 @@
 import Product from '../models/ProductModel.js';
+import Category from '../models/CategoryModel.js';
 import slugify from 'slugify';
 import catchAsync from '../utils/catchAsync.js';
 import AppError from '../middlewares/appError.js';
@@ -77,14 +78,21 @@ export const searchProduct = catchAsync(async (req, res, next) => {
 // @route   GET /api/products
 // @access  Private/Admin
 export const createProduct = catchAsync(async (req, res, next) => {
-  const { name, description, category, stockQuantity, imageUrl, price, isFeatured } = req.body;
+  const { name, description, categorySlug, stockQuantity, imageUrl, price, isFeatured } = req.body;
+
+  const category = Category.findOne({ slug: categorySlug });
+
+  if (!category) {
+    return next(new AppError('No such category exists!', 404));
+  }
+
   const slug = slugify(name, { lower: true });
 
   // Check if a product with the same name already exists
   const existingProduct = await Product.findOne({ $or: [{ name }, { slug }] });
 
   if (existingProduct) {
-    return next(new AppError('Product with the same name or slug already exists', 400));
+    return next(new AppError('Product with the same name or slug already exists', 409));
   }
 
   // If no existing product, create a new one
@@ -92,7 +100,7 @@ export const createProduct = catchAsync(async (req, res, next) => {
     name,
     slug,
     description,
-    category,
+    category: category._id,
     stockQuantity,
     imageUrl,
     price,
