@@ -5,7 +5,7 @@
         "description": "This is naturally brewed soy sauce with whole soybeans, featuring a delicate aroma and mild flavour. As light Asian dressings and dipping sauces for vegetables and seafood, adding it changes daily diet to extraordinary-like magic.",
         "category": "657046215ed01f56e0a4e007",
         "stockQuantity": 7,
-        "imageUrl": "https://image.dokodemo.world/catalog-skus/1454900/a5e084aa98a809c6c2eed42f9ad2945d.jpg?d=0x0",
+        "imageUrl": "https://image.dokodemo.world/catalog-skus/259884/8345653f625c34d999d59c5ef761f311.jpg?d=450x0",
         "price": 6.10,
         "isFeatured": true
     },
@@ -30,22 +30,22 @@
         "isFeatured": true
     },
     {
-        "name": "Golden Curry",
-        "slug": "curry-roux",
-        "description": "Golden Curry consists of curry powder, flour, spices, and seasonings that can quickly transform mundane stew into fine curry simply by adding them to the mixture.",
+        "name": "Pork Curry",
+        "slug": "pork-curry",
+        "description": "Pork Curry consists of curry powder, flour, spices, and seasonings that can quickly transform mundane stew into fine curry simply by adding them to the mixture.",
         "category": "657046215ed01f56e0a4e007",
         "stockQuantity": 8,
-        "imageUrl": "https://image.dokodemo.world/catalog-skus/347091/bd654943a1366e8b4712e990c3ae4cee.jpg?d=450x0",
+        "imageUrl": "https://image.dokodemo.world/catalog-skus/1473871/d4e83154c0ee89c41883019109e2f24d.jpg?d=450x0",
         "price": 7.00,
         "isFeatured": false
     },
     {
-        "name": "Wasabi Paste",
-        "slug": "wasabi-paste",
-        "description": "A ready-to-use Japanese horseradish paste packed in an easy-to-use plastic tube. Use this product to enjoy a contrast of sharp punch and delicate aroma of authentic Japanese wasabi.",
+        "name": "Shichimi Tang Mustard",
+        "slug": "shichimi-mustard",
+        "description": "Pungency complexion, in excellent varieties and with a rich aroma, mainly of Mitaka Tang mustard pepper, black sesame seeds, poppy seeds, hemp nuts, and green laver, is Chinpiwo well-balanced products that blend.",
         "category": "657046215ed01f56e0a4e007",
         "stockQuantity": 5,
-        "imageUrl": "https://image.dokodemo.world/catalog-skus/347136/5f919f0cf31f4d530072c21569abe918.jpg?d=450x0",
+        "imageUrl": "https://image.dokodemo.world/catalog-skus/1098172/0fc796715cbbed8a3b4fa99be495bffd.jpg?d=450x0",
         "price": 5.38,
         "isFeatured": false
     },
@@ -110,12 +110,12 @@
         "isFeatured": false
     },
     {
-        "name": "Chocolate Pocky Biscuit Sticks",
-        "slug": "pocky-sticks",
-        "description": "Pocky stands out as the most popular and renowned Japanese sweet snack, and for good reason! Each Giant Pocky pack contains eight regular-sized packages of Pockys featuring biscuit sticks coated in delicious chocolate-flavoured frosting.",
+        "name": "Tarako Butter Snack",
+        "slug": "tarako-snack",
+        "description": "A fun, savory snack which grains of the seasoned cod roe kneaded into. Butter brings out the deliciousness of the salted cod roe.",
         "category": "657046215ed01f56e80a4e00",
         "stockQuantity": 10,
-        "imageUrl": "https://image.dokodemo.world/catalog-skus/85387/aa2b51809828ca402392701fbe654940.jpg?d=450x0",
+        "imageUrl": "https://image.dokodemo.world/catalog-skus/85348/bfe7b9c8f47e781d3451e5e675e17cd1.jpg?d=450x0",
         "price": 6.80,
         "isFeatured": false
     },
@@ -125,17 +125,17 @@
         "description": "This Ramen features a soup base crafted from pork bone extract, resulting in a rich and cloudy broth infused with a blend of vegetables and spices.",
         "category": "657046215ed01f56e0a4e009",
         "stockQuantity": 20,
-        "imageUrl": "https://image.dokodemo.world/catalog-skus/249487/009fef42b818c0e76a4149baf85469b2.jpg?d=450x0",
+        "imageUrl": "https://image.dokodemo.world/catalog-skus/9039515/ff310e6534b887f42066978f32b024ea.jpg?d=450x0",
         "price": 14.80,
         "isFeatured": true
     },
     {
-        "name": "Curry Noodle",
-        "slug": "curry-noodle",
-        "description": "This Curry Flavored Nissin Cup Noodle is BIG! Curry soup has the mild, sweet taste of vegetables, and thick noodles taste richly.",
+        "name": "Wonton Noodle",
+        "slug": "wonton-noodle",
+        "description": "The soup is a refreshing and crispy broth. A unique wonton noodle soup with bonito broth, vegetable and pork flavours and the taste of matsutake mushrooms.",
         "category": "657046215ed01f56e0a4e009",
         "stockQuantity": 7,
-        "imageUrl": "https://image.dokodemo.world/catalog-skus/234472/662ee92765a57c9a5cdcf792c7f9cc0c.jpg?d=450x0",
+        "imageUrl": "https://image.dokodemo.world/catalog-skus/9031365/7425a5e920b6de5a3a7a8c5c0dd50ae1.jpg?d=450x0",
         "price": 6.10,
         "isFeatured": false
     },
@@ -145,7 +145,7 @@
         "description": "This is a hearty egg soup brimming with ingredients such as spinach and bacon. Made with spinach sourced from a designated farm and eggs collected within three days from a domestic contracted poultry farm.",
         "category": "657046215ed01f56e0a4e009",
         "stockQuantity": 8,
-        "imageUrl": "https://image.dokodemo.world/catalog-skus/9037362/fb1ebe076353e55831979fbfa01cff27.png?d=450x0",
+        "imageUrl": "https://image.dokodemo.world/catalog-skus/922718/dbdb4ddf161a3a4ad4417024146d85e0.png?d=450x0",
         "price": 7.40,
         "isFeatured": true
     },
@@ -155,7 +155,7 @@
         "description": "A fusion of two rice miso varieties, featuring the budget-friendly raw miso type.",
         "category": "657046215ed01f56e0a4e009",
         "stockQuantity": 9,
-        "imageUrl": "https://image.dokodemo.world/catalog-skus/249101/38c585343255dfdb8a79fa5770f892ef.jpg?d=450x0",
+        "imageUrl": "https://image.dokodemo.world/catalog-skus/249102/5cf965dab4dfe03b252085ee33a4ad7f.jpg?d=450x0",
         "price": 7.99,
         "isFeatured": false
     },
@@ -200,13 +200,13 @@
         "isFeatured": true
     },
     {
-        "name": "Honey Lemon Squash",
-        "slug": "lemon-squash",
+        "name": "C.C. Lemon",
+        "slug": "lemon-juice",
         "description": "Enjoy a light and invigorating carbonated beverage crafted with two distinct lemon ingredients enhanced by the addition of honey. Delight in the distinctive gentle sweetness of honey.",
         "category": "657046215ed01f56e0a4e00a",
         "stockQuantity": 5,
-        "imageUrl": "https://image.dokodemo.world/catalog-skus/9039409/8ae494ebe2736d446d90489e1350164b.jpg?d=0x0",
-        "price": 5.00,
+        "imageUrl": "https://image.dokodemo.world/catalog-skus/19298/ffc5baae3d43ccbff812d2169ef0bd33.jpg?d=450x0",
+        "price": 8.00,
         "isFeatured": false
     },
     {
@@ -222,10 +222,10 @@
     {
         "name": "Prestigious Junmai Daiginjo Sake",
         "slug": "junmai-sake",
-        "description": "Indulge in this opulent set, a sip beyond the pinnacle of sake, Junmai Daiginjo! Crafted under the expert supervision of a master sake brewer, it offers a truly luxurious experience.",
+        "description": "A sip beyond the pinnacle of sake, Junmai Daiginjo! Crafted under the expert supervision of a master sake brewer, it offers a truly luxurious experience.",
         "category": "657046215ed01f56e0a4e00a",
         "stockQuantity": 6,
-        "imageUrl": "https://image.dokodemo.world/skus/7735650/8fc0bc8899047c6454af0357cf4cf752.jpg?d=450x0",
+        "imageUrl": "https://image.dokodemo.world/catalog-skus/9029888/cd5603cb6fc6f3ae656a010df33ceb2b.jpg?d=450x0",
         "price": 85.40,
         "isFeatured": false
     },
@@ -280,12 +280,12 @@
         "isFeatured": false
     },
     {
-        "name": "Daily Essential Vitamins Juice",
-        "slug": "essential-vitamins",
+        "name": "Daily Essential Vitamins",
+        "slug": "vitamins-gummy",
         "description": "Containing 13 vitamins aligned with Reference Values, this product is devoid of artificial sweeteners. Infused with a zesty, sweet orange taste, it incorporates orange and mandarin juice for added refreshment.",
         "category": "657046215ed01f56e0a4e00b",
         "stockQuantity": 9,
-        "imageUrl": "https://image.dokodemo.world/catalog-skus/1759018/11ccf0d1baa93a9a90a7db2bdb5f2fbf.jpg?d=450x0",
+        "imageUrl": "https://image.dokodemo.world/catalog-skus/60930/d53635e75aaee478b3a7704e00a6a1af.jpg?d=450x0",
         "price": 14.38,
         "isFeatured": false
     },

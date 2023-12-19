@@ -34,8 +34,31 @@ export const getNewArrivalProducts = catchAsync(async (req, res, next) => {
   res.status(200).json(results);
 });
 
-// @desc    Get featured products
-// @route   GET /api/products/feature
+// @desc    Get relative products
+// @route   GET /api/products/relative-products
+// @access  Public
+// Get the top five products related to a specific category
+// eslint-disable-next-line no-unused-vars
+export const relativeProductsByCategory = catchAsync(async (req, res, next) => {
+  //It first finds the category using the slug provided in the request params.
+  const category = await Category.findOne({ slug: req.params.categorySlug });
+  //If the category is not found, it returns an empty array.
+  if (!category) {
+    return res.status(200).json([]);
+  }
+  //If the category is found, it then finds up to 5 products that belongs to this category.
+  const relativeProducts = await Product.find({ category: category._id })
+    .populate({
+      path: 'category',
+      select: 'name slug'
+    })
+    .limit(5);
+
+  res.status(200).json(relativeProducts);
+});
+
+// @desc    Get relative products
+// @route   GET /api/products/
 // @access  Public
 // Get the top five products where the 'isFeatured' attribute is set to true.
 // eslint-disable-next-line no-unused-vars
@@ -52,8 +75,10 @@ export const getFeatureProducts = catchAsync(async (req, res, next) => {
 // @access  Public
 export const getProduct = catchAsync(async (req, res, next) => {
   const { slug } = req.params;
-  const result = await Product.findOne({ slug });
-
+  const result = await Product.findOne({ slug }).populate({
+    path: 'category',
+    select: 'name slug'
+  });
   if (!result) {
     return next(new AppError('Product not found', 404));
   }
