@@ -95,6 +95,9 @@ export const searchProduct = catchAsync(async (req, res, next) => {
   const results = await Product.find({
     // Use regex to perform a case-insensitive search
     name: { $regex: new RegExp(keyword, 'i') }
+  }).populate({
+    path: 'category',
+    select: 'name slug'
   });
   res.status(200).json(results);
 });
