@@ -9,6 +9,7 @@ import authRoutes from './routes/AuthRoutes.js';
 import orderRoutes from './routes/OrderRoutes.js';
 import productRoutes from './routes/ProductRoutes.js';
 import categoryRoutes from './routes/CategoryRoutes.js';
+import userRoutes from './routes/UserRoutes.js';
 import dashboardRoutes from './routes/DashboardRoutes.js';
 
 import AppError from './middlewares/appError.js';
@@ -50,6 +51,8 @@ app.use('/api', categoryRoutes);
 app.use('/api', productRoutes);
 // Use the order routes
 app.use('/api', orderRoutes);
+// Use the user routes
+app.use('/api', userRoutes);
 // Use the dashboard routes for admin only
 app.use('/api', dashboardRoutes);
 /** GET /health-check - Check service health */
