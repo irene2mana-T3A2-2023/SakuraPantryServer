@@ -11,7 +11,16 @@ import { getUserFromJwt } from '../utils/getAuthUser.js';
 // eslint-disable-next-line no-unused-vars
 export const getAllOrders = catchAsync(async (req, res, next) => {
   // Retrieve orders from db and populate the 'user' field with selected user properties
-  const results = await Order.find({}).populate('user', 'id firstName lastName email');
+  const results = await Order.find({})
+    .populate('user', 'id firstName lastName email')
+    .populate({
+      path: 'orderItems.product',
+      select: 'name imageUrl category price',
+      populate: {
+        path: 'category',
+        select: 'name description'
+      }
+    });
   res.status(200).json(results);
 });
 
@@ -24,7 +33,14 @@ export const getMyOrders = catchAsync(async (req, res, next) => {
   const decodedUser = getUserFromJwt(req);
 
   // Retrieve orders from the db that belong to the decoded user
-  const results = await Order.find({ user: decodedUser.userId });
+  const results = await Order.find({ user: decodedUser.userId }).populate({
+    path: 'orderItems.product',
+    select: 'name imageUrl category price',
+    populate: {
+      path: 'category',
+      select: 'name description'
+    }
+  });
 
   res.status(200).json(results);
 });
