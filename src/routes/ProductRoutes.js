@@ -7,6 +7,12 @@ const router = express.Router();
 // Get all products
 router.get('/products', ProductController.getAllProducts);
 
+// Get relative products
+router.get(
+  '/products/relative-products/:categorySlug',
+  ProductController.relativeProductsByCategory
+);
+
 // Get new arrival products
 router.get('/products/new-arrivals', ProductController.getNewArrivalProducts);
 
