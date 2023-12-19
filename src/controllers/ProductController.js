@@ -40,7 +40,7 @@ export const getNewArrivalProducts = catchAsync(async (req, res, next) => {
 // Get the top five products related to a specific category
 // eslint-disable-next-line no-unused-vars
 export const relativeProductsByCategory = catchAsync(async (req, res, next) => {
-  //It first finds the category using the slug provided in the request prames.
+  //It first finds the category using the slug provided in the request params.
   const category = await Category.findOne({ slug: req.params.categorySlug });
   //If the category is not found, it returns an empty array.
   if (!category) {
