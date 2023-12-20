@@ -8,7 +8,7 @@ import AppError from '../middlewares/appError.js';
 // @access  Private/Admin
 // eslint-disable-next-line no-unused-vars
 export const getAllCategories = catchAsync(async (req, res, next) => {
-  let results = await Category.find({});
+  let results = await Category.find({}).sort({ createdAt: -1 });
 
   res.status(201).json(results);
 });

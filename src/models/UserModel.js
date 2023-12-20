@@ -102,7 +102,7 @@ const UserSchema = new Schema(
     // Enable automatic timestamps for creation and updates
     timestamps: true,
     // Apply filterSchema to transform the JSON output of the schema
-    toJSON: filterSchema(['__v', '_id', 'password'])
+    toJSON: filterSchema(['__v', 'password'])
   }
 );
 

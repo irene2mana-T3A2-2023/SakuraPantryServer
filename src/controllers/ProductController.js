@@ -9,11 +9,12 @@ import AppError from '../middlewares/appError.js';
 // @access  Public
 // eslint-disable-next-line no-unused-vars
 export const getAllProducts = catchAsync(async (req, res, next) => {
-  let results = await Product.find({}).populate({
-    path: 'category',
-    select: 'name slug'
-  });
-
+  let results = await Product.find({})
+    .populate({
+      path: 'category',
+      select: 'name slug'
+    })
+    .sort({ createdAt: -1 });
   res.status(200).json(results);
 });
 
@@ -106,14 +107,21 @@ export const searchProduct = catchAsync(async (req, res, next) => {
 // @route   GET /api/products
 // @access  Private/Admin
 export const createProduct = catchAsync(async (req, res, next) => {
-  const { name, description, category, stockQuantity, imageUrl, price, isFeatured } = req.body;
+  const { name, description, categorySlug, stockQuantity, imageUrl, price, isFeatured } = req.body;
+
+  const category = await Category.findOne({ slug: categorySlug }).exec();
+
+  if (!category) {
+    return next(new AppError('No such category exists!', 404));
+  }
+
   const slug = slugify(name, { lower: true });
 
   // Check if a product with the same name already exists
   const existingProduct = await Product.findOne({ $or: [{ name }, { slug }] });
 
   if (existingProduct) {
-    return next(new AppError('Product with the same name or slug already exists', 400));
+    return next(new AppError('Product with the same name or slug already exists', 409));
   }
 
   // If no existing product, create a new one
@@ -121,7 +129,7 @@ export const createProduct = catchAsync(async (req, res, next) => {
     name,
     slug,
     description,
-    category,
+    category: category._id,
     stockQuantity,
     imageUrl,
     price,
