@@ -177,7 +177,7 @@ A SuperAgent-driven library for testing HTTP servers, allowing you to test your 
 
 | Method | Routes                  | Functionalities                     | Access  |
 | ------ | ----------------------- | ----------------------------------- | --------|
-| GET    | `/api/categories`       | Get a list of all categories        | Private |
+| GET    | `/api/categories`       | Get a list of all categories        | Public |
 | POST   | `/api/categories`       | Create a new categories             | Private |
 | PATCH  | `/api/categories/:slug` | Update a specific category by slug  | Private |
 | DELETE | `/api/categories/:slug` | Delete a specific category by slug  | Private |
