@@ -9,6 +9,7 @@ import AppError from '../middlewares/appError.js';
 // @access  Public
 // eslint-disable-next-line no-unused-vars
 export const getAllProducts = catchAsync(async (req, res, next) => {
+  // Find all product documents in the database, populates each with corresponding category data (name and slug), and sorts them in descending order based on their creation date.
   let results = await Product.find({})
     .populate({
       path: 'category',
@@ -107,9 +108,13 @@ export const searchProduct = catchAsync(async (req, res, next) => {
 // @route   GET /api/products
 // @access  Private/Admin
 export const createProduct = catchAsync(async (req, res, next) => {
+  // Destructuring relevant fields from the request body.
   const { name, description, categorySlug, stockQuantity, imageUrl, price, isFeatured } = req.body;
 
+  // Finding the category by its slug.
   const category = await Category.findOne({ slug: categorySlug }).exec();
+
+  // If the category doesn't exist, return an error.
 
   if (!category) {
     return next(new AppError('No such category exists!', 404));
