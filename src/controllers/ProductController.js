@@ -99,6 +99,10 @@ export const searchProduct = catchAsync(async (req, res, next) => {
   // Retrieve keyword(k) and categorySlug(c) from URL paramaters.
   const keyword = req.query.k;
   const categorySlug = req.query.c;
+  // Implement pagination to display 8 items per page.
+  const page = parseInt(req.query.page) || 1;
+  const limit = parseInt(req.query.limit) || 8;
+  const skip = (page - 1) * limit;
   // Initialise MongoDB query to search products.
   let query = Product.find({});
   // If categorySlug is present in the query parameters.
@@ -119,11 +123,21 @@ export const searchProduct = catchAsync(async (req, res, next) => {
     query = query.or([{ name: searchQuery }, { description: searchQuery }]);
   }
   //Populate each products with its associated category information.
-  const results = await query.populate({
+  const totalResults = await Product.countDocuments(query);
+  const results = await query.skip(skip).limit(limit).populate({
     path: 'category',
     select: 'name slug'
   });
-  res.status(200).json(results);
+
+  res.status(200).json({
+    // Total number of results in the entire dataset.
+    totalResults,
+    // Total number of pages. This is calculated by dividing the total results by the number of items per page and rounding up to the nearest whole number.
+    totalPages: Math.ceil(totalResults / limit),
+    // The current page number that this response represents.
+    currentPage: page,
+    results
+  });
 });
 
 // @desc    Create a product
