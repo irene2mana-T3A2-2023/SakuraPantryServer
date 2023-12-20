@@ -9,6 +9,7 @@ import AppError from '../middlewares/appError.js';
 // eslint-disable-next-line no-unused-vars
 export const getAllCategories = catchAsync(async (req, res, next) => {
   //  Find all category documents and sorts these categories in descending order based on their creation date in the database.
+
   let results = await Category.find({}).sort({ createdAt: -1 });
 
   res.status(201).json(results);

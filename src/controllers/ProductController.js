@@ -97,6 +97,9 @@ export const searchProduct = catchAsync(async (req, res, next) => {
   const results = await Product.find({
     // Use regex to perform a case-insensitive search
     name: { $regex: new RegExp(keyword, 'i') }
+  }).populate({
+    path: 'category',
+    select: 'name slug'
   });
   res.status(200).json(results);
 });
@@ -112,6 +115,7 @@ export const createProduct = catchAsync(async (req, res, next) => {
   const category = await Category.findOne({ slug: categorySlug }).exec();
 
   // If the category doesn't exist, return an error.
+
   if (!category) {
     return next(new AppError('No such category exists!', 404));
   }
