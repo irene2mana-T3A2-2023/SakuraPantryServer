@@ -170,12 +170,14 @@ A SuperAgent-driven library for testing HTTP servers, allowing you to test your 
 | DELETE | `/api/products/:slug`    | Delete a specific product by slug         | Private  |
 | GET    | `/products/new-arrivals` | Get a list of new arrival products        | Public   |
 | GET    | `/products/feature`      | Get a list of featured products           | Public   |
+| GET    | `/products/relative-products/:categorySlug`      | Get related products           | Public   |
+| GET    | `/products/search?k=abc&c=def`      | Get products by keyword and categorySlug           | Public   |
 
 ### Categories
 
 | Method | Routes                  | Functionalities                     | Access  |
 | ------ | ----------------------- | ----------------------------------- | --------|
-| GET    | `/api/categories`       | Get a list of all categories        | Public  |
+| GET    | `/api/categories`       | Get a list of all categories        | Private |
 | POST   | `/api/categories`       | Create a new categories             | Private |
 | PATCH  | `/api/categories/:slug` | Update a specific category by slug  | Private |
 | DELETE | `/api/categories/:slug` | Delete a specific category by slug  | Private |

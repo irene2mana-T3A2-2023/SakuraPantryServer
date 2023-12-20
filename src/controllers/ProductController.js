@@ -50,6 +50,7 @@ export const relativeProductsByCategory = catchAsync(async (req, res, next) => {
   }
   //If the category is found, it then finds up to 5 products that belongs to this category.
   const relativeProducts = await Product.find({ category: category._id })
+    //Populate each products with its associated category information.
     .populate({
       path: 'category',
       select: 'name slug'
@@ -59,13 +60,15 @@ export const relativeProductsByCategory = catchAsync(async (req, res, next) => {
   res.status(200).json(relativeProducts);
 });
 
-// @desc    Get relative products
-// @route   GET /api/products/
+// @desc    Get featured products
+// @route   GET /api/products/feature
 // @access  Public
 // Get the top five products where the 'isFeatured' attribute is set to true.
 // eslint-disable-next-line no-unused-vars
 export const getFeatureProducts = catchAsync(async (req, res, next) => {
+  // Filter products by isFeatured.
   let results = await Product.find({ isFeatured: true })
+    //Populate each products with its associated category information.
     .populate({ path: 'category', select: 'name slug' })
     .limit(5);
 
@@ -88,16 +91,35 @@ export const getProduct = catchAsync(async (req, res, next) => {
   res.status(200).json(result);
 });
 
-// @desc    Search a product by keyword
-// @route   GET /api/products/search?keyword=
+// @desc    Search a product by keyword and categorySlug
+// @route   GET /api/products/search?k=miso&c=seasoning
 // @access  Public
 // eslint-disable-next-line no-unused-vars
 export const searchProduct = catchAsync(async (req, res, next) => {
-  const keyword = req.query.keyword;
-  const results = await Product.find({
-    // Use regex to perform a case-insensitive search
-    name: { $regex: new RegExp(keyword, 'i') }
-  }).populate({
+  // Retrieve keyword(k) and categorySlug(c) from URL paramaters.
+  const keyword = req.query.k;
+  const categorySlug = req.query.c;
+  // Initialise MongoDB query to search products.
+  let query = Product.find({});
+  // If categorySlug is present in the query parameters.
+  // If categorySlug exists, search the category collection in the db for a category with a matching slug.
+  if (categorySlug) {
+    const category = await Category.findOne({ slug: categorySlug });
+    // If such a category is found, the query object is updated to filter products belonging to this category.
+    if (category) {
+      // Set the condition that the category field of the product collection should be equal the found category's_id.
+      query = query.where('category').equals(category._id);
+    }
+  }
+  //If keyword is present.
+  if (keyword) {
+    // If keyword exists, a search condition is created where name or description of the product contains the keyword.
+    // By using regex for  pattern matching with making the search case-insensitive.
+    const searchQuery = { $regex: keyword, $options: 'i' };
+    query = query.or([{ name: searchQuery }, { description: searchQuery }]);
+  }
+  //Populate each products with its associated category information.
+  const results = await query.populate({
     path: 'category',
     select: 'name slug'
   });
@@ -115,7 +137,6 @@ export const createProduct = catchAsync(async (req, res, next) => {
   const category = await Category.findOne({ slug: categorySlug }).exec();
 
   // If the category doesn't exist, return an error.
-
   if (!category) {
     return next(new AppError('No such category exists!', 404));
   }
