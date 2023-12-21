@@ -61,15 +61,24 @@ const sendErrorProd = (err, res) => {
   }
 };
 
+// Function to send error details in test environment
+const sendErrorTest = (err, res) => {
+  res.status(err.statusCode).json({
+    status: err.status,
+    error: err,
+    message: err.message
+  });
+};
+
 // Function to handle errors globally
 /* eslint-disable no-unused-vars */
 const globalErrorHandler = (err, req, res, next) => {
   err.statusCode = err.statusCode || 500;
   err.status = err.status || 'error';
 
-  if (process.env.NODE_ENV === 'development') {
+  if (envConfig.env === 'development') {
     sendErrorDev(err, res);
-  } else if (process.env.NODE_ENV === 'production') {
+  } else if (envConfig.env === 'production') {
     let error = { ...err };
 
     if (error.name === 'CastError') {
@@ -85,6 +94,8 @@ const globalErrorHandler = (err, req, res, next) => {
     }
 
     sendErrorProd(error, res);
+  } else if (envConfig.env === 'test') {
+    sendErrorTest(err, res);
   }
 };
 
