@@ -12,7 +12,7 @@ export const getAllCategories = catchAsync(async (req, res, next) => {
 
   let results = await Category.find({}).sort({ createdAt: -1 });
 
-  res.status(201).json(results);
+  res.status(200).json(results);
 });
 
 // @desc    Create a new category
@@ -26,7 +26,7 @@ export const createCategory = catchAsync(async (req, res, next) => {
   const existingCategory = await Category.findOne({ $or: [{ name }, { slug }] });
 
   if (existingCategory) {
-    return next(new AppError('Category with the same name or slug already exists', 400));
+    return next(new AppError('Category with the same name or slug already exists', 409));
   }
 
   // If no existing category, create a new one
@@ -50,7 +50,7 @@ export const updateCategory = catchAsync(async (req, res, next) => {
   });
 
   if (!result) {
-    return next(new AppError('Product not found', 404));
+    return next(new AppError('Category not found', 404));
   }
 
   res.status(200).json(result);
@@ -65,7 +65,7 @@ export const deleteCategory = catchAsync(async (req, res, next) => {
   const result = await Category.findOneAndDelete({ slug });
 
   if (!result) {
-    return next(new AppError('Product not found', 404));
+    return next(new AppError('Category not found', 404));
   }
 
   res.status(200).json({ message: 'Category successfully deleted' });
