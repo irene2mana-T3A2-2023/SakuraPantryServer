@@ -1,7 +1,6 @@
 import request from 'supertest';
 import app from '../../server.js';
 import Category from '../../models/CategoryModel.js';
-import Product from '../../models/ProductModel.js';
 
 const getAllCategoriesEndpoint = '/api/categories';
 const createCategoryEndpoint = '/api/categories';
@@ -166,7 +165,7 @@ describe('Categories API', () => {
       expect(res.body.message).toEqual('Category successfully deleted');
 
       // Ensure the category is no longer in the database
-      const deletedCategory = await Product.findOne({ slug: testCategory.slug });
+      const deletedCategory = await Category.findOne({ slug: testCategory.slug });
       expect(deletedCategory).toBeNull();
     });
   });
