@@ -109,13 +109,16 @@ export const searchProduct = catchAsync(async (req, res, next) => {
 // @route   GET /api/products
 // @access  Private/Admin
 export const createProduct = catchAsync(async (req, res, next) => {
+  console.log('creating product route reached');
   // Destructuring relevant fields from the request body.
   const { name, description, categorySlug, stockQuantity, imageUrl, price, isFeatured } = req.body;
 
   // Finding the category by its slug.
   const category = await Category.findOne({ slug: categorySlug }).exec();
 
+  console.log('found category of: ' + category);
   // If the category doesn't exist, return an error.
+
   if (!category) {
     return next(new AppError('No such category exists!', 404));
   }
@@ -125,6 +128,8 @@ export const createProduct = catchAsync(async (req, res, next) => {
 
   // Check if a product with the same name already exists
   const existingProduct = await Product.findOne({ $or: [{ name }, { slug }] });
+
+  console.log('Found product of: ' + existingProduct);
 
   if (existingProduct) {
     return next(new AppError('Product with the same name or slug already exists', 409));
@@ -141,6 +146,8 @@ export const createProduct = catchAsync(async (req, res, next) => {
     price,
     isFeatured
   });
+
+  console.log('New product made, is: ' + newProduct);
 
   res.status(201).json(newProduct);
 });
