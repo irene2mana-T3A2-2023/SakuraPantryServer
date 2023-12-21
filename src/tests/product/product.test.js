@@ -11,7 +11,7 @@ const updateProductBySlugEndpoint = '/api/products';
 const deleteProductBySlugEndpoint = '/api/products';
 
 // Test suite for Product API
-describe('Product API', () => {
+describe('Products API', () => {
   // Test cases for getRelativeProducts route
   describe(`[GET] ${relativeProductsEndpoint}`, () => {
     it('Should return an empty array when an incorrect category slug is provided', async () => {

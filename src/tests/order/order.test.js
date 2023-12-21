@@ -4,7 +4,7 @@ import app from '../../server.js';
 
 const getAllOrdersEndpoint = '/api/orders';
 
-describe('Product APIs', () => {
+describe('Orders API', () => {
   describe(`[GET] ${getAllOrdersEndpoint}`, () => {
     it('Should return a list of order with admin authorization', async () => {
       const res = await request(app)

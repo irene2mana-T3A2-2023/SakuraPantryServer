@@ -76,9 +76,9 @@ const globalErrorHandler = (err, req, res, next) => {
   err.statusCode = err.statusCode || 500;
   err.status = err.status || 'error';
 
-  if (process.env.NODE_ENV === 'development') {
+  if (envConfig.env === 'development') {
     sendErrorDev(err, res);
-  } else if (process.env.NODE_ENV === 'production') {
+  } else if (envConfig.env === 'production') {
     let error = { ...err };
 
     if (error.name === 'CastError') {
@@ -94,7 +94,7 @@ const globalErrorHandler = (err, req, res, next) => {
     }
 
     sendErrorProd(error, res);
-  } else if (process.env.NODE_ENV === 'test') {
+  } else if (envConfig.env === 'test') {
     sendErrorTest(err, res);
   }
 };
