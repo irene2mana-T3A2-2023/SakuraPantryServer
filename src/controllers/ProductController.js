@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import Product from '../models/ProductModel.js';
 import Category from '../models/CategoryModel.js';
 import slugify from 'slugify';
@@ -115,12 +116,12 @@ export const createProduct = catchAsync(async (req, res, next) => {
   const category = await Category.findOne({ slug: categorySlug }).exec();
 
   // If the category doesn't exist, return an error.
-
   if (!category) {
     return next(new AppError('No such category exists!', 404));
   }
 
   const slug = slugify(name, { lower: true });
+  console.log('Made slug with value of: ' + slug);
 
   // Check if a product with the same name already exists
   const existingProduct = await Product.findOne({ $or: [{ name }, { slug }] });

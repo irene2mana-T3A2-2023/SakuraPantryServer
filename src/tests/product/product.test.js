@@ -5,6 +5,7 @@ import request from 'supertest';
 import app from '../../server.js';
 import { envConfig } from '../../configs/env.js';
 import { jest } from '@jest/globals';
+import Category from '../../models/CategoryModel.js';
 
 const relativeProductsEndpoint = '/api/products/relative-products';
 const getAllProductsEndpoint = '/api/products';
@@ -13,10 +14,9 @@ const createProductEndpoint = '/api/products';
 const updateProductBySlugEndpoint = '/api/products';
 const deleteProductBySlugEndpoint = '/api/products';
 
-
 describe('Product APIs', () => {
+  // Test cases for getRelativeProducts route
   describe(`[GET] ${relativeProductsEndpoint}`, () => {
-
     it('Should return an empty array when an incorrect category slug is provided', async () => {
       const res = await request(app).get(`${relativeProductsEndpoint}/not-existing-category-slug`);
 
@@ -32,6 +32,7 @@ describe('Product APIs', () => {
     });
   });
 
+  // Test cases for getAllProduct route
   describe(`[GET] ${getAllProductsEndpoint}`, () => {
     // it('Should return a 404 Not Found error object when a wrong URL is provided', async () => {
     //   const res = await request(app).get(`${getAllProductsEndpoint}wrong-URL`);
@@ -52,13 +53,15 @@ describe('Product APIs', () => {
     });
   });
 
+  // Test cases for getProductBySlug route
   describe(`GET] ${getProductBySlugEndpoint}`, () => {
-      // it('Should return an empty array when an incorrect product slug is provided', async () => {
-      //   const res = await request(app).get(`${getProductBySlugEndpoint}/not-existing-product-slug`);
+    it('should return a 404 error for a non-existing product slug', async () => {
+      const nonExistingSlug = 'non-existing-slug';
+      const response = await request(app).get(`/api/products/${nonExistingSlug}`);
 
-      //   expect(res.body.error.statusCode).toEqual(404);
-      //   expect(res.body.message).toEqual('Product not found')
-      // });
+      expect(response.statusCode).toBe(404);
+      expect(response.body.message).toBe('Product not found');
+    });
 
     it('Should return the product with corresponding slug when a correct slug provided', async () => {
       const validSlug = 'miso-paste';
@@ -70,28 +73,45 @@ describe('Product APIs', () => {
       expect(typeof res.body).toBe('object');
       expect(res.body).toHaveProperty('slug', validSlug);
     });
-    // });
+  });
 
-    describe(`[POST] ${createProductEndpoint}`, () => {
-      it('Should return a new product object in JSON format', async () => {
-        const requestBody = {
-          name: 'Red Miso',
-          description: 'This is a description for red miso product.',
-          categorySlug: 'miso-paste',
-          imageUrl: '',
-          stockQuantiy: 20,
-          price: 5.3,
-          isFeatured: true
-        };
+  // Test cases for createProduct route
+  describe(`[POST] ${createProductEndpoint}`, () => {
 
-        const res = await request(app)
-          .post(createProductEndpoint)
-          .send(requestBody)
-          .set('Authorization', `Bearer ${global.mockUsers.adminToken}`)
-          .set('Accept', 'application/json')
-        
-        expect(res.statusCode).toEqual(201);
-      });
+    beforeEach(async () => {
+      await Category.deleteMany({});
+      // Perform setup steps before each test
+      // Insert a test category into the database
+      await Category.create({ name: 'Test Category', slug: 'test-category' });
+    });
+
+    afterEach(async () => {
+      // Clean up after each test
+      // In this example, delete the sample category from the database
+      await Category.deleteMany({});
+    });
+
+    // Test case 1
+    it('Should return a new product object in JSON format', async () => {
+      const requestBody = {
+        name: 'Test Product',
+        description: 'This is a description for test product.',
+        categorySlug: 'test-category',
+        imageUrl: 'testImageURL.png',
+        stockQuantity: 20,
+        price: 5.3,
+        isFeatured: true
+      };
+
+      console.log('Request Payload:', requestBody);
+
+      const res = await request(app)
+        .post(createProductEndpoint)
+        .send(requestBody)
+        .set('Authorization', `Bearer ${global.mockUsers.adminToken}`)
+        .set('Accept', 'application/json');
+
+      expect(res.statusCode).toEqual(201);
     });
   });
 });
