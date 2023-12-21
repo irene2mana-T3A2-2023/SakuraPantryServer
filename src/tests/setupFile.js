@@ -1,8 +1,8 @@
 import mongoose from 'mongoose';
+import jwt from 'jsonwebtoken';
 import { envConfig } from '../configs/env.js';
 import User from '../models/UserModel.js';
 import Category from '../models/CategoryModel.js';
-import jwt from 'jsonwebtoken';
 import Product from '../models/ProductModel.js';
 
 async function feedTestData() {

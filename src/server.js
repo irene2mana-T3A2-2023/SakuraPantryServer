@@ -1,17 +1,15 @@
 import express from 'express';
 import cors from 'cors';
-import { envConfig } from './configs/env.js';
 import helmet from 'helmet';
 import mongoSanitize from 'express-mongo-sanitize';
 import xss from 'xss-clean';
-
+import { envConfig } from './configs/env.js';
 import authRoutes from './routes/AuthRoutes.js';
 import orderRoutes from './routes/OrderRoutes.js';
 import productRoutes from './routes/ProductRoutes.js';
 import categoryRoutes from './routes/CategoryRoutes.js';
 import userRoutes from './routes/UserRoutes.js';
 import dashboardRoutes from './routes/DashboardRoutes.js';
-
 import AppError from './middlewares/appError.js';
 import globalErrorHandler from './middlewares/errorMiddleware.js';
 

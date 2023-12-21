@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
+import slugify from 'slugify';
 import Product from '../models/ProductModel.js';
 import Category from '../models/CategoryModel.js';
-import slugify from 'slugify';
 import catchAsync from '../utils/catchAsync.js';
 import AppError from '../middlewares/appError.js';
 

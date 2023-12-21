@@ -1,8 +1,8 @@
 import request from 'supertest';
-import app from '../../server.js';
-import { envConfig } from '../../configs/env.js';
 import nodemailer from 'nodemailer';
 import { jest } from '@jest/globals';
+import app from '../../server.js';
+import { envConfig } from '../../configs/env.js';
 import User from '../../models/UserModel.js';
 
 const registerEndpoint = '/api/auth/register';
