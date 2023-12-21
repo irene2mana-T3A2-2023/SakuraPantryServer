@@ -41,6 +41,7 @@ describe('Products API', () => {
       expect(res.body.length).toEqual(5);
     });
   });
+
   // Test cases for getFeatureProducts route
   describe(`[GET] ${featuredProductsEndpoint}`, () => {
     it('Should return 5 featured products when there are at least 5 featured products', async () => {
@@ -50,6 +51,7 @@ describe('Products API', () => {
       expect(res.body.length).toEqual(5);
     });
   });
+
   // Test cases for searchProduct route
   describe(`[GET] ${searchProductsEndpoint}`, () => {
     it('Should return paginated search results for products with names or descriptions containing with keyword m', async () => {
@@ -97,6 +99,8 @@ describe('Products API', () => {
       res.body.results.forEach((product) => {
         expect(product.category.slug).toEqual(validCategorySlug);
       });
+    });
+  });
 
   // Test cases for getAllProduct route
   describe(`[GET] ${getAllProductsEndpoint}`, () => {
