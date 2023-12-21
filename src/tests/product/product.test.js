@@ -34,15 +34,15 @@ describe('Product APIs', () => {
 
   // Test cases for getAllProduct route
   describe(`[GET] ${getAllProductsEndpoint}`, () => {
-    // it('Should return a 404 Not Found error object when a wrong URL is provided', async () => {
-    //   const res = await request(app).get(`${getAllProductsEndpoint}wrong-URL`);
+    it('Should return a 404 Not Found error object when a wrong URL is provided', async () => {
+      const res = await request(app).get(`${getAllProductsEndpoint}wrong-URL`);
 
-    //   expect(res.error.statusCode).toEqual(404);
-    //   expect(res.body).toHaveProperty(
-    //     'message',
-    //     `Can't find /api/productswrong-URL on this server!`
-    //   );
-    // });
+      expect(res.body.error.statusCode).toEqual(404);
+      expect(res.body).toHaveProperty(
+        'message',
+        `Can't find /api/productswrong-URL on this server!`
+      );
+    });
 
     it('Should return a list of all products in database when a valid URL is provided', async () => {
       const res = await request(app).get(`${getAllProductsEndpoint}`);
@@ -55,13 +55,13 @@ describe('Product APIs', () => {
 
   // Test cases for getProductBySlug route
   describe(`GET] ${getProductBySlugEndpoint}`, () => {
-    // it('should return a 404 error for a non-existing product slug', async () => {
-    //   const nonExistingSlug = 'non-existing-slug';
-    //   const response = await request(app).get(`/api/products/${nonExistingSlug}`);
+    it('should return a 404 error for a non-existing product slug', async () => {
+      const nonExistingSlug = 'non-existing-slug';
+      const response = await request(app).get(`/api/products/${nonExistingSlug}`);
 
-    //   expect(response.statusCode).toBe(404);
-    //   expect(response.body.message).toBe('Product not found');
-    // });
+      expect(response.statusCode).toBe(404);
+      expect(response.body.message).toBe('Product not found');
+    });
 
     it('Should return the product with corresponding slug when a correct slug provided', async () => {
       const validSlug = 'miso-paste';
@@ -77,7 +77,6 @@ describe('Product APIs', () => {
 
   // Test cases for createProduct route
   describe(`[POST] ${createProductEndpoint}`, () => {
-
     beforeEach(async () => {
       await Category.deleteMany({});
       // Perform setup steps before each test
@@ -103,8 +102,6 @@ describe('Product APIs', () => {
         isFeatured: true
       };
 
-      console.log('Request Payload:', requestBody);
-
       const res = await request(app)
         .post(createProductEndpoint)
         .send(requestBody)
@@ -115,7 +112,7 @@ describe('Product APIs', () => {
     });
 
     // Test case 2
-    it('Should return a validatation error when missing required fields', async () => {
+    it('Should return a validation error when missing required fields', async () => {
       const invalidRequestBody = {
         name: '',
         description: 'This is a description for test product.',
@@ -125,8 +122,6 @@ describe('Product APIs', () => {
         price: '',
         isFeatured: true
       };
-
-      console.log('Request Payload:', invalidRequestBody);
 
       const res = await request(app)
         .post(createProductEndpoint)

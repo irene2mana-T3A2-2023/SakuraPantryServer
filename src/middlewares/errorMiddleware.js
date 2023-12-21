@@ -61,6 +61,15 @@ const sendErrorProd = (err, res) => {
   }
 };
 
+// Function to send error details in test environment
+const sendErrorTest = (err, res) => {
+  res.status(err.statusCode).json({
+    status: err.status,
+    error: err,
+    message: err.message
+  });
+};
+
 // Function to handle errors globally
 /* eslint-disable no-unused-vars */
 const globalErrorHandler = (err, req, res, next) => {
@@ -85,6 +94,8 @@ const globalErrorHandler = (err, req, res, next) => {
     }
 
     sendErrorProd(error, res);
+  } else if (process.env.NODE_ENV === 'test') {
+    sendErrorTest(err, res);
   }
 };
 
