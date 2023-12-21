@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import Product from '../models/ProductModel.js';
 import Category from '../models/CategoryModel.js';
 import slugify from 'slugify';
