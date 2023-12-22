@@ -143,6 +143,38 @@ describe('Orders API', () => {
       expect(res.statusCode).toEqual(404);
       expect(res.body.message).toEqual('No order items');
     });
+
+    // Test case 3
+    it('Should return 404 Not Found error if there is no existing product in order items', async () => {
+      const notExistedProductId = '65802571f3aa90e83020cb6a';
+
+      const requestBodyWithNotExistedProduct = {
+        orderItems: [
+          {
+            quantity: 2,
+            product: notExistedProductId
+          }
+        ],
+        paymentMethod: 'PayPal',
+        shippingAddress: {
+          address: '123 Main St.',
+          city: 'Sydney',
+          state: 'NSW',
+          postcode: '1234'
+        },
+        phone: '012345678',
+        user: mockUserId
+      };
+
+      const res = await request(app)
+        .post(createOrderEndpoint)
+        .send(requestBodyWithNotExistedProduct)
+        .set('Authorization', `Bearer ${global.mockUsers.userToken}`)
+        .set('Accept', 'application/json');
+
+      expect(res.statusCode).toEqual(404);
+      expect(res.body.message).toEqual('Product not found');
+    });
   });
 
   // Test cases for getMyOrders route
@@ -175,7 +207,7 @@ describe('Orders API', () => {
 
   // Test case 2
   describe(`[GET] ${getOrderByIdEndpoint}`, () => {
-    it('Should return a 404 Not Found error for a non-existing order ID', async () => {
+    it('Should return a 404 Not Found error for an invalid order ID', async () => {
       const invalidId = 'invalid-id';
 
       const res = await request(app)
@@ -205,15 +237,13 @@ describe('Orders API', () => {
 
   // Test cases for updateOrderStatus route
   describe(`[PATCH] ${updateOrderStatusEndpoint}`, () => {
+    // Test case 1
     it('Should update order status with admin authorization', async () => {
       const validOrderId = mockOrderId;
 
       const updatedOrder = {
         status: 'Confirmed'
       };
-
-      // eslint-disable-next-line no-console
-      console.log(mockOrderId);
 
       const res = await request(app)
         .patch(`${updateOrderStatusEndpoint}/${validOrderId}/status`)
@@ -223,6 +253,32 @@ describe('Orders API', () => {
 
       expect(res.statusCode).toEqual(200);
       expect(res.body.status).toEqual(updatedOrder.status);
+    });
+
+    // Test case 2
+    it('Should return a 404 Not Found error for an invalid order ID', async () => {
+      const invalidId = 'invalid-id';
+
+      const res = await request(app)
+        .patch(`${updateOrderStatusEndpoint}/${invalidId}/status`)
+        .set('Authorization', `Bearer ${global.mockUsers.adminToken}`)
+        .set('Accept', 'application/json');
+
+      expect(res.statusCode).toEqual(404);
+      expect(res.body.message).toEqual('Invalid order ID format');
+    });
+
+    // Test case 3
+    it('Should return a 404 Not Found error for a non-existing order ID', async () => {
+      const nonExistingId = '757b0ccc5c46583917a8f489';
+
+      const res = await request(app)
+        .patch(`${updateOrderStatusEndpoint}/${nonExistingId}/status`)
+        .set('Authorization', `Bearer ${global.mockUsers.adminToken}`)
+        .set('Accept', 'application/json');
+
+      expect(res.statusCode).toEqual(404);
+      expect(res.body.message).toEqual('Order not found');
     });
   });
 });

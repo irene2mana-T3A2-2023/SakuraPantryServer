@@ -117,8 +117,14 @@ export const createOrder = catchAsync(async (req, res, next) => {
 // @route   PATCH /api/orders/:id/status
 // @access  Private/Admin
 export const updateOrderStatus = catchAsync(async (req, res, next) => {
+  const { id } = req.params;
+
+  if (!Types.ObjectId.isValid(id)) {
+    return next(new AppError('Invalid order ID format', 404));
+  }
+
   // Update an order's status in the db by its ID, with the provided request body
-  let result = await Order.findByIdAndUpdate(req.params.id, req.body, {
+  let result = await Order.findByIdAndUpdate(id, req.body, {
     new: true,
     runValidators: true
   });
