@@ -1,4 +1,5 @@
 import crypto from 'crypto';
+import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import nodemailer from 'nodemailer';
 import User from '../models/UserModel.js';
@@ -201,4 +202,61 @@ export const currentUser = catchAsync(async (req, res, next) => {
 
   // Send success response
   res.status(200).json(user);
+});
+
+// @route POST api/auth/verify-current-password
+// @desc Check current authenticated user's password
+// @access Private
+// eslint-disable-next-line no-unused-vars
+export const verifyCurrentPassword = catchAsync(async (req, res, next) => {
+  const { currentPassword } = req.body;
+
+  const user = await User.findById(req.user.userId);
+
+  if (!user) {
+    return res.status(404).json({ error: 'User not found' });
+  }
+
+  bcrypt.compare(currentPassword, user.password, (err, isPasswordValid) => {
+    if (err) {
+      return res.status(500).json({ error: 'Internal server error' });
+    }
+
+    if (!isPasswordValid) {
+      return res.json({ isValid: false });
+    }
+
+    // Password is valid
+    res.json({ isValid: true });
+  });
+});
+
+// @route POST api/auth/change-password
+// @desc Change current user's password
+// @access Private
+// eslint-disable-next-line no-unused-vars
+export const changePassword = catchAsync(async (req, res, next) => {
+  const { newPassword, confirmNewPassword } = req.body;
+
+  const user = await User.findById(req.user.userId);
+
+  if (!user) {
+    return res.status(404).json({ error: 'User not found' });
+  }
+
+  if (!newPassword || !confirmNewPassword) {
+    return res.status(400).json({ message: 'Missing required fields' });
+  }
+
+  // Check if the new passwords match
+  if (newPassword !== confirmNewPassword) {
+    return res.status(400).json({ message: 'New password and confirm new password do not match' });
+  }
+
+  // Set the new password and save to DB
+  user.password = newPassword;
+  await user.save();
+
+  // Send success response
+  res.status(200).json({ message: 'Password has been successfully updated' });
 });
