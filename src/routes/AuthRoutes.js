@@ -4,7 +4,9 @@ import {
   login,
   forgotPassword,
   resetPassword,
-  currentUser
+  currentUser,
+  verifyCurrentPassword,
+  changePassword
 } from '../controllers/AuthController.js';
 import { authoriseRole, isAuthenticatedUser } from '../middlewares/authMiddleware.js';
 
@@ -30,6 +32,12 @@ router.get(
   authoriseRole(['user', 'admin']),
   currentUser
 );
+
+// Route for checking the current password of the current authenticated user
+router.post('/auth/verify-current-password', isAuthenticatedUser, verifyCurrentPassword);
+
+// Route for checking the current password of the current authenticated user
+router.post('/auth/change-password', isAuthenticatedUser, changePassword);
 
 // Export the router to be used in other parts of the application
 export default router;

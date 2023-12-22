@@ -1,9 +1,11 @@
 import crypto from 'crypto';
+import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import nodemailer from 'nodemailer';
 import User from '../models/UserModel.js';
 import { envConfig } from '../configs/env.js';
 import catchAsync from '../utils/catchAsync.js';
+import AppError from '../middlewares/appError.js';
 
 // @route POST api/auth/register
 // @desc Register a new user account
@@ -201,4 +203,60 @@ export const currentUser = catchAsync(async (req, res, next) => {
 
   // Send success response
   res.status(200).json(user);
+});
+
+// @route POST api/auth/verify-current-password
+// @desc Check current authenticated user's password
+// @access Private
+// eslint-disable-next-line no-unused-vars
+export const verifyCurrentPassword = catchAsync(async (req, res, next) => {
+  // Get the current password from the request body
+  const { currentPassword } = req.body;
+
+  // Find the current logged in user
+  const user = await User.findById(req.user.userId);
+
+  // Compare the current password in the request body with the hashed password saved in database
+  bcrypt.compare(currentPassword, user.password, (err, isPasswordValid) => {
+    if (err) {
+      return next(new AppError('Internal server error', 500));
+    }
+
+    // Return true if the current password is incorrect
+    if (!isPasswordValid) {
+      return res.json({ isValid: false });
+    }
+
+    // Return true if the current password is correct
+    res.json({ isValid: true });
+  });
+});
+
+// @route POST api/auth/change-password
+// @desc Change current user's password
+// @access Private
+// eslint-disable-next-line no-unused-vars
+export const changePassword = catchAsync(async (req, res, next) => {
+  // Get the new password and confirmed new password from the request body
+  const { newPassword, confirmNewPassword } = req.body;
+
+  // Find the current logged in user
+  const user = await User.findById(req.user.userId);
+
+  // If there's no new password or confirmed password filled in, return an error
+  if (!newPassword || !confirmNewPassword) {
+    return next(new AppError('Missing required fields', 400));
+  }
+
+  // Check if the new passwords match
+  if (newPassword !== confirmNewPassword) {
+    return next(new AppError('New password and confirm new password do not match', 400));
+  }
+
+  // Set the new password and save to DB
+  user.password = newPassword;
+  await user.save();
+
+  // Send success response
+  res.status(200).json({ message: 'Password has been successfully updated' });
 });
