@@ -21,7 +21,8 @@ export const getAllOrders = catchAsync(async (req, res, next) => {
         path: 'category',
         select: 'name description'
       }
-    });
+    })
+    .sort({ createdAt: -1 });
   res.status(200).json(results);
 });
 

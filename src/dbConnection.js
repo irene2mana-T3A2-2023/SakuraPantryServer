@@ -1,6 +1,6 @@
+import util from 'node:util';
 import mongoose from 'mongoose';
 import { envConfig } from './configs/env.js';
-import util from 'node:util';
 
 /**
  * Connect or create and connect to a database

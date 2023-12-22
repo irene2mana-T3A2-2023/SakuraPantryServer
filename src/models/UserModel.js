@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import bcrypt from 'bcryptjs';
-import { filterSchema } from '../utils/common.js';
 import validator from 'validator';
+import { filterSchema } from '../utils/common.js';
 
 const Schema = mongoose.Schema;
 

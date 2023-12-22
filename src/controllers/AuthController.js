@@ -1,7 +1,7 @@
-import User from '../models/UserModel.js';
-import jwt from 'jsonwebtoken';
 import crypto from 'crypto';
+import jwt from 'jsonwebtoken';
 import nodemailer from 'nodemailer';
+import User from '../models/UserModel.js';
 import { envConfig } from '../configs/env.js';
 import catchAsync from '../utils/catchAsync.js';
 

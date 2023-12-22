@@ -1,11 +1,10 @@
-import mongoose from 'mongoose';
 import fs from 'fs';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+import mongoose from 'mongoose';
 import Category from '../../models/CategoryModel.js';
 import Product from '../../models/ProductModel.js';
 import databaseConnect from '../../dbConnection.js';
-
-import { fileURLToPath } from 'url';
-import { dirname } from 'path';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
