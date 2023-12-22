@@ -5,6 +5,7 @@ import nodemailer from 'nodemailer';
 import User from '../models/UserModel.js';
 import { envConfig } from '../configs/env.js';
 import catchAsync from '../utils/catchAsync.js';
+import AppError from '../middlewares/appError.js';
 
 // @route POST api/auth/register
 // @desc Register a new user account
@@ -209,24 +210,24 @@ export const currentUser = catchAsync(async (req, res, next) => {
 // @access Private
 // eslint-disable-next-line no-unused-vars
 export const verifyCurrentPassword = catchAsync(async (req, res, next) => {
+  // Get the current password from the request body
   const { currentPassword } = req.body;
 
+  // Find the current logged in user
   const user = await User.findById(req.user.userId);
 
-  if (!user) {
-    return res.status(404).json({ error: 'User not found' });
-  }
-
+  // Compare the current password in the request body with the hashed password saved in database
   bcrypt.compare(currentPassword, user.password, (err, isPasswordValid) => {
     if (err) {
-      return res.status(500).json({ error: 'Internal server error' });
+      return next(new AppError('Internal server error', 500));
     }
 
+    // Return true if the current password is incorrect
     if (!isPasswordValid) {
       return res.json({ isValid: false });
     }
 
-    // Password is valid
+    // Return true if the current password is correct
     res.json({ isValid: true });
   });
 });
@@ -236,21 +237,20 @@ export const verifyCurrentPassword = catchAsync(async (req, res, next) => {
 // @access Private
 // eslint-disable-next-line no-unused-vars
 export const changePassword = catchAsync(async (req, res, next) => {
+  // Get the new password and confirmed new password from the request body
   const { newPassword, confirmNewPassword } = req.body;
 
+  // Find the current logged in user
   const user = await User.findById(req.user.userId);
 
-  if (!user) {
-    return res.status(404).json({ error: 'User not found' });
-  }
-
+  // If there's no new password or confirmed password filled in, return an error
   if (!newPassword || !confirmNewPassword) {
-    return res.status(400).json({ message: 'Missing required fields' });
+    return next(new AppError('Missing required fields', 400));
   }
 
   // Check if the new passwords match
   if (newPassword !== confirmNewPassword) {
-    return res.status(400).json({ message: 'New password and confirm new password do not match' });
+    return next(new AppError('New password and confirm new password do not match', 400));
   }
 
   // Set the new password and save to DB
