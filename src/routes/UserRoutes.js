@@ -6,5 +6,7 @@ const router = express.Router();
 
 // Get all users
 router.get('/users', isAuthenticatedUser, authoriseRole(['admin']), UserController.getAllUsers);
+// Get one user by ID
+router.get('/users/:id', isAuthenticatedUser, authoriseRole(['user']), UserController.getUserById);
 
 export default router;
