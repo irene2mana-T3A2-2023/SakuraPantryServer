@@ -425,11 +425,14 @@ async function setupMockUsers() {
     confirmPassword: 'password'
   });
 
+  // Getting ID of mock users
+  const userId = user.id;
+
   // Generate JWT tokens for both users.
   const adminToken = jwt.sign({ userId: adminUser.id }, envConfig.jwtSecret);
   const userToken = jwt.sign({ userId: user.id }, envConfig.jwtSecret);
 
-  return { adminToken, userToken };
+  return { adminToken, userToken, userId };
 }
 
 /**

@@ -1,3 +1,4 @@
+import { Types } from 'mongoose';
 import AppError from '../middlewares/appError.js';
 import Order from '../models/OrderModel.js';
 import Product from '../models/ProductModel.js';
@@ -51,7 +52,14 @@ export const getMyOrders = catchAsync(async (req, res, next) => {
 // @access  Private
 export const getOrderById = catchAsync(async (req, res, next) => {
   // Retrieve an order from the db by its ID provided in the request params
-  const result = await Order.findById(req.params.id).exec();
+  const orderId = req.params.id;
+
+  // Check if the provided ID is a valid ObjectID
+  if (!Types.ObjectId.isValid(orderId)) {
+    return next(new AppError('Invalid order ID format', 404));
+  }
+
+  const result = await Order.findById(orderId).exec();
 
   if (!result) {
     return next(new AppError('Order not found', 404));
@@ -107,11 +115,17 @@ export const createOrder = catchAsync(async (req, res, next) => {
 });
 
 // @desc    Update order status
-// @route   GET /api/orders/:id/status
+// @route   PATCH /api/orders/:id/status
 // @access  Private/Admin
 export const updateOrderStatus = catchAsync(async (req, res, next) => {
+  const { id } = req.params;
+
+  if (!Types.ObjectId.isValid(id)) {
+    return next(new AppError('Invalid order ID format', 404));
+  }
+
   // Update an order's status in the db by its ID, with the provided request body
-  let result = await Order.findByIdAndUpdate(req.params.id, req.body, {
+  let result = await Order.findByIdAndUpdate(id, req.body, {
     new: true,
     runValidators: true
   });

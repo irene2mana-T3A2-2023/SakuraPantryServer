@@ -26,7 +26,7 @@ const OrderSchema = new Schema(
     },
     status: {
       type: String,
-      enum: ['Pending', 'Processing', 'Shipped', 'Delivered', 'Cancelled'],
+      enum: ['Pending', 'Processing', 'Confirmed', 'Shipped', 'Delivered', 'Cancelled'],
       default: 'Pending'
     },
     paymentMethod: {
@@ -71,13 +71,6 @@ OrderSchema.statics = {
     return totalRevenue;
   }
 };
-
-// This middleware is to perform some logic or actions before saving the document.
-OrderSchema.pre('save', async function (next) {
-  // eslint-disable-next-line no-console
-  console.log('About to save an order to the DB!');
-  next();
-});
 
 // Define Order Model
 const Order = mongoose.model('Order', OrderSchema);
