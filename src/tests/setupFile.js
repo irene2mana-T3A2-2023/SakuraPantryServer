@@ -432,7 +432,7 @@ async function setupMockUsers() {
   const adminToken = jwt.sign({ userId: adminUser.id }, envConfig.jwtSecret);
   const userToken = jwt.sign({ userId: user.id }, envConfig.jwtSecret);
 
-  return { adminToken, userToken, userId };
+  return { adminToken, userToken, userId, user };
 }
 
 /**
