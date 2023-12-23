@@ -1,13 +1,14 @@
-# T3A2 Full Stack App (Server)
+# T3A2 Full Stack App - Part B
 
 ## Sakura Pantry - Japanese Online Grocery Store
 
 ### Resources
 
-- [Production site](https://www.google.com.au/)
-- [Front-end repo](https://github.com/irene2mana-T3A2-2023/SakuraPantryClient)
-- [Documentation repo](https://github.com/irene2mana-T3A2-2023/SakuraPantryDocs)
-- [Trello board](https://trello.com/b/TE5Q9ZYj/t3a2-%F0%9F%8C%B8sakura-pantry)
+- [Production Site](https://sakurapantry.netlify.app/)
+- [Front-end Repo](https://github.com/irene2mana-T3A2-2023/SakuraPantryClient)
+- [Back-end Repo](https://github.com/irene2mana-T3A2-2023/SakuraPantryServer)
+- [Part A Documentation Repo](https://github.com/irene2mana-T3A2-2023/SakuraPantryDocs)
+- [Trello Board](https://trello.com/b/TE5Q9ZYj/t3a2-%F0%9F%8C%B8sakura-pantry)
 
 ### Contributors
 
@@ -15,9 +16,11 @@
 - [Irene Nguyen](https://github.com/irenenguyen1017)
 - [Ellen Pham](https://github.com/ellenpham)
 
----
+## Installation Instructions
 
-## Available Scripts
+Working in progress...
+
+## Scripts
 
 In the project directory, you can run:
 
@@ -48,9 +51,8 @@ Automatically fixes fixable issues and suppresses output for warnings.
 
 Uses [Prettier](https://prettier.io/) to format the JavaScript files in the src directory, ensuring a consistent code style across the project.
 
----
 
-## Server Dependencies
+## Server Libraries and Dependencies
 
 ### `bcryptjs`
 
@@ -113,8 +115,6 @@ The express-mongo-sanitize package is a middleware for Express.js applications t
 
 The xss-clean package is a middleware for Express.js applications that helps protect against Cross-Site Scripting (XSS) attacks by sanitizing user input. XSS attacks occur when an application allows untrusted data to be included in web pages without proper validation or escaping, potentially leading to the execution of malicious scripts in the context of the user's browser.
 
----
-
 ## Server Development Dependencies
 
 Our project uses a variety of development tools to streamline the development process and ensure code quality. Below is a list of the development dependencies specified in our `package.json` file:
@@ -161,51 +161,245 @@ A SuperAgent-driven library for testing HTTP servers, allowing you to test your 
 
 ### Products
 
-| Method | Routes                   | Functionalities                           | Access   |
-| ------ | ------------------------ | ------------------------------------------| ---------|
-| GET    | `/api/products`          | Get a list of all products                | Public   |
-| GET    | `/api/products/:slug`    | Get details of a specific product by slug | Public   |
-| POST   | `/api/products`          | Create a new product                      | Private  |
-| PATCH  | `/api/products/:slug`    | Update a specific product by slug         | Private  |
-| DELETE | `/api/products/:slug`    | Delete a specific product by slug         | Private  |
-| GET    | `/products/new-arrivals` | Get a list of new arrival products        | Public   |
-| GET    | `/products/feature`      | Get a list of featured products           | Public   |
-| GET    | `/products/relative-products/:categorySlug`      | Get related products           | Public   |
-| GET    | `/products/search?k=abc&c=def`      | Get products by keyword and categorySlug           | Public   |
+<table>
+    <thead>
+        <tr>
+            <th>Method</th>
+            <th>Routes</th>
+            <th>Functionality</th>
+            <th>Access</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>GET</th>
+            <td>/api/products</th>
+            <td>Get a list of all products</th>
+            <td>Public</th>
+        </tr>
+        <tr>
+            <td>GET</th>
+            <td>/api/products/:slug</th>
+            <td>Get details of a specific product by slug</th>
+            <td>Public</td>
+        </tr>
+        <tr>
+            <td>POST</th>
+            <td>/api/products</th>
+            <td>Create a new product</th>
+            <td>Private/Admin</td>
+        </tr>
+        <tr>
+            <td>PATCH</th>
+            <td>/api/products/:slug</th>
+            <td>Update a specific product by slug</th>
+            <td>Private/Admin</td>
+        </tr>
+        <tr>
+            <td>DELETE</th>
+            <td>/api/products/:slug</th>
+            <td>Delete a specific product by slug</th>
+            <td>Private/Admin</th>
+        </tr>
+        <tr>
+            <td>GET</th>
+            <td>/products/new-arrivals</th>
+            <td>Get a list of new arrival products</th>
+            <td>Public</td>
+        </tr>
+        <tr>
+            <td>GET</th>
+            <td>/products/feature</th>
+            <td>Get a list of featured products</th>
+            <td>Public</td>
+        </tr>
+        <tr>
+            <td>GET</th>
+            <td>/products/relative-products/:categorySlug</th>
+            <td>Get related products</th>
+            <td>Public</td>
+        </tr>
+        <tr>
+            <td>GET</th>
+            <td>/products/search?k=abc&c=def</th>
+            <td>Get products by keyword and categorySlug</th>
+            <td>Public</td>
+        </tr>
+    </tbody>
+</table>
 
 ### Categories
 
-| Method | Routes                  | Functionalities                     | Access  |
-| ------ | ----------------------- | ----------------------------------- | --------|
-| GET    | `/api/categories`       | Get a list of all categories        | Public |
-| POST   | `/api/categories`       | Create a new categories             | Private |
-| PATCH  | `/api/categories/:slug` | Update a specific category by slug  | Private |
-| DELETE | `/api/categories/:slug` | Delete a specific category by slug  | Private |
+<table>
+    <thead>
+        <tr>
+            <th>Method</th>
+            <th>Routes</th>
+            <th>Functionality</th>
+            <th>Access</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>GET</th>
+            <td>/api/categories</th>
+            <td>Get a list of all categories</th>
+            <td>Public</th>
+        </tr>
+        <tr>
+            <td>POST</th>
+            <td>/api/categories</th>
+            <td>Create a new categories</th>
+            <td>Private/Admin</td>
+        </tr>
+        <tr>
+            <td>PATCH</th>
+            <td>/api/categories/:slug</th>
+            <td>Update a specific category by slug</th>
+            <td>Private/Admin</td>
+        </tr>
+        <tr>
+            <td>DELETE</th>
+            <td>/api/categories/:slug</th>
+            <td>Delete a specific category by slug</th>
+            <td>Private/Admin</td>
+        </tr>
+    </tbody>
+</table>
 
 ### Orders
-
-| Method | Routes                        | Functionalities                                  | Access   |
-| ------ | ----------------------------- | ------------------------------------------------ | ---------|
-| GET    | `/api/orders`                 | Get a list of all orders                         | Private  |
-| POST   | `/api/orders`                 | Create a new order                               | Private  |
-| GET    | `/api/orders/:orderId`        | Get a specific order by orderId                  | Private  |
-| PATCH  | `/api/orders/status/:orderId` | Update the status of a specific order by orderId | Private  |
+<table>
+    <thead>
+        <tr>
+            <th>Method</th>
+            <th>Routes</th>
+            <th>Functionality</th>
+            <th>Access</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>GET</th>
+            <td>/api/orders</th>
+            <td>Get a list of all orders</th>
+            <td>Private/Admin</th>
+        </tr>
+        <tr>
+            <td>GET</th>
+            <td>/api/orders/myorders</th>
+            <td>Get all orders of the current logged in user</th>
+            <td>Private/Auth user</td>
+        </tr>
+        <tr>
+            <td>GET</th>
+            <td>/api/orders/:id</th>
+            <td>Get an order by ID</th>
+            <td>Private/Admin and Auth user</td>
+        </tr>
+        <tr>
+            <td>POST</th>
+            <td>/api/orders</th>
+            <td>Create an order</th>
+            <td>Private/Auth user</td>
+        </tr>
+        <tr>
+            <td>PATCH</th>
+            <td>/api/orders/:id/status</th>
+            <td>Update an order's status</th>
+            <td>Private/Auth user</td>
+        </tr>
+    </tbody>
+</table>
 
 ### Authentication
 
-| Method | Routes                      | Functionalities                                 | Access  |
-| ------ | --------------------------- | ----------------------------------------------- | ------- |
-| POST   | `/api/auth/register`        | Create a new user account                       | Public  |
-| POST   | `/api/auth/login`           | Authenticates a user and issues a JWT token     | Public  |
-| POST   | `/api/auth/forgot-password` | Initiates the password recovery process         | Public  |
-| POST   | `/api/auth/reset-password`  | Completes password recovery using a reset token | Private |
+<table>
+    <thead>
+        <tr>
+            <th>Method</th>
+            <th>Routes</th>
+            <th>Functionality</th>
+            <th>Access</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>POST</th>
+            <td>/api/auth/register</th>
+            <td>Create a new user account</th>
+            <td>Public</th>
+        </tr>
+        <tr>
+            <td>POST</th>
+            <td>/api/auth/login</th>
+            <td>Authenticates a user and issues a JWT token</th>
+            <td>Public</td>
+        </tr>
+        <tr>
+            <td>POST</th>
+            <td>/api/auth/forgot-password</th>
+            <td>Initiates the password recovery process</th>
+            <td>Public</td>
+        </tr>
+        <tr>
+            <td>POST</th>
+            <td>/api/auth/reset-password</th>
+            <td>Completes password recovery using a reset token</th>
+            <td>Private/Auth user</td>
+        </tr>
+        <tr>
+            <td>POST</th>
+            <td>api/auth/verify-current-password</th>
+            <td>Verify the current logged in user's password</th>
+            <td>Private/Auth user</td>
+        </tr>
+        <tr>
+            <td>POST</th>
+            <td>api/auth/change-password</th>
+            <td>Update the current logged in user's password</th>
+            <td>Private/Auth user</td>
+        </tr>
+    </tbody>
+</table>
+
+### Users
+
+<table>
+    <thead>
+        <tr>
+            <th>Method</th>
+            <th>Routes</th>
+            <th>Functionality</th>
+            <th>Access</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>GET</th>
+            <td>/api/users</th>
+            <td>Get a list of all users</th>
+            <td>Private/Admin</th>
+        </tr>
+    </tbody>
+</table>
 
 ### Admin Dashboard
 
-| Method | Routes                      | Functionalities                                 | Access  |
-| ------ | --------------------------- | ----------------------------------------------- | ------- |
-| GET    | `/api/dashboard/summary`    | Get all summary information for admin dashboard | Private |
-
-
-- `Public Access` - Accessible without requiring user authentication.
-- `Private Access` -  Requires user authentication to be accessible.
+<table>
+    <thead>
+        <tr>
+            <th>Method</th>
+            <th>Routes</th>
+            <th>Functionality</th>
+            <th>Access</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>GET</th>
+            <td>/api/dashboard/summary</th>
+            <td>Get all summary information for admin dashboard</th>
+            <td>Private/Admin</th>
+        </tr>
+    </tbody>
+</table>
