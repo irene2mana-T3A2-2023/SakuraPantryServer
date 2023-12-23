@@ -381,8 +381,6 @@ A SuperAgent-driven library for testing HTTP servers, allowing you to test your 
     </tbody>
 </table>
 
-
-
 ### Admin Dashboard
 
 <table>
@@ -403,4 +401,51 @@ A SuperAgent-driven library for testing HTTP servers, allowing you to test your 
         </tr>
     </tbody>
 </table>
+
+## Project Management Methodology 
+
+Working in progress...
+
+## User Testing
+
+### Production testing
+
+Excel Spreadsheet will go here....
+
+### API development and testing
+
+We use `jest` and `supertest` as our testing libraries. The back-end tests were wrote with `jest`, along with manual API tests using Insomnia. 
+
+Below are screenshots from manual tests conducted during the development using Insomnia. These illustrate key functionalities of the website.
+
+Users log in
+
+![sign-in](./docs/apiManualTests/user-sign-in.png)
+
+Registering a user
+
+![register](./docs/apiManualTests/register-successfully.png)
+
+Create a new product
+
+![create-product](./docs/apiManualTests/create-a-product.png)
+
+Create a new order
+
+![create-order](./docs/apiManualTests/create-an-order.png)
+
+<img src="./docs/apiManualTests/list-of-tests.png" alt="tests-list" width="200"/>
+<img src="./docs/apiManualTests/list-of-tests-1.png" alt="tests-list" width="210"/>
+
+## Testing framework with Jest/Supertest
+
+Screenshots of test coverage will go here...
+
+### Unit tests
+
+Screenshots of unit tests will go here...
+
+### Integration tests
+
+Screenshots of integration tests will go here...
 
