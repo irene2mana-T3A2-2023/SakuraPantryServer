@@ -18,7 +18,7 @@
 
 ## Installation Instructions
 
-Working in progress...
+*App installation and usage will go here...*
 
 ## Scripts
 
@@ -404,38 +404,82 @@ A SuperAgent-driven library for testing HTTP servers, allowing you to test your 
 
 ## Project Management Methodology 
 
-Working in progress...
+*Tasks planning and delegation + Trello screenshots will go here...*
 
 ## User Testing
 
 ### Production testing
 
-Excel Spreadsheet will go here....
+*Excel Spreadsheet will go here....*
 
 ### API development and testing
 
-We use `jest` and `supertest` as our testing libraries. The back-end tests were wrote with `jest`, along with manual API tests using Insomnia. 
+We used `jest` and `supertest` as our testing libraries. The back-end automated tests were written with `jest`, complemented by manual API tests using Insomnia.
 
-Below are screenshots from manual tests conducted during the development using Insomnia. These illustrate key functionalities of the website.
+Below are several screenshots from manual tests conducted during the development using Insomnia, which illustrate key functionalities of the website.
 
 Users log in
 
-![sign-in](./docs/apiManualTests/user-sign-in.png)
+![sign-in-server](./docs/apiManualTests/user-sign-in.png)
 
 Registering a user
 
-![register](./docs/apiManualTests/register-successfully.png)
+![register-server](./docs/apiManualTests/register-successfully.png)
 
-Create a new product
+Search products by keyword, filtered by categories
 
-![create-product](./docs/apiManualTests/create-a-product.png)
+![search-product-server](./docs/apiManualTests/search-a-product-by-keyword.png)
 
-Create a new order
+Creating a new product
 
-![create-order](./docs/apiManualTests/create-an-order.png)
+![create-product-server](./docs/apiManualTests/create-a-product.png)
+
+Creating a new order
+
+![create-order-server](./docs/apiManualTests/create-an-order.png)
+
+Error handling was implemented to address various scenarios. Common Mongoose errors, including CastError, Duplicate Fields Error, and Validation Error, were gracefully handled throughout all functionalities. 
+
+![invalid-register-server](./docs/apiManualTests/register-with-invalid-email.png)
+
+![invalid-create-order-server](./docs/apiManualTests/create-a-order-with-missing-fields.png)
+
+![invalid-create-product-server](./docs/apiManualTests/create-product-with-existed-name.png)
+
+All routes underwent comprehensive testing to monitor their HTTP responses.
 
 <img src="./docs/apiManualTests/list-of-tests.png" alt="tests-list" width="200"/>
 <img src="./docs/apiManualTests/list-of-tests-1.png" alt="tests-list" width="210"/>
+
+At the same time, in the front-end, we ensure that the functionality of corresponding features seamlessly aligns with the APIs.
+
+Registering a user (with existed email)
+
+![register-server](./docs/apiManualTests/register-with-existed-email-client.png)
+
+Users log in
+
+![sign-in-client](./docs/apiManualTests/user-sign-in-client.png)
+
+Search products by keyword, filtered by categories
+
+![search-product-client](./docs/apiManualTests/search-a-product-by-keyword-client.png)
+
+Creating a new product
+
+![create-product-client](./docs/apiManualTests/create-a-product-client.png)
+
+Creating a new order
+
+![create-order-client](./docs/apiManualTests/create-an-order-client.png)
+
+Errors handling
+
+![invalid-register-client](./docs/apiManualTests/register-with-invalid-email-client.png)
+
+![invalid-create-order-client](./docs/apiManualTests/create-a-order-with-invalid-fields-client.png)
+
+![invalid-create-product-client](./docs/apiManualTests/create-product-with-existed-name-client.png)
 
 ## Testing framework with Jest/Supertest
 
