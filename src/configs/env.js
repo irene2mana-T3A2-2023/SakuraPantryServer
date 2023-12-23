@@ -1,7 +1,7 @@
 import path from 'path';
+import { fileURLToPath } from 'url';
 import Joi from 'joi';
 import dotenv from 'dotenv';
-import { fileURLToPath } from 'url';
 
 // Convert the URL of the current module to a file path and assign it to '__filename'.
 const __filename = fileURLToPath(import.meta.url);
