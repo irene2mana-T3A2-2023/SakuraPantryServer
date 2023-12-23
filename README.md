@@ -473,11 +473,17 @@ Creating a new order
 
 ![create-order-client](./docs/apiManualTests/create-an-order-client.png)
 
-Errors handling
+Errors handling:
+
+Register with invalid email
 
 ![invalid-register-client](./docs/apiManualTests/register-with-invalid-email-client.png)
 
+Create order with missing or invalid input fields
+
 ![invalid-create-order-client](./docs/apiManualTests/create-a-order-with-invalid-fields-client.png)
+
+Create product with the existed product name
 
 ![invalid-create-product-client](./docs/apiManualTests/create-product-with-existed-name-client.png)
 
