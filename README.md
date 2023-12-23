@@ -24,94 +24,94 @@ Working in progress...
 
 In the project directory, you can run:
 
-### `npm start`
+`npm start`
 
 Launches the server in production mode.\
 It sets the `NODE_ENV` environment variable to `production` and starts the application using the main index.js file.
 
-### `npm run dev`
+`npm run dev`
 
 Launches the server in development mode.\
 It uses nodemon for automatic restarting upon file changes and sets `NODE_ENV` to `development`.
 
-### `npm test`
+`npm test`
 
 Launches the test runner in the interactive watch mode with coverage report. It sets the `NODE_ENV` to `test` and runs Jest with options to detect open handles, collect coverage information, and force exit after tests completion.
 
-### `npm run lint`
+`npm run lint`
 
 Runs [ESLint](https://eslint.org/) to check for code issues in the `src` directory.\
 It helps in maintaining code quality and consistency.
 
-### `npm run lint:fix`
+`npm run lint:fix`
 
 Automatically fixes fixable issues and suppresses output for warnings.
 
-### `npm run format`
+`npm run format`
 
 Uses [Prettier](https://prettier.io/) to format the JavaScript files in the src directory, ensuring a consistent code style across the project.
 
 
 ## Server Libraries and Dependencies
 
-### `bcryptjs`
+`bcryptjs`
 
 Used for hashing passwords securely. It protects user data by converting plain text passwords into hashed formats before database storage, enhancing security against data breaches.
 
-### `cors`
+`cors`
 
 Acts as middleware for Express, enabling Cross-Origin Resource Sharing (CORS).\
 CORS is crucial for web application security, as it regulates how a web application can make requests to different domains, ensuring controlled and secure interaction with external resources.
 
-### `cross-env`
+`cross-env`
 
 Enables consistent use of environment variables across different operating systems, essential for scripts to work smoothly on both Windows and Unix-like environments.
 
-### `crypto-js`
+`crypto-js`
 
 JavaScript library that provides cryptographic functionality. In our application, it's primarily used for secure encryption and decryption operations. This can include generating secure random tokens, hashing, or any other cryptographic needs that ensure data security within our application.
 
-### `dotenv`
+`dotenv`
 
 Facilitates the management of environment variables. By separating configuration from code, it enhances security and flexibility, especially crucial for handling sensitive data like API keys and database credentials.
 
-### `express`
+`express`
 
 A fast, unopinionated, minimalist web framework for Node.js, perfectly suited for efficiently building web applications and APIs without unnecessary complexity.
 
-### `mongoose`
+`mongoose`
 
 An Object Data Modelling (ODM) library for MongoDB and Node.js. It provides a straightforward, schema-based solution to model your application data and interact with MongoDB databases using JavaScript or TypeScript.
 
-### `joi`
+`joi`
 
 Joi is a comprehensive schema description language and validator for JavaScript. In our project, it is specifically utilized for validating environment variables. This ensures that our application's configuration adheres to expected formats and standards, providing an additional layer of security and reliability by preventing misconfiguration and potential runtime errors.
 
-### `jsonwebtoken`
+`jsonwebtoken`
 
 Implements JSON Web Tokens (JWT) for secure information transmission as JSON objects. Primarily used for user authentication and session management, it issues a JWT upon login, which authenticates further server requests, verifying user identity.
 
-### `slugify`
+`slugify`
 
 Slugify is a JavaScript library that is commonly used to create URL-friendly slugs from strings. The Slugify library takes a string as input and transforms it into a URL-friendly slug by removing special characters, converting spaces to hyphens, and ensuring that the resulting string is generally safe for use in a URL.
 
-### `nodemailer`
+`nodemailer`
 
 A module for Node.js applications to allow easy email sending. It simplifies the process of sending emails from within the application, whether it's for user verification emails, password reset links, notifications, or any other email-based communication. The library supports various transport options, including SMTP.
 
-### `validator`
+`validator`
 
 The validator package is a library for string validation and sanitization in JavaScript. It provides a wide range of functions to validate and sanitize strings, making it a useful tool for input validation and data cleaning in applications, particularly in web development.
 
-### `helmet`
+`helmet`
 
 The helmet package is a collection of middleware functions for securing Express.js applications by setting various HTTP headers. These headers help protect against common web vulnerabilities by providing an additional layer of security.
 
-### `express-mongo-sanitize`
+`express-mongo-sanitize`
 
 The express-mongo-sanitize package is a middleware for Express.js applications that helps prevent NoSQL injection attacks by sanitizing user-supplied data before it is used in MongoDB queries. NoSQL injection is a security vulnerability that can occur when untrusted data is used in MongoDB queries without proper validation or sanitization.
 
-### `xss-clean`
+`xss-clean`
 
 The xss-clean package is a middleware for Express.js applications that helps protect against Cross-Site Scripting (XSS) attacks by sanitizing user input. XSS attacks occur when an application allows untrusted data to be included in web pages without proper validation or escaping, potentially leading to the execution of malicious scripts in the context of the user's browser.
 
@@ -119,43 +119,41 @@ The xss-clean package is a middleware for Express.js applications that helps pro
 
 Our project uses a variety of development tools to streamline the development process and ensure code quality. Below is a list of the development dependencies specified in our `package.json` file:
 
-### `eslint`
+`eslint`
 
 A static code analysis tool that helps identify and fix patterns in JavaScript code, enhancing consistency and preventing bugs.
 
-### `eslint-config-prettier`
+`eslint-config-prettier`
 
 Disables all ESLint rules that conflict with Prettier, ensuring seamless integration of ESLint with Prettier for code formatting.
 
-### `eslint-plugin-jest`
+`eslint-plugin-jest`
 
 Provides ESLint rules for Jest, helping to enforce best practices and catch common mistakes in Jest test files.
 
-### `eslint-plugin-prettier`
+`eslint-plugin-prettier`
 
 Runs Prettier as an ESLint rule and reports differences as individual ESLint issues, integrating code formatting into the linting process.
 
-### `jest`
+`jest`
 
 A delightful JavaScript testing framework with a focus on simplicity, providing a complete and ready-to-use testing solution.
 
-### `mongodb-memory-server`
+`mongodb-memory-server`
 
 Spins up an actual/real MongoDB server programmatically from within Node.js, for testing or mocking during development.
 
-### `nodemon`
+`nodemon`
 
 A utility that monitors for any changes in your source code and automatically restarts your server, enhancing the development experience.
 
-### `prettier`
+`prettier`
 
 An opinionated code formatter that supports multiple languages and integrates with most editors to ensure consistent code style across the project.
 
-### `supertest`
+`supertest`
 
 A SuperAgent-driven library for testing HTTP servers, allowing you to test your REST API endpoints.
-
----
 
 ## API Endpoints
 
@@ -383,6 +381,8 @@ A SuperAgent-driven library for testing HTTP servers, allowing you to test your 
     </tbody>
 </table>
 
+
+
 ### Admin Dashboard
 
 <table>
@@ -403,3 +403,4 @@ A SuperAgent-driven library for testing HTTP servers, allowing you to test your 
         </tr>
     </tbody>
 </table>
+
