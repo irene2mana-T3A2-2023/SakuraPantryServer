@@ -1,83 +1,63 @@
-import request from 'supertest';
-import app from '../../server.js';
-import Category from '../../models/CategoryModel.js';
-import { envConfig } from '../../configs/env.js';
+import {
+  handleCastErrorDB,
+  handleDuplicateFieldsDB,
+  handleValidationErrorDB
+} from '../../middlewares/errorMiddleware.js';
+import AppError from '../../middlewares/appError.js';
 
-// Test suite for errors handling middleware
-describe('Global Error Handler Middleware', () => {
-  beforeEach(async () => {
-    await Category.deleteMany({});
-    await Category.create({ name: 'Test Category', slug: 'test-category' });
+// Test case for Cast Error handler
+describe('handleCastErrorDB', () => {
+  it('Should create an AppError with a specific message of CastError and status code of 400', () => {
+    const err = {
+      name: 'CastError',
+      path: 'invalid-path',
+      value: 'invalid-value'
+    };
+
+    const result = handleCastErrorDB(err);
+
+    expect(result).toBeInstanceOf(AppError);
+    expect(result.message).toEqual('Invalid invalid-path: invalid-value.');
+    expect(result.statusCode).toEqual(400);
   });
+});
 
-  afterEach(async () => {
-    await Category.deleteMany({});
-  });
+// Test case for Duplicate Field Error handler
+describe('handleDuplicateFieldsDB', () => {
+  it('Should create an AppError with a specific message of Duplicate Fields Error and status code of 400', () => {
+    const err = {
+      errmsg:
+        'E11000 duplicate key error collection: myDB.users index: username_1 dup key: { username: "duplicateUsername" }'
+    };
 
-  // Test case 1: CastError
-  it('Should handle CastError and return a 500 Internal Server Error response', async () => {
-    const invalidId = 'invalid-id';
+    const result = handleDuplicateFieldsDB(err);
 
-    const res = await request(app)
-      .get(`/api/orders/${invalidId}`)
-      .set('Authorization', `Bearer ${global.mockUsers.adminToken}`)
-      .set('Accept', 'application/json');
-
-    expect(res.statusCode).toEqual(500);
-    expect(res.body.error.name).toEqual('CastError');
-    expect(res.body.message).toMatch(
-      /Cast to ObjectId failed for value ".+" \(type string\) at path "_id" for model ".+"/
+    expect(result).toBeInstanceOf(AppError);
+    expect(result.message).toEqual(
+      'Duplicate field value: "duplicateUsername". Please use another value!'
     );
+    expect(result.statusCode).toEqual(400);
   });
+});
 
-  // Test case 2: ValidationError - Test the response in different environments
-  if (envConfig.env === 'development') {
-    it('Should handle ValidationError and return full error details in response', async () => {
-      const invalidProductData = {
-        name: '', // product name is required
-        description: 'This is a description for test product.',
-        categorySlug: 'test-category',
-        imageUrl: 'testImageURL.png',
-        stockQuantity: 20,
-        price: '', // product price is required
-        isFeatured: true
-      };
+// Test case for Validation Error handler
+describe('handleValidationErrorDB', () => {
+  it('Should create an AppError with a specific message of ValidationError and status code of 400', () => {
+    const err = {
+      errors: {
+        name: {
+          message: 'Name is required'
+        },
+        price: {
+          message: 'Price is required'
+        }
+      }
+    };
 
-      const res = await request(app)
-        .post(`/api/products`)
-        .send(invalidProductData)
-        .set('Authorization', `Bearer ${global.mockUsers.adminToken}`)
-        .set('Accept', 'application/json');
+    const result = handleValidationErrorDB(err);
 
-      expect(res.statusCode).toEqual(500);
-      expect(res.body.error.name).toEqual('ValidationError');
-      expect(res.body.error._message).toEqual('Product validation failed');
-      expect(res.body).toHaveProperty('stack');
-    });
-  }
-
-  if (envConfig.env === 'production') {
-    it('Should handle ValidationError and return generic error message in response', async () => {
-      const invalidProductData = {
-        name: '', // product name is required
-        description: 'This is a description for test product.',
-        categorySlug: 'test-category',
-        imageUrl: 'testImageURL.png',
-        stockQuantity: 20,
-        price: '', // product price is required
-        isFeatured: true
-      };
-
-      const res = await request(app)
-        .post(`/api/products`)
-        .send(invalidProductData)
-        .set('Authorization', `Bearer ${global.mockUsers.adminToken}`)
-        .set('Accept', 'application/json');
-
-      expect(res.statusCode).toEqual(500);
-      expect(res.body.status).toEqual('error');
-      expect(res.body.message).toEqual('Something went wrong!');
-      expect(res.body).not.toHaveProperty('stack');
-    });
-  }
+    expect(result).toBeInstanceOf(AppError);
+    expect(result.message).toEqual('Invalid input data. Name is required. Price is required');
+    expect(result.statusCode).toEqual(400);
+  });
 });
