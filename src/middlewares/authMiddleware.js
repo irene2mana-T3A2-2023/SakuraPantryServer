@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { envConfig } from '../configs/env.js';
 import User from '../models/UserModel.js';
 import { getUserFromJwt } from '../utils/getAuthUser.js';

@@ -242,7 +242,7 @@ describe('Orders API', () => {
       const validOrderId = mockOrderId;
 
       const updatedOrder = {
-        status: 'Confirmed'
+        status: 'Shipped'
       };
 
       const res = await request(app)
