@@ -23,12 +23,18 @@ const usersData = JSON.parse(fs.readFileSync(path.join(__dirname, 'data', 'users
 // Function to import dev data
 export const importData = async () => {
   try {
+    const seedUsers =
+      envConfig.env === 'production'
+        ? usersData.filter((user) => user.role !== 'admin')
+        : usersData;
+
     await Category.create(categories);
     await Product.create(products);
 
     // eslint-disable-next-line
     console.log('Products and categories seeded successfully');
-    for (let user of usersData) {
+
+    for (let user of seedUsers) {
       const newUser = new User(user);
       await newUser.save();
     }
@@ -48,7 +54,11 @@ export const importData = async () => {
 export const deleteData = async () => {
   try {
     // Drop existing data
-    await User.deleteMany({});
+    if (envConfig.env === 'production') {
+      await User.deleteMany({ role: { $ne: 'admin' } });
+    } else {
+      await User.deleteMany({});
+    }
     // eslint-disable-next-line
     console.log('Existing users dropped');
     await Category.deleteMany({});
@@ -126,7 +136,10 @@ databaseConnect()
         },
         phone: '1234567890'
       });
+
       await order.save();
+      // eslint-disable-next-line
+      console.log('Order feeded successfully');
     }
   })
   .then(async () => {

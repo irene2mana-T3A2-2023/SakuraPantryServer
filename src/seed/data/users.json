@@ -2,19 +2,20 @@
   {
     "firstName": "Lara",
     "lastName": "Macintosh",
-    "email": "adminUser1@email.com",
-    "password": "Admin123",
+    "email": "admin@example.com",
+    "password": "adminpassword",
     "role": "admin"
   },
   {
-    "firstName": "Chihiro",
-    "lastName": "Ogino",
-    "email": "adminUser2@email.com",
-    "password": "Admin345",
-    "role": "admin"
+    "firstName": "Bob",
+    "lastName": "Smith",
+    "email": "bob.smith@example.com",
+    "password": "bobpassword",
+    "role": "user",
+    "status": "active"
   },
   {
-    "firstName": "Charlie",
+    "firstName": "Charlier",
     "lastName": "Brown",
     "email": "charlie.brown@example.com",
     "password": "charliepassword",
