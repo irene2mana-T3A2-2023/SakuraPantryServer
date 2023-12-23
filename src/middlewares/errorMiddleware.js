@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { envConfig } from '../configs/env.js';
 import AppError from './appError.js';
 
@@ -12,8 +11,6 @@ const handleCastErrorDB = (err) => {
 const handleDuplicateFieldsDB = (err) => {
   // Use Regex to match the values between the quotation marks in errmsg created by Mongoose
   const value = err.errmsg.match(/(["'])(\\?.)*?\1/)[0];
-  console.log(value);
-
   const message = `Duplicate field value: ${value}. Please use another value!`;
   return new AppError(message, 400);
 };
