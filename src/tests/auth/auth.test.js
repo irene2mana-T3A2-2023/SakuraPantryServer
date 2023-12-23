@@ -10,8 +10,12 @@ const logInEndpoint = '/api/auth/login';
 const forgotPasswordEndpoint = '/api/auth/forgot-password';
 const resetPasswordEndpoint = '/api/auth/reset-password';
 const currentUserEndpoint = '/api/auth/current-user';
+const verifyCurrentPasswordEndpoint = '/api/auth/verify-current-password';
+const changePasswordEndpoint = '/api/auth/change-password';
 
+// Test suite for authentication related API
 describe('Authentication-related APIs', () => {
+  // Test cases for register route
   describe(`[POST] ${registerEndpoint}`, () => {
     it('Should raise an error when one of required fields is missing', async () => {
       const requestBody = {
@@ -91,6 +95,7 @@ describe('Authentication-related APIs', () => {
     });
   });
 
+  // Test cases for login route
   describe(`[POST] ${logInEndpoint}`, () => {
     it('Should raise an error when one of the required fields is missing', async () => {
       const requestBody = {
@@ -163,6 +168,7 @@ describe('Authentication-related APIs', () => {
     });
   });
 
+  // Test cases for forgot password route
   describe(`[POST] ${forgotPasswordEndpoint}`, () => {
     let sendMailMock;
 
@@ -206,6 +212,7 @@ describe('Authentication-related APIs', () => {
     });
   });
 
+  // Test cases for reset password route
   describe(`[POST] ${resetPasswordEndpoint}`, () => {
     it('Should raise an error when one of required fields is missing', async () => {
       const requestBody = {
@@ -267,6 +274,7 @@ describe('Authentication-related APIs', () => {
     });
   });
 
+  // Test cases for current user route
   describe(`[GET] ${currentUserEndpoint}`, () => {
     it('Should raise an error if user has not logged in', async () => {
       const res = await request(app).get(currentUserEndpoint);
@@ -306,6 +314,78 @@ describe('Authentication-related APIs', () => {
       expect(res.body.lastName).toEqual('Macintosh');
       expect(res.body.email).toEqual('admin@test.com');
       expect(res.body.role).toEqual('admin');
+    });
+  });
+
+  // Test cases for verifyCurrentPassword route
+  describe(`[POST] ${verifyCurrentPasswordEndpoint}`, () => {
+    // Test case 1
+    it('Should return true if the current password matched the hashed password saved in DB', async () => {
+      const testCurrentPassword = {
+        currentPassword: 'password'
+      };
+
+      const res = await request(app)
+        .post(verifyCurrentPasswordEndpoint)
+        .send(testCurrentPassword)
+        .set('Authorization', `Bearer ${global.mockUsers.userToken}`);
+
+      expect(res.statusCode).toEqual(200);
+      expect(res.body).toEqual({ isValid: true });
+    });
+
+    // Test case 2
+    it('Should return false if the current password does not match the hashed password saved in DB', async () => {
+      const testCurrentPassword = {
+        currentPassword: 'invalid-password'
+      };
+
+      const res = await request(app)
+        .post(verifyCurrentPasswordEndpoint)
+        .send(testCurrentPassword)
+        .set('Authorization', `Bearer ${global.mockUsers.userToken}`);
+
+      expect(res.statusCode).toEqual(200);
+      expect(res.body).toEqual({ isValid: false });
+    });
+  });
+
+  // Test cases for changePassword route
+  describe(`[POST] ${changePasswordEndpoint}`, () => {
+    // Test case 1
+    it('Should return success message if the new password and confirmed new password matched and save it to DB', async () => {
+      const testNewPassword = {
+        newPassword: 'new-password',
+        confirmNewPassword: 'new-password'
+      };
+
+      const res = await request(app)
+        .post(changePasswordEndpoint)
+        .send(testNewPassword)
+        .set('Authorization', `Bearer ${global.mockUsers.userToken}`);
+
+      expect(res.statusCode).toEqual(200);
+      expect(res.body).toEqual({ message: 'Password has been successfully updated' });
+
+      const userWithNewPassword = await User.findById(global.mockUsers.userId);
+
+      expect(userWithNewPassword.password).not.toBe(global.mockUsers.user.password);
+    });
+
+    // Test case 2
+    it('Should return an error if new password and confirm password do not match', async () => {
+      const testUnmatchedNewPassword = {
+        newPassword: 'new-password',
+        confirmNewPassword: 'unmatched-new-password'
+      };
+
+      const res = await request(app)
+        .post(changePasswordEndpoint)
+        .send(testUnmatchedNewPassword)
+        .set('Authorization', `Bearer ${global.mockUsers.userToken}`);
+
+      expect(res.statusCode).toEqual(400);
+      expect(res.body.message).toEqual('New password and confirm new password do not match');
     });
   });
 });

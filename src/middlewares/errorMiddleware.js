@@ -2,13 +2,13 @@ import { envConfig } from '../configs/env.js';
 import AppError from './appError.js';
 
 // Function to handle CastError in Mongoose (eg. invalid ObjectId)
-const handleCastErrorDB = (err) => {
+export const handleCastErrorDB = (err) => {
   const message = `Invalid ${err.path}: ${err.value}.`;
   return new AppError(message, 400);
 };
 
 // Function to handle duplicated fields
-const handleDuplicateFieldsDB = (err) => {
+export const handleDuplicateFieldsDB = (err) => {
   // Use Regex to match the values between the quotation marks in errmsg created by Mongoose
   const value = err.errmsg.match(/(["'])(\\?.)*?\1/)[0];
   const message = `Duplicate field value: ${value}. Please use another value!`;
@@ -16,7 +16,7 @@ const handleDuplicateFieldsDB = (err) => {
 };
 
 // Function to handle ValidationError in Mongoose
-const handleValidationErrorDB = (err) => {
+export const handleValidationErrorDB = (err) => {
   // Loop over an array of all error messages and extract each error's message
   const errors = Object.values(err.errors).map((el) => el.message);
 
@@ -36,7 +36,7 @@ const sendErrorDev = (err, res) => {
 };
 
 // Function to send limited error details in production
-const sendErrorProd = (err, res) => {
+export const sendErrorProd = (err, res) => {
   // Operational, trusted error: send message to client
   if (err.isOperational) {
     res.status(err.statusCode).json({
