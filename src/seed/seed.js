@@ -2,6 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import mongoose from 'mongoose';
+import { envConfig } from '../configs/env.js';
 import User from '../models/UserModel.js';
 import Category from '../models/CategoryModel.js';
 import Product from '../models/ProductModel.js';
@@ -11,10 +12,12 @@ import databaseConnect from '../dbConnection.js';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const categories = JSON.parse(
+export const categories = JSON.parse(
   fs.readFileSync(path.join(__dirname, 'data', 'categories.json'), 'utf8')
 );
-const products = JSON.parse(fs.readFileSync(path.join(__dirname, 'data', 'products.json'), 'utf8'));
+export const products = JSON.parse(
+  fs.readFileSync(path.join(__dirname, 'data', 'products.json'), 'utf8')
+);
 const usersData = JSON.parse(fs.readFileSync(path.join(__dirname, 'data', 'users.json'), 'utf8'));
 
 // Function to import dev data
@@ -34,8 +37,10 @@ export const importData = async () => {
     // eslint-disable-next-line no-console
     console.log('Data successfully loaded!');
   } catch (importError) {
-    // eslint-disable-next-line no-console
-    console.error('Error during data import:', importError);
+    if (envConfig.env === 'development') {
+      // eslint-disable-next-line no-console
+      console.error('Error during data import:', importError);
+    }
   }
 };
 
@@ -135,6 +140,8 @@ databaseConnect()
     }
   })
   .catch((error) => {
-    // eslint-disable-next-line no-console
-    console.error('An unexpected error occurred:', error);
+    if (envConfig.env === 'development') {
+      // eslint-disable-next-line no-console
+      console.error('An unexpected error occurred:', error);
+    }
   });
