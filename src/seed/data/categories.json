@@ -1,0 +1,27 @@
+[
+  {
+      "_id": "657046215ed01f56e0a4e007",
+      "name": "Sauces & Seasonings",
+      "slug": "sauces-seasonings"
+  },
+  {   
+      "_id": "657046215ed01f56e80a4e00",
+      "name": "Confectionary & Snacks",
+      "slug": "confectionary-snacks"
+  },
+  {   
+      "_id": "657046215ed01f56e0a4e009",
+      "name": "Instant Foods",
+      "slug": "instant-foods"
+  },
+  {
+      "_id": "657046215ed01f56e0a4e00a",
+      "name": "Drinks & Sake",
+      "slug": "drinks-sake"
+  },
+  {
+      "_id": "657046215ed01f56e0a4e00b",
+      "name": "Health Foods",
+      "slug": "health-foods"
+  }
+]

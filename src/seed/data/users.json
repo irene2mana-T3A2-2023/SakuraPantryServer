@@ -1,0 +1,160 @@
+[
+  {
+    "firstName": "Lara",
+    "lastName": "Macintosh",
+    "email": "adminUser1@email.com",
+    "password": "Admin123",
+    "role": "admin"
+  },
+  {
+    "firstName": "Chihiro",
+    "lastName": "Ogino",
+    "email": "adminUser2@email.com",
+    "password": "Admin345",
+    "role": "admin"
+  },
+  {
+    "firstName": "Charlie",
+    "lastName": "Brown",
+    "email": "charlie.brown@example.com",
+    "password": "charliepassword",
+    "role": "user",
+    "status": "active"
+  },
+  {
+    "firstName": "David",
+    "lastName": "Wilson",
+    "email": "david.wilson@example.com",
+    "password": "davidpassword",
+    "role": "user",
+    "status": "active"
+  },
+  {
+    "firstName": "Emma",
+    "lastName": "Davis",
+    "email": "emma.davis@example.com",
+    "password": "emmapassword",
+    "role": "user",
+    "status": "active"
+  },
+  {
+    "firstName": "Fiona",
+    "lastName": "Martinez",
+    "email": "fiona.martinez@example.com",
+    "password": "fionapassword",
+    "role": "user",
+    "status": "inactive"
+  },
+  {
+    "firstName": "George",
+    "lastName": "Taylor",
+    "email": "george.taylor@example.com",
+    "password": "georgepassword",
+    "role": "user",
+    "status": "active"
+  },
+  {
+    "firstName": "Hannah",
+    "lastName": "Anderson",
+    "email": "hannah.anderson@example.com",
+    "password": "hannahpassword",
+    "role": "user",
+    "status": "active"
+  },
+  {
+    "firstName": "Ian",
+    "lastName": "Thomas",
+    "email": "ian.thomas@example.com",
+    "password": "ianpassword",
+    "role": "user",
+    "status": "active"
+  },
+  {
+    "firstName": "Julia",
+    "lastName": "Roberts",
+    "email": "julia.roberts@example.com",
+    "password": "juliapassword",
+    "role": "user",
+    "status": "active"
+  },
+  {
+    "firstName": "Kevin",
+    "lastName": "Lee",
+    "email": "kevin.lee@example.com",
+    "password": "kevinpassword",
+    "role": "user",
+    "status": "active"
+  },
+  {
+    "firstName": "Lisa",
+    "lastName": "Miller",
+    "email": "lisa.miller@example.com",
+    "password": "lisapassword",
+    "role": "user",
+    "status": "active"
+  },
+  {
+    "firstName": "Mark",
+    "lastName": "Garcia",
+    "email": "mark.garcia@example.com",
+    "password": "markpassword",
+    "role": "user",
+    "status": "active"
+  },
+  {
+    "firstName": "Nancy",
+    "lastName": "Hernandez",
+    "email": "nancy.hernandez@example.com",
+    "password": "nancypassword",
+    "role": "user",
+    "status": "inactive"
+  },
+  {
+    "firstName": "Oscar",
+    "lastName": "Moore",
+    "email": "oscar.moore@example.com",
+    "password": "oscarpassword",
+    "role": "user",
+    "status": "active"
+  },
+  {
+    "firstName": "Paula",
+    "lastName": "Jackson",
+    "email": "paula.jackson@example.com",
+    "password": "paulapassword",
+    "role": "user",
+    "status": "active"
+  },
+  {
+    "firstName": "Quincy",
+    "lastName": "Martin",
+    "email": "quincy.martin@example.com",
+    "password": "quincypassword",
+    "role": "user",
+    "status": "active"
+  },
+  {
+    "firstName": "Rachel",
+    "lastName": "Lee",
+    "email": "rachel.lee@example.com",
+    "password": "rachelpassword",
+    "role": "user",
+    "status": "active"
+  },
+  {
+    "firstName": "Steve",
+    "lastName": "Perez",
+    "email": "steve.perez@example.com",
+    "password": "stevepassword",
+    "role": "user",
+    "status": "inactive"
+  },
+  {
+    "firstName": "Tina",
+    "lastName": "Clark",
+    "email": "tina.clark@example.com",
+    "password": "tinaspassword",
+    "role": "user",
+    "status": "active"
+  }
+]
