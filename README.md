@@ -674,13 +674,24 @@ Create product with the existed product name
 
 ## Testing framework with Jest/Supertest
 
-Screenshots of test coverage will go here...
+### Server side testing
 
-### Unit tests
+For automated tests, we have tried to write tests for all routes and across all CRUD functionality. We have not had the capabilities of completing tests for other functions in `authMiddleware.js` and `errorHandlingMiddleware.js`, we have alternatively tested with API testing tool to observe the HTTP responses. 
 
-Screenshots of unit tests will go here...
+![server-testing-coverage](./docs/automatedTests/server-testing-coverage.png)
 
-### Integration tests
+We also implemented both integration and unit tests across key workflows for ensuring the robustness and accuracy of the implemented functionality and error handlers.
 
-Screenshots of integration tests will go here...
+**Integration tests**
+
+![server-integration-testing](./docs/automatedTests/integration-test-1.png)
+![server-integration-testing](./docs/automatedTests/integration-test-2.png)
+
+**Unit tests**
+
+![server-unit-testing](./docs/automatedTests/unit-test-1.png)
+![server-unit-testing](./docs/automatedTests/unit-test-2.png)
+
+
+### Client side testing 
 
