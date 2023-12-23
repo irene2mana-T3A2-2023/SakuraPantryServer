@@ -20,29 +20,33 @@ export const products = JSON.parse(
 );
 const usersData = JSON.parse(fs.readFileSync(path.join(__dirname, 'data', 'users.json'), 'utf8'));
 
-// Function to import dev data
+// Function to import development data. This function will seed categories, products, and users.
 export const importData = async () => {
   try {
+    // Determine the set of users to seed based on the environment.
+    // In production, exclude users with the 'admin' role to prevent overwriting existing admin accounts.
+    // In development, use all users from the data set for comprehensive testing.
     const seedUsers =
       envConfig.env === 'production'
         ? usersData.filter((user) => user.role !== 'admin')
         : usersData;
 
+    // Seed categories and products into the database.
     await Category.create(categories);
     await Product.create(products);
 
     // eslint-disable-next-line
     console.log('Products and categories seeded successfully');
 
+    // Seed users into the database.
     for (let user of seedUsers) {
       const newUser = new User(user);
       await newUser.save();
     }
     // eslint-disable-next-line
     console.log('Users seeded successfully');
-    // eslint-disable-next-line no-console
-    console.log('Data successfully loaded!');
   } catch (importError) {
+    // Log errors only in development environment.
     if (envConfig.env === 'development') {
       // eslint-disable-next-line no-console
       console.error('Error during data import:', importError);
@@ -50,10 +54,11 @@ export const importData = async () => {
   }
 };
 
-// Function to delete dev data
+// Function to delete dev data from the database
 export const deleteData = async () => {
   try {
-    // Drop existing data
+    // In production, only delete non-admin users to preserve admin accounts.
+    // In other environments, delete all users.
     if (envConfig.env === 'production') {
       await User.deleteMany({ role: { $ne: 'admin' } });
     } else {
@@ -61,6 +66,8 @@ export const deleteData = async () => {
     }
     // eslint-disable-next-line
     console.log('Existing users dropped');
+
+    // Delete all categories, products, and orders irrespective of the environment.
     await Category.deleteMany({});
     // eslint-disable-next-line
     console.log('Existing categories dropped');
@@ -76,44 +83,59 @@ export const deleteData = async () => {
   }
 };
 
+// Connect to the database and start the seeding process
 databaseConnect()
   .then(async () => {
     // Clean up database
     await deleteData();
-    // Seeding User, Category, Product data
+    // Import new data for Users, Categories, and Products
     await importData();
 
-    // Fetch users excluding the admin
+    // Fetch a sample of non-admin users for order seeding
     const sampleUsers = await User.find({ role: { $ne: 'admin' } }).limit(10);
 
-    // Fetch some products
+    // Fetch a sample of products for order seeding
     const sampleProducts = await Product.find().limit(5);
 
-    // Possible order statuses
+    // Define possible order statuses and payment methods
     const statuses = ['Pending', 'Processing', 'Shipped', 'Delivered', 'Cancelled'];
-
     const paymentMethods = ['Credit Card', 'PayPal', 'Stripe'];
 
+    // Seed 15 orders with random configurations
     for (let i = 0; i < 15; i++) {
+      // Select a user in a round-robin fashion from the sample user list
       const user = sampleUsers[i % sampleUsers.length];
+
+      // Randomly select an order status from the predefined list
       const randomStatus = statuses[Math.floor(Math.random() * statuses.length)];
+
+      // Determine a random number of items for the order (1 to 3)
       const numberOfItems = Math.floor(Math.random() * 3) + 1;
+
+      // Randomly select a payment method from the predefined list
       const randomPaymentMethod = paymentMethods[Math.floor(Math.random() * paymentMethods.length)];
 
-      // Create a map to combine quantities of duplicated items
+      // Initialize a map to store product quantities and avoid duplication
       let productMap = new Map();
       for (let j = 0; j < numberOfItems; j++) {
+        // Select a random product from the sample products
         const product = sampleProducts[Math.floor(Math.random() * sampleProducts.length)];
-        const quantity = Math.floor(Math.random() * 5) + 1; // Random quantity between 1 and 5
 
+        // Determine a random quantity for the product (1 to 5)
+        const quantity = Math.floor(Math.random() * 5) + 1;
+
+        // If the product is already in the map, increase its quantity
         if (productMap.has(product._id.toString())) {
           productMap.set(product._id.toString(), productMap.get(product._id.toString()) + quantity);
         } else {
+          // Otherwise, add the new product with its quantity to the map
           productMap.set(product._id.toString(), quantity);
         }
       }
-
+      // Convert the map entries to an array of order items
       let orderItems = Array.from(productMap, ([product, quantity]) => ({ product, quantity }));
+
+      // Calculate the total price for the order
       let totalPrice = orderItems.reduce(
         (total, item) =>
           total +
@@ -121,7 +143,7 @@ databaseConnect()
         0
       );
 
-      // Create and save the order
+      // Construct the order object with all details
       const order = new Order({
         user: user._id,
         orderItems,
@@ -137,13 +159,16 @@ databaseConnect()
         phone: '1234567890'
       });
 
+      // Save the order to the database
       await order.save();
-      // eslint-disable-next-line
-      console.log('Order feeded successfully');
     }
+
+    // eslint-disable-next-line
+    console.log('Order seeded successfully');
   })
   .then(async () => {
     try {
+      // Attempt to close the connection to the MongoDB database
       await mongoose.connection.close();
       // eslint-disable-next-line no-console
       console.log('Database disconnected!');
@@ -153,6 +178,7 @@ databaseConnect()
     }
   })
   .catch((error) => {
+    // In development environment, log any unexpected errors that occur during the seeding process
     if (envConfig.env === 'development') {
       // eslint-disable-next-line no-console
       console.error('An unexpected error occurred:', error);
