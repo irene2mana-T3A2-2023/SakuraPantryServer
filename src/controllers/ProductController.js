@@ -185,9 +185,22 @@ export const createProduct = catchAsync(async (req, res, next) => {
 export const updateProduct = catchAsync(async (req, res, next) => {
   const { slug } = req.params;
 
+  const { categorySlug, ...rest } = req.body;
+
+  // Finding the category by its slug.
+  const category = await Category.findOne({ slug: categorySlug }).exec();
+
+  // If the category doesn't exist, return an error.
+  if (!category) {
+    return next(new AppError('No such category exists!', 404));
+  }
+
   let result = await Product.findOneAndUpdate(
     { slug: slug }, // Find by slug
-    req.body,
+    {
+      ...rest,
+      category: category._id
+    },
     {
       new: true,
       runValidators: true
