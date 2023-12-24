@@ -4,7 +4,7 @@
 
 ### Resources
 
-- [Production site](https://www.google.com.au/)
+- [Production site](https://sakurapantry.netlify.app/)
 - [Front-end repo](https://github.com/irene2mana-T3A2-2023/SakuraPantryClient)
 - [Documentation repo](https://github.com/irene2mana-T3A2-2023/SakuraPantryDocs)
 - [Trello board](https://trello.com/b/TE5Q9ZYj/t3a2-%F0%9F%8C%B8sakura-pantry)
@@ -17,36 +17,201 @@
 
 ---
 
+## Accessing the Production Application
+
+Please visit the production app at [this link](https://sakurapantry.netlify.app/).
+
+### Overview
+
+This document provides a comprehensive guide to the features and functionalities available in our application. Whether you're a guest, an authenticated user, or an admin, this guide will help you navigate through the app.
+
+#### As a guest, you have the following capabilities
+
+- **View New Arrivals & Featured Products:** Explore our latest and most popular items.
+- **Search Products:** Use keywords or categories to find exactly what you're looking for.
+- **View Product Details:** Get all the information you need about our products.
+- **Add Products to Cart:** Select items you wish to purchase and add them to your cart.
+- **View Cart Items:** Check the items currently in your shopping cart.
+- **Register a New Account:** Sign up to enjoy more features and a personalized experience.
+
+#### As an authenticated user, you can
+
+- **Login/Logout:** Access your personal account or log out securely.
+- **Checkout Purchases:** Complete your shopping experience with a seamless checkout process.
+- **Access User Account:** Manage your account details and view your profile.
+- **Reset/Change Password:** Ensure your account's security by updating your password as needed.
+
+#### As an admin, you're equipped with extensive controls
+
+- **Admin Dashboard Access:** Oversee the application's operations from a admin dashboard.
+- **CRUD Operations:** Create, read, update, and delete products and categories.
+- **Manage User Accounts:** View all user accounts within the system.
+- **Order Management:** View, update the status of, and cancel orders as necessary.
+
+---
+
+## Installation Instructions
+
+Follow these steps to install and set up the application on your local environment.
+
+### Requirements
+
+**Before proceeding with the installation, ensure you have the following prerequisites:**
+
+- Node.js (version 18 or greater): Ensure you have Node.js version 18 or greater installed on your system. Download it from the [official Node.js website](https://nodejs.org/).
+
+- MongoDB Atlas: If you do not have MongoDB Atlas set up, please follow the MongoDB Atlas installation instructions [here](https://www.mongodb.com/basics/clusters/mongodb-cluster-setup). MongoDB Atlas is essential for database management in the application.
+
+- To enable the email service, set up a Google app password as detailed [here](https://support.google.com/accounts/answer/185833?hl=en), and then provide the credentials in the .`env.development` file.
+
+#### API Server Setup
+
+1.**Clone the Repository:**
+
+- Visit the GitHub repository at [SakuraPantryServer](https://github.com/irene2mana-T3A2-2023/SakuraPantryServer)
+- Clone the repository to your local machine:
+
+```bash
+git clone git@github.com:irene2mana-T3A2-2023/SakuraPantryServer.git
+```
+
+2.**Navigate to the Server Directory:**
+
+```bash
+cd SakuraPantryServer
+```
+
+3.**Install all the required NPM Packages:**
+
+```bash
+ npm install
+```
+
+4.**Environment Configuration**
+
+- Create a file named `.env.development` in the root of the server directory.
+- Copy the contents from `.env.example` to .`env.development` and update it with your actual configuration values.
+
+5.**Seed the dummy data into your MongoDB**
+
+Make sure your MongoDB is running before seeding the database.
+
+```bash
+npm run seed:dev
+```
+
+6.**Start the local server**
+
+```bash
+npm run dev
+```
+
+The API server will run on localhost port `5000`, or on the `port` you have configured in the `.env.development` file.
+
+#### Client Setup
+
+1.**Clone the Repository:**
+
+- Visit the GitHub repository at [SakuraPantryClient](https://github.com/irene2mana-T3A2-2023/SakuraPantryClient)
+- Clone the repository to your local machine:
+
+```bash
+git clone git@github.com:irene2mana-T3A2-2023/SakuraPantryClient.git
+```
+
+2.**Navigate to the Server Directory:**
+
+```bash
+cd SakuraPantryClient
+```
+
+3.**Install all the required NPM Packages:**
+
+```bash
+ npm install
+```
+
+4.**Environment Configuration**
+
+- Create a file named `.env.development` in the root of the server directory.
+- Copy the contents from the `.env.example` file into your `.env.development` file and update the `REACT_APP_API_HOST` placeholder with your actual API server's local configuration.
+
+5.**Start the local server**
+
+Make sure your local API server is still running on port `5000`, or on the API server port that you have configured.
+
+```bash
+npm start
+```
+
+The client server will run on on local host `3000` by default.
+
+6.**Access your local application**
+
+> To view the application as an admin, use the credentials from the admin account provided in the seeded data for login.
+
+- **email**: `admin@example.com`
+- **password**: `adminpassword`
+
+> To view the application as a user, you can either use an account from the seeded data or create a new account as any user would.
+
+For example:
+
+- **email**: `bob.smith@example.com`
+- **password**: `bobpassword`
+
+We hope you enjoy using our application and have a wonderful experience with it.
+
+---
+
 ## Available Scripts
 
 In the project directory, you can run:
 
-### `npm start`
+```bash
+npm start
+```
 
-Launches the server in production mode.\
-It sets the `NODE_ENV` environment variable to `production` and starts the application using the main index.js file.
+> Launches the server in production mode.
+> It sets the `NODE_ENV` environment variable to `production` and starts the application using the main index.js file.
 
-### `npm run dev`
+```bash
+npm run dev
+```
 
-Launches the server in development mode.\
-It uses nodemon for automatic restarting upon file changes and sets `NODE_ENV` to `development`.
+> Launches the server in development mode.
+> It uses nodemon for automatic restarting upon file changes and sets `NODE_ENV` to `development`.
 
-### `npm test`
+```bash
+npm run seed:dev
+```
 
-Launches the test runner in the interactive watch mode with coverage report. It sets the `NODE_ENV` to `test` and runs Jest with options to detect open handles, collect coverage information, and force exit after tests completion.
+> This script will be executed with the environment set to `development`, populating the database with initial data useful for development and testing.
 
-### `npm run lint`
+```bash
+npm test
+```
 
-Runs [ESLint](https://eslint.org/) to check for code issues in the `src` directory.\
-It helps in maintaining code quality and consistency.
+> Launches the test runner in the interactive watch mode with coverage report. It sets the `NODE_ENV` to `test` and runs Jest with options to detect open handles, collect coverage information, and force exit after tests completion.
 
-### `npm run lint:fix`
+```bash
+npm run lint
+```
 
-Automatically fixes fixable issues and suppresses output for warnings.
+> Runs [ESLint](https://eslint.org/) to check for code issues in the `src` directory.
+> It helps in maintaining code quality and consistency.
 
-### `npm run format`
+```bash
+npm run lint:fix
+```
 
-Uses [Prettier](https://prettier.io/) to format the JavaScript files in the src directory, ensuring a consistent code style across the project.
+> Automatically fixes fixable issues and suppresses output for warnings.
+
+```bash
+npm run format
+```
+
+> Uses [Prettier](https://prettier.io/) to format the JavaScript files in the src directory, ensuring a consistent code style across the project.
 
 ---
 
@@ -54,60 +219,60 @@ Uses [Prettier](https://prettier.io/) to format the JavaScript files in the src 
 
 ### `bcryptjs`
 
-Used for hashing passwords securely. It protects user data by converting plain text passwords into hashed formats before database storage, enhancing security against data breaches.
+This [package](https://www.npmjs.com/package/bcryptjs]) is used for securely hashing passwords, converting plain text into hashed formats before database storage, thereby enhancing data security against breaches.
 
 ### `cors`
 
 Acts as middleware for Express, enabling Cross-Origin Resource Sharing (CORS).\
-CORS is crucial for web application security, as it regulates how a web application can make requests to different domains, ensuring controlled and secure interaction with external resources.
+[CORS](https://github.com/expressjs/cors#readme) is crucial for web application security, as it regulates how a web application can make requests to different domains, ensuring controlled and secure interaction with external resources.
 
 ### `cross-env`
 
-Enables consistent use of environment variables across different operating systems, essential for scripts to work smoothly on both Windows and Unix-like environments.
+This [package](https://github.com/kentcdodds/cross-env) enables the consistent use of environment variables across various operating systems, crucial for ensuring smooth script execution in both Windows and Unix-like environments.
 
 ### `crypto-js`
 
-JavaScript library that provides cryptographic functionality. In our application, it's primarily used for secure encryption and decryption operations. This can include generating secure random tokens, hashing, or any other cryptographic needs that ensure data security within our application.
+This [library](https://github.com/brix/crypto-js) provides cryptographic functionality in JavaScript. Primarily used in our application for secure encryption and decryption operations, it's essential for generating secure random tokens, hashing, and other cryptographic operations to ensure data security.
 
 ### `dotenv`
 
-Facilitates the management of environment variables. By separating configuration from code, it enhances security and flexibility, especially crucial for handling sensitive data like API keys and database credentials.
+This [package](https://github.com/motdotla/dotenv) assists in managing environment variables, enhancing security and flexibility by separating configuration from code. It's particularly vital for the secure handling of sensitive data, such as API keys and database credentials.
 
 ### `express`
 
-A fast, unopinionated, minimalist web framework for Node.js, perfectly suited for efficiently building web applications and APIs without unnecessary complexity.
-
-### `mongoose`
-
-An Object Data Modelling (ODM) library for MongoDB and Node.js. It provides a straightforward, schema-based solution to model your application data and interact with MongoDB databases using JavaScript or TypeScript.
-
-### `joi`
-
-Joi is a comprehensive schema description language and validator for JavaScript. In our project, it is specifically utilized for validating environment variables. This ensures that our application's configuration adheres to expected formats and standards, providing an additional layer of security and reliability by preventing misconfiguration and potential runtime errors.
-
-### `jsonwebtoken`
-
-Implements JSON Web Tokens (JWT) for secure information transmission as JSON objects. Primarily used for user authentication and session management, it issues a JWT upon login, which authenticates further server requests, verifying user identity.
-
-### `slugify`
-
-Slugify is a JavaScript library that is commonly used to create URL-friendly slugs from strings. The Slugify library takes a string as input and transforms it into a URL-friendly slug by removing special characters, converting spaces to hyphens, and ensuring that the resulting string is generally safe for use in a URL.
-
-### `nodemailer`
-
-A module for Node.js applications to allow easy email sending. It simplifies the process of sending emails from within the application, whether it's for user verification emails, password reset links, notifications, or any other email-based communication. The library supports various transport options, including SMTP.
-
-### `validator`
-
-The validator package is a library for string validation and sanitization in JavaScript. It provides a wide range of functions to validate and sanitize strings, making it a useful tool for input validation and data cleaning in applications, particularly in web development.
-
-### `helmet`
-
-The helmet package is a collection of middleware functions for securing Express.js applications by setting various HTTP headers. These headers help protect against common web vulnerabilities by providing an additional layer of security.
+[Express](https://expressjs.com/) is a fast, unopinionated, and minimalist web framework for Node.js, ideal for creating web applications and APIs efficiently and without unnecessary complexity.
 
 ### `express-mongo-sanitize`
 
-The express-mongo-sanitize package is a middleware for Express.js applications that helps prevent NoSQL injection attacks by sanitizing user-supplied data before it is used in MongoDB queries. NoSQL injection is a security vulnerability that can occur when untrusted data is used in MongoDB queries without proper validation or sanitization.
+The [express-mongo-sanitize](https://github.com/fiznool/express-mongo-sanitize) package is a middleware for Express.js applications that helps prevent NoSQL injection attacks by sanitizing user-supplied data before it is used in MongoDB queries. NoSQL injection is a security vulnerability that can occur when untrusted data is used in MongoDB queries without proper validation or sanitization.
+
+### `helmet`
+
+The [helmet](https://helmetjs.github.io/) package is a collection of middleware functions for securing Express.js applications by setting various HTTP headers. These headers help protect against common web vulnerabilities by providing an additional layer of security.
+
+### `joi`
+
+[Joi](https://github.com/hapijs/joi) is a comprehensive schema description language and validator for JavaScript. In our project, it is specifically utilized for validating environment variables. This ensures that our application's configuration adheres to expected formats and standards, providing an additional layer of security and reliability by preventing misconfiguration and potential runtime errors.
+
+### `jsonwebtoken`
+
+Implements [JSON Web Tokens (JWT)](https://github.com/auth0/node-jsonwebtoken) for secure information transmission as JSON objects. Primarily used for user authentication and session management, it issues a JWT upon login, which authenticates further server requests, verifying user identity.
+
+### `mongoose`
+
+[Mongoose](https://mongoosejs.com/) is an Object Data Modelling (ODM) library for MongoDB and Node.js, offering a schema-based solution to effectively model application data and interact with MongoDB databases using JavaScript or TypeScript.
+
+### `nodemailer`
+
+A module for Node.js applications to allow easy email sending. It simplifies the process of sending emails from within the application, whether it's for user verification emails, password reset links, notifications, or any other email-based communication. [The library](https://nodemailer.com/) supports various transport options, including SMTP.
+
+### `slugify`
+
+[Slugify](https://github.com/simov/slugify) is a JavaScript library that is commonly used to create URL-friendly slugs from strings. The Slugify library takes a string as input and transforms it into a URL-friendly slug by removing special characters, converting spaces to hyphens, and ensuring that the resulting string is generally safe for use in a URL.
+
+### `validator`
+
+The [validator](https://github.com/validatorjs/validator.js) package is a library for string validation and sanitization in JavaScript. It provides a wide range of functions to validate and sanitize strings, making it a useful tool for input validation and data cleaning in applications, particularly in web development.
 
 ### `xss-clean`
 
@@ -121,39 +286,43 @@ Our project uses a variety of development tools to streamline the development pr
 
 ### `eslint`
 
-A static code analysis tool that helps identify and fix patterns in JavaScript code, enhancing consistency and preventing bugs.
+A static code analysis [tool](https://eslint.org/) that helps identify and fix patterns in JavaScript code, enhancing consistency and preventing bugs.
 
 ### `eslint-config-prettier`
 
-Disables all ESLint rules that conflict with Prettier, ensuring seamless integration of ESLint with Prettier for code formatting.
+This [package](https://github.com/prettier/eslint-config-prettier) disables conflicting ESLint rules to ensure seamless integration with Prettier, optimizing code formatting consistency.
+
+### `eslint-plugin-import`
+
+This [plugin](https://github.com/import-js/eslint-plugin-import) enhances code quality and consistency by supporting linting of ES2015+ import/export syntax, helping prevent issues like misspelling in file paths and import names.
 
 ### `eslint-plugin-jest`
 
-Provides ESLint rules for Jest, helping to enforce best practices and catch common mistakes in Jest test files.
+This [plugin](https://github.com/jest-community/eslint-plugin-jest) provides ESLint rules specifically for Jest, aiding in enforcing best practices and identifying common errors in Jest test files.
 
 ### `eslint-plugin-prettier`
 
-Runs Prettier as an ESLint rule and reports differences as individual ESLint issues, integrating code formatting into the linting process.
+This [plugin](https://github.com/prettier/eslint-plugin-prettier) integrates Prettier into ESLint, running it as a rule and reporting format differences as ESLint issues, thus combining code formatting with linting.
 
 ### `jest`
 
-A delightful JavaScript testing framework with a focus on simplicity, providing a complete and ready-to-use testing solution.
+[Jest](https://jestjs.io/) is a simple yet comprehensive JavaScript testing framework, offering a ready-to-use solution for effective testing.
 
 ### `mongodb-memory-server`
 
-Spins up an actual/real MongoDB server programmatically from within Node.js, for testing or mocking during development.
+This [tool](https://github.com/nodkz/mongodb-memory-server) programmatically launches a real MongoDB server within Node.js for testing or development purposes.
 
 ### `nodemon`
 
-A utility that monitors for any changes in your source code and automatically restarts your server, enhancing the development experience.
+[Nodemon](https://www.npmjs.com/package/nodemon) is a utility that automatically restarts your server when code changes are detected, improving the development workflow.
 
 ### `prettier`
 
-An opinionated code formatter that supports multiple languages and integrates with most editors to ensure consistent code style across the project.
+[Prettier](https://prettier.io/) is an opinionated code formatter that supports multiple languages, ensuring a consistent code style throughout your project.
 
 ### `supertest`
 
-A SuperAgent-driven library for testing HTTP servers, allowing you to test your REST API endpoints.
+A [SuperAgent-driven](https://github.com/ladjs/supertest) library for testing HTTP servers, allowing you to test your REST API endpoints.
 
 ---
 
@@ -161,44 +330,49 @@ A SuperAgent-driven library for testing HTTP servers, allowing you to test your 
 
 ### Products
 
-| Method | Routes                   | Functionalities                           | Access   |
-| ------ | ------------------------ | ------------------------------------------| ---------|
-| GET    | `/api/products`          | Get a list of all products                | Public   |
-| GET    | `/api/products/:slug`    | Get details of a specific product by slug | Public   |
-| POST   | `/api/products`          | Create a new product                      | Private  |
-| PATCH  | `/api/products/:slug`    | Update a specific product by slug         | Private  |
-| DELETE | `/api/products/:slug`    | Delete a specific product by slug         | Private  |
-| GET    | `/products/new-arrivals` | Get a list of new arrival products        | Public   |
-| GET    | `/products/feature`      | Get a list of featured products           | Public   |
-| GET    | `/products/relative-products/:categorySlug`      | Get related products           | Public   |
-| GET    | `/products/search?k=abc&c=def`      | Get products by keyword and categorySlug           | Public   |
+| Method | Routes                                     | Functionalities                           | Access  |
+| ------ | ------------------------------------------ | ----------------------------------------- | ------- |
+| GET    | `/api/products`                            | Get a list of all products                | Public  |
+| GET    | `/api/products/:slug`                      | Get details of a specific product by slug | Public  |
+| GET    | `/products/new-arrivals`                   | Get a list of new arrival products        | Public  |
+| GET    | `/products/feature`                        | Get a list of featured products           | Public  |
+| GET    | `/products/relative-products/:categorySlug`| Get related products                      | Public  |
+| GET    | `/products/search?k=abc&c=def`             | Get products by keyword and categorySlug  | Public  |
+| POST   | `/api/products`                            | Create a new product                      | Private |
+| PATCH  | `/api/products/:slug`                      | Update a specific product by slug         | Private |
+| DELETE | `/api/products/:slug`                      | Delete a specific product by slug         | Private |
+
 
 ### Categories
 
 | Method | Routes                  | Functionalities                     | Access  |
 | ------ | ----------------------- | ----------------------------------- | --------|
-| GET    | `/api/categories`       | Get a list of all categories        | Public |
+| GET    | `/api/categories`       | Get a list of all categories        | Public  |
 | POST   | `/api/categories`       | Create a new categories             | Private |
 | PATCH  | `/api/categories/:slug` | Update a specific category by slug  | Private |
 | DELETE | `/api/categories/:slug` | Delete a specific category by slug  | Private |
 
 ### Orders
 
-| Method | Routes                        | Functionalities                                  | Access   |
-| ------ | ----------------------------- | ------------------------------------------------ | ---------|
-| GET    | `/api/orders`                 | Get a list of all orders                         | Private  |
-| POST   | `/api/orders`                 | Create a new order                               | Private  |
-| GET    | `/api/orders/:orderId`        | Get a specific order by orderId                  | Private  |
-| PATCH  | `/api/orders/status/:orderId` | Update the status of a specific order by orderId | Private  |
+| Method | Routes                    | Functionalities                                      | Access  |
+| ------ | ------------------------- | ---------------------------------------------------- | ------- |
+| GET    | `/api/orders`             | Get a list of all orders                             | Private |
+| GET    | `/api/orders/myorders`    | Get all orders of authenticated user                 | Private |
+| GET    | `/api/orders/:id`         | Get a specific order by orderId                      | Private |
+| POST   | `/api/orders`             | Create a new order                                   | Private |
+| PATCH  | `/api/orders/:id/status`  | Update status of a specific order by orderId         | Private |
 
 ### Authentication
 
-| Method | Routes                      | Functionalities                                 | Access  |
-| ------ | --------------------------- | ----------------------------------------------- | ------- |
-| POST   | `/api/auth/register`        | Create a new user account                       | Public  |
-| POST   | `/api/auth/login`           | Authenticates a user and issues a JWT token     | Public  |
-| POST   | `/api/auth/forgot-password` | Initiates the password recovery process         | Public  |
-| POST   | `/api/auth/reset-password`  | Completes password recovery using a reset token | Private |
+| Method | Routes                              | Functionalities                                             | Access  |
+| ------ | ----------------------------------- | ----------------------------------------------------------- | ------- |
+| GET    | `/api/auth/current-user`            | Retrieve current user's authentication and profile details  | Private |
+| POST   | `/api/auth/register`                | Create a new user account                                   | Public  |
+| POST   | `/api/auth/login`                   | Authenticate user and issue JWT token                       | Public  |
+| POST   | `/api/auth/forgot-password`         | Initiate password recovery process                          | Public  |
+| POST   | `/api/auth/reset-password`          | Complete password recovery with reset token                 | Public  |
+| POST   | `/api/auth/verify-current-password` | Verify current password of authenticated user               | Private |
+| POST   | `/api/auth/change-password`         | Change password for authenticated user                      | Private |
 
 ### Admin Dashboard
 
@@ -206,6 +380,11 @@ A SuperAgent-driven library for testing HTTP servers, allowing you to test your 
 | ------ | --------------------------- | ----------------------------------------------- | ------- |
 | GET    | `/api/dashboard/summary`    | Get all summary information for admin dashboard | Private |
 
+### User
+
+| Method | Routes           | Functionalities                  | Access  |
+| ------ | ---------------- | -------------------------------- | ------- |
+| GET    | `/api/users`     | Get a list of all users          | Private |
 
 - `Public Access` - Accessible without requiring user authentication.
 - `Private Access` -  Requires user authentication to be accessible.
