@@ -676,21 +676,32 @@ Create product with the existed product name
 
 ### Server side testing
 
-For automated tests, we have tried to write tests for all routes and across all CRUD functionality. We have not had the capabilities of completing tests for other functions in `authMiddleware.js` and `errorHandlingMiddleware.js`, we have alternatively tested with API testing tool to observe the HTTP responses. 
+For automated tests, we have tried to write tests for all routes and across all CRUD functionality. We have not had the capabilities of completing tests for other functions in `authMiddleware.js` and `errorHandlingMiddleware.js`, we have alternatively tested with API testing tool to observe the HTTP responses.
 
 ![server-testing-coverage](./docs/automatedTests/server-testing-coverage.png)
 
 We also implemented both integration and unit tests across key workflows for ensuring the robustness and accuracy of the implemented functionality and error handlers.
 
-**Integration tests**
+#### Server integration tests
 
 ![server-integration-testing](./docs/automatedTests/integration-test-1.png)
 ![server-integration-testing](./docs/automatedTests/integration-test-2.png)
 
-**Unit tests**
+#### Server unit tests
 
 ![server-unit-testing](./docs/automatedTests/unit-test-1.png)
 ![server-unit-testing](./docs/automatedTests/unit-test-2.png)
 
-### Client side testing 
+### Client side testing
 
+In our frontend testing, we've achieved extensive coverage of essential UI elements and user interactions through manual testing. However, we couldn't fully extend our automated testing to cover certain complex dynamic features, primarily due to the sheer volume of tests required and time constraints. As a result, our automated test coverage currently stands at approximately 15%.
+
+![frontend-testing-coverage](./docs/frontendTests/frontend-test-coverage.png)
+
+#### Client integration tests
+
+![frontend-integration-testing](./docs/frontendTests/frontend-integration-test.png)
+
+#### Client unit tests
+
+![frontend-unit-testing](./docs/frontendTests/frontend-unit-test.png)
