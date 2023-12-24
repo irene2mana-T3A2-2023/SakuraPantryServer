@@ -876,7 +876,7 @@ Ellen is currently working on improving her adherence to the DRY principle in co
 
 Mana demonstrated flexibility in handling tasks across both back-end and front-end development. Her skills were particularly utilized in enhancing the application's user interface, contributing significantly to an improved user experience. Her ability to adapt and contribute effectively to different aspects of the project underscores her value as a versatile team member. 
 
-Mana sometimes requires additional time to complete tasks, indicating an opportunity for further development in time management and efficiency. Additionally, she occasionally needs support from other team members due to certain gaps in her skills. This highlights a potential area for professional growth, where enhancing her expertise through training or mentorship could be beneficial. 
+Mana sometimes requires additional time to complete a task, indicating an opportunity for further development in time management and efficiency. Additionally, she occasionally needs support from other team members due to certain gaps in her skills. This highlights a potential area for professional growth, where enhancing her expertise through training or mentorship could be beneficial. 
 
 ---
 
