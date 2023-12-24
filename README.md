@@ -414,6 +414,7 @@ We conducted manual testing in a production environment to verify that the appli
 ![production-testing-1](./docs/productionTesting/production-testing-1.png)
 ![production-testing-2](./docs/productionTesting/production-testing-2.png)
 ![production-testing-3](./docs/productionTesting/production-testing-3.png)
+![production-testing-4](./docs/productionTesting/production-testing-4.png)
 
 ### API development and testing
 
