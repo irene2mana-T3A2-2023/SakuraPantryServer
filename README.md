@@ -581,7 +581,299 @@ A [SuperAgent-driven](https://github.com/ladjs/supertest) library for testing HT
 
 ## Project Management Methodology 
 
-*Tasks planning and delegation + Trello screenshots will go here...*
+### Trello Board
+
+In this phase of development, we continued to adhere to the same Agile methodology we had applied in the first phase of planning and designing. We had a discussion on the last day of Sprint 3 in the first phase (Part A) to decide on task division.  
+
+Continuing from Part A, we used Kanban to manage the project. At the beginning of each sprint, we met with the entire team to review the progress made in the previous sprint and set goals and tasks for the next sprint. This approach allowed each team member to understand their responsibilities better, fostering a sense of team cohesiveness and a greater focus on achieving goals.   
+
+Using our experience in Part A, we divided the labels into smaller sections and colour-coded them to make it easier to identify which category a task belongs to immediately. We also categorised the difficulty of the tasks as easy, medium, and hard and visualised the estimated time each task would take.  
+
+Furthermore, to streamline pull request management, we have introduced a system that pastes the PR link into the corresponding Kanban card when a PR is posted. This system made it easy to look back on tasks after PRs were merged, which significantly contributed to improving project quality and process improvements.
+
+### Discord 
+
+Our team actively utilised Discord chat to progress the project. This tool became a critical communication platform for us to check progress, exchange questions, and share feedback on each other's tasks. Discord chat played a significant role, especially when creating pull requests. When a team member creates a PR, the information is quickly notified to other members on Discord, allowing for timely review. 
+
+### Task division
+
+In terms of task division, we have divided out tasks into two major categories: Back-end and Front-end. In each category, we have a list of primary tasks and a list of secondary tasks. The list of primary tasks includes tasks that should be completed first to establish a foundation for the list of secondary tasks to be implemented. To be more specific, the primary tasks are tasks for major setup of both front-end and back-end while the secondary tasks are broken down to smaller tasks that focus on the features/functionalities of the website.
+
+Below is an outline of task division:
+
+**Back-end** 
+
+**Stage 1**: Primary tasks  
+
+- Set up Node.js environment and implement Express.js server. 
+
+- Initial configuration for consistent codebase: ESLint, Prettier, CI/CD 
+
+- Database design and integration with MongoDB Cloud Atas 
+
+- Set up local storage for storing base data 
+
+- API Development 
+
+- Authentication/Authorisation 
+
+- Middleware and error handling functions 
+
+- Data validation 
+
+- Back-end deployment
+
+**Stage 2**: Secondary tasks 
+
+- CRUD functionality for Products, Categories, Orders.  
+
+- Functionality for products searching and categories filtering 
+
+- Checkout process 
+
+- Admin dashboard 
+
+- User account 
+
+- Additional routes for specific features, such as featured products, new arrivals, recommended products and update password feature for authenticated users. 
+
+**Front-end**
+
+**Stage 1**: Primary tasks 
+
+- Set up React, create-react-app, Tailwind, NextUI 
+
+- Initial configuration for consistent codebase: ESLint, Prettier, CI/CD 
+
+- Site navigation: implement React router, pages scaffolding, create navigation components and base layout. 
+
+- Design component architecture 
+
+- Design React hooks for managing state 
+
+- Authentication/Authorisation  
+
+- Implement protected routes 
+
+- Front-end deployment
+
+**Stage 2**: Secondary tasks
+
+Storefront
+
+- Homepage and search/filter functionality 
+
+- Search page 
+
+- Product details page  
+
+- Shopping cart and related pages 
+
+- Checkout page and related pages 
+
+- User account page 
+
+Admin dashboard
+
+- Summary Management: Provides a comprehensive overview of key metrics, including revenue, orders, products, categories, and user statistics. 
+
+- User Management: Enables viewing of all user profiles. 
+
+- Product and Category Management: Offers the ability to view all products or categories, add new products or categories, and update or delete existing ones. 
+
+- Order Management Console: Allows viewing of all order-related information and updating of order statuses.
+
+## Task Tracking and Task Delegation 
+
+We maintain a one-week duration for each sprint, with new sprints commencing every Tuesday. On the final day of each sprint, we conduct a group meeting for retrospective analysis and discuss a new set of tasks for the upcoming sprint, which are then added to the backlog.  
+
+Concerning task delegation, the aim is for all team members to have experience in both front-end and back-end development. In addition, each team member allocates critical front-end and back-end tasks equally. In this way, Irene, Ellen and Mana worked together towards the project's success in the tasks they were responsible for, enabling the project to be completed on time and deliverables as planned. 
+
+Below are details of the work progress of each sprint and how each member contributed to the project, demonstrated using a screenshot of a Trello board. 
+
+### **Sprint 1**
+
+We initially implemented Husky and Lint-Staged to enhance code quality on the front-end, alongside establishing the environment, authentication features, and deployment processes on the back-end. Our focus also extended to various back-end tasks, such as designing the database, developing local storage, creating authentication middleware, and building product-related APIs along with CRUD operations for categories. However, we ultimately decided to remove Husky and Lint-Staged due to compatibility issues across different environments, notably Windows, which posed challenges for one of our team members. 
+
+### Front-End Tasks
+
+Assigned to Irene: 
+
+- Implement CI/CD in the GitHub Actions workflow for managing automated code quality checks, linting, formatting, and unit testing, ensuring that all pull requests pass these tests before merging 
+
+- Design and develop the foundational layout for the front-end application. 
+
+### Back-End Tasks
+
+Assigned to Irene: 
+
+- Establish and configure environment variables and settings. 
+
+- Implement CI/CD in the GitHub Actions workflow for managing automated code quality checks, linting, formatting, and unit testing, ensuring that all pull requests pass these tests before merging. 
+
+- Develop features for user authentication and authorisation. 
+
+- Set up and configure the deployment process.
+
+Assigned to Ellen: 
+
+- Design the database schema and integrate it with the backend application. 
+
+- Develop a local storage solution for storing initial sets of data. 
+
+- Implement middleware for authentication and create error-handling mechanisms. 
+
+- Build the API for product-related functionalities. 
+
+- Implement CRUD operations for category management. 
+
+Assigned to Mana: 
+
+- Create and implement various API endpoints as per the application requirements. 
+
+- Initialise the application with base data for products and categories. 
+
+Sprint 1-1
+
+![sprint1-1](./docs/trelloBoard/sprint1-1.png) 
+
+Sprint 1-2
+
+![sprint1-2](./docs/trelloBoard/sprint1-2.png)
+
+### **Sprint 2**
+
+We configured the deployment process, implemented secure navigation, completed an authentication system, and enhanced user interfaces, including a dropdown menu and state management. On the back-end, we set up deployment, developed security tests for authentication, implemented CRUD operations for user and order management, and improved data integrity and storage. 
+
+### Front-End Tasks 
+
+Assigned to Irene: 
+
+- Set up and configure the deployment process. 
+
+- Implement protected routes to ensure secure navigation within the application. 
+
+- Complete the implementation of the authentication system. 
+
+- Implement a dropdown menu in the application header for user-specific options. 
+
+- Develop the state management logic and data fetching methods for the application. 
+
+Assigned to Mana: 
+
+- Create and implement the navigation system for the website. 
+
+- Develop the components for displaying products, such as product cards and lists. 
+
+- Develop the home page component of the application. 
+
+### Back-End Tasks 
+
+Assigned to Irene: 
+
+- Set up and configure the deployment process. 
+
+- Develop and implement tests for the authentication features to ensure reliability and security. 
+
+Assigned to Ellen: 
+
+- Implement CRUD operations for order management. 
+
+- Ensure all user inputs are validated and sanitised to maintain data integrity and security.
+
+Assigned to Mana: 
+
+- Implement CRUD operations for user management.
+
+Sprint 2-1
+
+![sprint2-1](./docs/trelloBoard/sprint2-1.png) 
+
+Sprint 2-2
+
+![sprint2-2](./docs/trelloBoard/sprint2-2.png)
+
+### **Sprint 3**
+
+We developed an admin dashboard, interactive search bar, dropdown, and search results page to enhance the UI and conduct necessary integration and unit tests. On the back-end, our tasks included conducting tests for CRUD functionalities, developing API endpoints for product-related features, and performing various unit and production tests. 
+
+### Front-End Tasks 
+
+Assigned to Irene: 
+
+- Develop the administrative dashboard. 
+
+- Create a functional and interactive search bar component. 
+
+- Implement a dropdown menu for category selection. 
+
+- Enhance the UI. 
+
+- Conduct Integration Tests and Unit Tests.
+
+Assigned to Ellen: 
+
+- Develop the page for displaying individual product details. 
+
+- Develop the shopping cart interface. 
+
+- Develop the checkout process interface. 
+
+- Build the user account management page.
+
+Assigned to Mana: 
+
+- Develop the page for displaying individual product details. 
+
+- Develop a search results page. 
+
+- Enhance the UI. 
+
+### Back-End Tasks 
+
+Assigned to Ellen: 
+
+- Conduct Integration and Unit Tests for CRUD Functionality of Products, Categories, Orders, and Middleware. 
+
+- Conduct Development API Testing using Insomnia.
+
+Assigned to Mana: 
+
+- Develop an API endpoint to fetch related products. 
+
+- Develop an API endpoint for product search functionality. 
+
+- Conduct Unit Tests for New Arrivals, Featured Products, Related Products, and Search Products. 
+
+- Conduct Production Testing. 
+
+Sprint 3-1
+
+![sprint3-1](./docs/trelloBoard/sprint3-1.png) 
+
+Sprint 3-2
+
+![sprint3-2](./docs/trelloBoard/sprint3-2.png)
+
+### Proficiencies and Growth Opportunities 
+
+**Irene:**  
+
+Irene possesses an extensive range of knowledge and technical skills in both front-end and back-end development. Her profound expertise, particularly in Authentication and Authorization, is notably distinct. For this project, we entrusted her with the critical responsibility of managing authentication and authorization tasks spanning from the front-end to the back-end. Irene's deep comprehension and skilful handling of these areas were vital in enhancing the security and functionality of our application.  
+
+An area for further development is enhancing communication, particularly in navigating language barriers. Irene's commitment to improving in this area has been evident, and continued progress will undoubtedly enrich team collaboration. Overcoming these challenges will not only lead to clearer conveyance of ideas but also deepen the team's collective understanding of the project's goals and methodologies. 
+
+**Ellen:**  
+
+Ellen is an exceptionally talented and versatile team member, displaying remarkable front-end and back-end development skills. Her technical expertise and deep understanding shone through, especially in back-end tasks. She skilfully managed complex challenges like designing databases, developing server-side logic, and building APIs. Ellen's thorough attention to detail, particularly in error handling and maintaining data integrity, allowed her to develop the back end with notable stability and efficiency. 
+
+Ellen is currently working on improving her adherence to the DRY principle in code writing. While understanding the significance of clean and modular code, she acknowledges instances of redundancy in her codebase. To address this, Ellen has integrated code reviews into her workflow, seeking feedback to identify areas for improvement. She is also investing time in expanding her knowledge of design patterns to effectively eliminate code duplication. 
+
+**Mana:**  
+
+Mana demonstrated flexibility in handling tasks across both back-end and front-end development. Her skills were particularly utilized in enhancing the application's user interface, contributing significantly to an improved user experience. Her ability to adapt and contribute effectively to different aspects of the project underscores her value as a versatile team member. 
+
+Mana sometimes requires additional time to complete a task, indicating an opportunity for further development in time management and efficiency. Additionally, she occasionally needs support from other team members due to certain gaps in her skills. This highlights a potential area for professional growth, where enhancing her expertise through training or mentorship could be beneficial. 
 
 ---
 
