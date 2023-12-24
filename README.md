@@ -526,13 +526,13 @@ A [SuperAgent-driven](https://github.com/ladjs/supertest) library for testing HT
         </tr>
         <tr>
             <td>POST</th>
-            <td>api/auth/verify-current-password</th>
+            <td>/api/auth/verify-current-password</th>
             <td>Verify the current logged in user's password</th>
             <td>Private/Auth user</td>
         </tr>
         <tr>
             <td>POST</th>
-            <td>api/auth/change-password</th>
+            <td>/api/auth/change-password</th>
             <td>Update the current logged in user's password</th>
             <td>Private/Auth user</td>
         </tr>
@@ -691,7 +691,6 @@ We also implemented both integration and unit tests across key workflows for ens
 
 ![server-unit-testing](./docs/automatedTests/unit-test-1.png)
 ![server-unit-testing](./docs/automatedTests/unit-test-2.png)
-
 
 ### Client side testing 
 
