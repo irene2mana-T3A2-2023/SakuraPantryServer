@@ -591,9 +591,6 @@ Using our experience in Part A, we divided the labels into smaller sections and 
 
 Furthermore, to streamline pull request management, we have introduced a system that pastes the PR link into the corresponding Kanban card when a PR is posted. This system made it easy to look back on tasks after PRs were merged, which significantly contributed to improving project quality and process improvements.
 
-![trello-label](./docs/trelloBoard/trelloLabel.png)  
-![trello-pr](./docs/trelloBoard/trelloPR.png) 
-
 ### Discord 
 
 Our team actively utilised Discord chat to progress the project. This tool became a critical communication platform for us to check progress, exchange questions, and share feedback on each other's tasks. Discord chat played a significant role, especially when creating pull requests. When a team member creates a PR, the information is quickly notified to other members on Discord, allowing for timely review. 
