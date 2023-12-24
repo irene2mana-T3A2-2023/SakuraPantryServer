@@ -591,9 +591,9 @@ Using our experience in Part A, we divided the labels into smaller sections and 
 
 Furthermore, to streamline pull request management, we have introduced a system that pastes the PR link into the corresponding Kanban card when a PR is posted. This system made it easy to look back on tasks after PRs were merged, which significantly contributed to improving project quality and process improvements.
 
-### Discord 
+### Communication tools 
 
-Our team actively utilised Discord chat to progress the project. This tool became a critical communication platform for us to check progress, exchange questions, and share feedback on each other's tasks. Discord chat played a significant role, especially when creating pull requests. When a team member creates a PR, the information is quickly notified to other members on Discord, allowing for timely review. 
+Our team extensively used Discord for real-time project communication, serving as a critical platform for progress updates, question exchanges, and task feedback. Discord played a significant role in notifying members about pull requests, facilitating timely reviews. Video calls on Zoom or Skype were regularly conducted for sprint planning, retrospectives, and for addressing urgent matters, fostering effective communication and conflict resolution during pull request creation. This proactive communication approach contributed significantly to the seamless integration of our codebase.
 
 ### Task division
 
