@@ -51,6 +51,13 @@ Automatically fixes fixable issues and suppresses output for warnings.
 
 Uses [Prettier](https://prettier.io/) to format the JavaScript files in the src directory, ensuring a consistent code style across the project.
 
+```bash
+npm run format
+```
+
+> Uses [Prettier](https://prettier.io/) to format the JavaScript files in the src directory, ensuring a consistent code style across the project.
+
+---
 
 ## Server Libraries and Dependencies
 
@@ -111,9 +118,7 @@ The helmet package is a collection of middleware functions for securing Express.
 
 The express-mongo-sanitize package is a middleware for Express.js applications that helps prevent NoSQL injection attacks by sanitizing user-supplied data before it is used in MongoDB queries. NoSQL injection is a security vulnerability that can occur when untrusted data is used in MongoDB queries without proper validation or sanitization.
 
-`xss-clean`
-
-The xss-clean package is a middleware for Express.js applications that helps protect against Cross-Site Scripting (XSS) attacks by sanitizing user input. XSS attacks occur when an application allows untrusted data to be included in web pages without proper validation or escaping, potentially leading to the execution of malicious scripts in the context of the user's browser.
+---
 
 ## Server Development Dependencies
 
@@ -153,7 +158,13 @@ An opinionated code formatter that supports multiple languages and integrates wi
 
 `supertest`
 
-A SuperAgent-driven library for testing HTTP servers, allowing you to test your REST API endpoints.
+[Prettier](https://prettier.io/) is an opinionated code formatter that supports multiple languages, ensuring a consistent code style throughout your project.
+
+### `supertest`
+
+A [SuperAgent-driven](https://github.com/ladjs/supertest) library for testing HTTP servers, allowing you to test your REST API endpoints.
+
+---
 
 ## API Endpoints
 
@@ -347,13 +358,13 @@ A SuperAgent-driven library for testing HTTP servers, allowing you to test your 
         </tr>
         <tr>
             <td>POST</th>
-            <td>api/auth/verify-current-password</th>
+            <td>/api/auth/verify-current-password</th>
             <td>Verify the current logged in user's password</th>
             <td>Private/Auth user</td>
         </tr>
         <tr>
             <td>POST</th>
-            <td>api/auth/change-password</th>
+            <td>/api/auth/change-password</th>
             <td>Update the current logged in user's password</th>
             <td>Private/Auth user</td>
         </tr>
@@ -402,9 +413,13 @@ A SuperAgent-driven library for testing HTTP servers, allowing you to test your 
     </tbody>
 </table>
 
+---
+
 ## Project Management Methodology 
 
 *Tasks planning and delegation + Trello screenshots will go here...*
+
+---
 
 ## User Testing
 
@@ -491,15 +506,27 @@ Create product with the existed product name
 
 ![invalid-create-product-client](./docs/apiManualTests/create-product-with-existed-name-client.png)
 
+---
+
 ## Testing framework with Jest/Supertest
 
-Screenshots of test coverage will go here...
+### Server side testing
 
-### Unit tests
+For automated tests, we have tried to write tests for all routes and across all CRUD functionality. We have not had the capabilities of completing tests for other functions in `authMiddleware.js` and `errorHandlingMiddleware.js`, we have alternatively tested with API testing tool to observe the HTTP responses. 
 
-Screenshots of unit tests will go here...
+![server-testing-coverage](./docs/automatedTests/server-testing-coverage.png)
 
-### Integration tests
+We also implemented both integration and unit tests across key workflows for ensuring the robustness and accuracy of the implemented functionality and error handlers.
 
-Screenshots of integration tests will go here...
+**Integration tests**
+
+![server-integration-testing](./docs/automatedTests/integration-test-1.png)
+![server-integration-testing](./docs/automatedTests/integration-test-2.png)
+
+**Unit tests**
+
+![server-unit-testing](./docs/automatedTests/unit-test-1.png)
+![server-unit-testing](./docs/automatedTests/unit-test-2.png)
+
+### Client side testing 
 

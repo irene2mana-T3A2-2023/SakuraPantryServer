@@ -2,7 +2,6 @@ import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 import mongoSanitize from 'express-mongo-sanitize';
-import xss from 'xss-clean';
 import { envConfig } from './configs/env.js';
 import authRoutes from './routes/AuthRoutes.js';
 import orderRoutes from './routes/OrderRoutes.js';
@@ -36,9 +35,6 @@ app.use(express.urlencoded({ extended: true }));
 
 // Data sanitization against NoSQL query injection
 app.use(mongoSanitize());
-
-// Data sanitization against XSS
-app.use(xss());
 
 // ROUTES
 // Use the auth routes
