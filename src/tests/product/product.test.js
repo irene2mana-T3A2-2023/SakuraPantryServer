@@ -283,12 +283,41 @@ describe('Products API', () => {
     // Test case 1
     it('Should return a 404 Not Found error for a non-existing product slug', async () => {
       const nonExistingSlug = 'non-existing-slug';
+
+      const updatedProductData = {
+        name: 'Test Product',
+        description: 'This is an updated description for test product',
+        price: 4.5,
+        categorySlug: 'test-category'
+      };
+
       const res = await request(app)
         .patch(`/api/products/${nonExistingSlug}`)
+        .send(updatedProductData)
         .set('Authorization', `Bearer ${global.mockUsers.adminToken}`);
 
       expect(res.statusCode).toEqual(404);
       expect(res.body.message).toEqual('Product not found');
+    });
+
+    // Test case 1
+    it('Should return a 404 Not Found error for a non-existing category slug', async () => {
+      const nonExistingSlug = 'non-existing-slug';
+
+      const updatedProductData = {
+        name: 'Test Product',
+        description: 'This is an updated description for test product',
+        price: 4.5,
+        categorySlug: 'non-existing-category'
+      };
+
+      const res = await request(app)
+        .patch(`/api/products/${nonExistingSlug}`)
+        .send(updatedProductData)
+        .set('Authorization', `Bearer ${global.mockUsers.adminToken}`);
+
+      expect(res.statusCode).toEqual(404);
+      expect(res.body.message).toEqual('No such category exists!');
     });
 
     // Test case 2
@@ -300,7 +329,8 @@ describe('Products API', () => {
       const updatedProductData = {
         name: 'Test Product',
         description: 'This is an updated description for test product',
-        price: 4.5
+        price: 4.5,
+        categorySlug: 'test-category'
       };
 
       const res = await request(app)
