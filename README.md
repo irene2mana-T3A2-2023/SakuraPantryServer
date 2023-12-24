@@ -275,10 +275,6 @@ A module for Node.js applications to allow easy email sending. It simplifies the
 
 The [validator](https://github.com/validatorjs/validator.js) package is a library for string validation and sanitization in JavaScript. It provides a wide range of functions to validate and sanitize strings, making it a useful tool for input validation and data cleaning in applications, particularly in web development.
 
-### `xss-clean`
-
-The xss-clean package is a middleware for Express.js applications that helps protect against Cross-Site Scripting (XSS) attacks by sanitizing user input. XSS attacks occur when an application allows untrusted data to be included in web pages without proper validation or escaping, potentially leading to the execution of malicious scripts in the context of the user's browser.
-
 ---
 
 ## Server Development Dependencies
@@ -592,8 +588,12 @@ A [SuperAgent-driven](https://github.com/ladjs/supertest) library for testing HT
 ## User Testing
 
 ### Production testing
+We conducted manual testing in a production environment to verify that the application performed as expected under real-world conditions, and we confirmed that all test cases were successfully passed.
 
-*Excel Spreadsheet will go here....*
+![production-testing-1](./docs/productionTesting/production-testing-1.png)
+![production-testing-2](./docs/productionTesting/production-testing-2.png)
+![production-testing-3](./docs/productionTesting/production-testing-3.png)
+![production-testing-4](./docs/productionTesting/production-testing-4.png)
 
 ### API development and testing
 
